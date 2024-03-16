@@ -18,7 +18,6 @@ export namespace Components {
         "parameters": string;
         "positionCenterColor": string;
         "positionRingColor": string;
-        "style": string;
     }
 }
 declare global {
@@ -45,7 +44,6 @@ declare namespace LocalJSX {
         "parameters"?: string;
         "positionCenterColor"?: string;
         "positionRingColor"?: string;
-        "style"?: string;
     }
     interface IntrinsicElements {
         "bitcoin-qr": BitcoinQr;

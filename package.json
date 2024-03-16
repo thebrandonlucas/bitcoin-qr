@@ -26,6 +26,7 @@
     "generate": "stencil generate"
   },
   "dependencies": {
+    "@bitjson/qr-code": "^1.0.2",
     "@stencil/core": "^4.7.0"
   },
   "devDependencies": {

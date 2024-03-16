@@ -1,36 +1,36 @@
 import { newSpecPage } from '@stencil/core/testing';
 import { BitcoinQR } from './bitcoin-qr';
 
-describe('my-component', () => {
+describe('bitcoin-qr', () => {
   it('renders', async () => {
     const { root } = await newSpecPage({
       components: [BitcoinQR],
-      html: '<my-component></my-component>',
+      html: '<bitcoin-qr></bitcoin-qr>',
     });
     expect(root).toEqualHtml(`
-      <my-component>
+      <bitcoin-qr>
         <mock:shadow-root>
           <div>
             Hello, World! I'm
           </div>
         </mock:shadow-root>
-      </my-component>
+      </bitcoin-qr>
     `);
   });
 
   it('renders with values', async () => {
     const { root } = await newSpecPage({
       components: [BitcoinQR],
-      html: `<my-component first="Stencil" last="'Don't call me a framework' JS"></my-component>`,
+      html: `<bitcoin-qr first="Stencil" last="'Don't call me a framework' JS"></bitcoin-qr>`,
     });
     expect(root).toEqualHtml(`
-      <my-component first="Stencil" last="'Don't call me a framework' JS">
+      <bitcoin-qr first="Stencil" last="'Don't call me a framework' JS">
         <mock:shadow-root>
           <div>
             Hello, World! I'm Stencil 'Don't call me a framework' JS
           </div>
         </mock:shadow-root>
-      </my-component>
+      </bitcoin-qr>
     `);
   });
 });

@@ -1,17 +1,23 @@
-# my-component
-
-
+# bitcoin-qr
 
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property | Attribute | Description     | Type     | Default     |
-| -------- | --------- | --------------- | -------- | ----------- |
-| `first`  | `first`   | The first name  | `string` | `undefined` |
-| `last`   | `last`    | The last name   | `string` | `undefined` |
-| `middle` | `middle`  | The middle name | `string` | `undefined` |
+| Property              | Attribute               | Description | Type         | Default     |
+| --------------------- | ----------------------- | ----------- | ------------ | ----------- |
+| `bip21`               | `bip-2-1`               |             | `string`     | `undefined` |
+| `bitcoin`             | `bitcoin`               |             | `string`     | `undefined` |
+| `callback`            | --                      |             | `() => void` | `undefined` |
+| `imgSrc`              | `img-src`               |             | `string`     | `undefined` |
+| `interval`            | `interval`              |             | `number`     | `undefined` |
+| `isPolling`           | `is-polling`            |             | `boolean`    | `undefined` |
+| `lightning`           | `lightning`             |             | `string`     | `undefined` |
+| `moduleColor`         | `module-color`          |             | `string`     | `undefined` |
+| `parameters`          | `parameters`            |             | `string`     | `undefined` |
+| `positionCenterColor` | `position-center-color` |             | `string`     | `undefined` |
+| `positionRingColor`   | `position-ring-color`   |             | `string`     | `undefined` |
 
 
 ----------------------------------------------

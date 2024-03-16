@@ -16,33 +16,30 @@ export class BitcoinQR {
   @Prop() callback: () => void;
   @Prop() isPolling: boolean;
   @Prop() imgSrc: string;
-
-  // QR code attributes
-  @Prop() style: string;
   @Prop() moduleColor: string;
   @Prop() positionRingColor: string;
   @Prop() positionCenterColor: string;
+  // TODO: pass down style
 
-  connectedCallback() {
-    // Set <qr-code> attributes
-    const qr = document.createElement('qr-code') as any;
-    qr.setAttribute('id', 'qr-code');
-    qr.setAttribute('contents', this.uri);
-    qr.setAttribute('module-color', this.moduleColor);
-    qr.setAttribute('position-ring-color', this.positionRingColor);
-    qr.setAttribute('position-center-color', this.positionCenterColor);
-    qr.setAttribute('style', this.style);
-    if (this['img-src']) {
-      const slottedImg = document.createElement('img') as HTMLImageElement;
-      qr.appendChild(slottedImg);
-      slottedImg.setAttribute('src', this['img-src']);
-      slottedImg.setAttribute('slot', 'icon');
-    }
-    this.bitcoinQR.appendChild(qr);
-    if (this.isPolling) {
-      this.poll();
-    }
-  }
+  // async componentDidLoad() {
+  //   // Set <qr-code> attributes
+  //   // const qrCode = (
+  //   // );
+  //   const shadow = this.bitcoinQR.attachShadow({ mode: 'open' });
+  //   const qrCode = document.createElement('qr-code') as HTMLElement;
+  //   qrCode.setAttribute('id', 'qr-code');
+  //   qrCode.setAttribute('contents', this.uri);
+  //   qrCode.setAttribute('module-color', this.moduleColor);
+  //   qrCode.setAttribute('position-ring-color', this.positionRingColor);
+  //   qrCode.setAttribute('position-center-color', this.positionCenterColor);
+  //   qrCode.setAttribute('style', this.bitcoinQR.style.cssText);
+  //   this.bitcoinQR.appendChild(qrCode);
+  //   shadow.appendChild(qrCode);
+  //   console.log('this', qrCode, this.bitcoinQR);
+  //   if (this.isPolling) {
+  //     this.poll();
+  //   }
+  // }
 
   poll() {
     if (!this.isPolling) {
@@ -88,6 +85,21 @@ export class BitcoinQR {
   }
 
   render() {
-    return <div>{this.bitcoinQR}</div>;
+    let slottedImg: HTMLElement;
+    if (this.imgSrc) {
+      slottedImg = <img slot="icon" src={this.imgSrc} />;
+    }
+    return (
+      <qr-code
+        id="qr-code"
+        style={this.bitcoinQR.style.cssText}
+        contents={this.uri}
+        module-color={this.moduleColor}
+        position-ring-color={this.positionRingColor}
+        position-center-color={this.positionCenterColor}
+      >
+        {slottedImg}
+      </qr-code>
+    );
   }
 }
