@@ -1,4 +1,7 @@
-import { Component, Element, Prop, h } from '@stencil/core';
+import { Component, Element, Method, Prop, h } from '@stencil/core';
+
+// TODO: Add ability to do custom animations
+export type QrAnimations = 'FadeInCenterOut' | 'FadeInTopDown' | 'MaterializeIn' | 'RadialRipple' | 'RadialRippleIn';
 
 @Component({
   tag: 'bitcoin-qr',
@@ -19,27 +22,12 @@ export class BitcoinQR {
   @Prop() moduleColor: string;
   @Prop() positionRingColor: string;
   @Prop() positionCenterColor: string;
-  // TODO: pass down style
 
-  // async componentDidLoad() {
-  //   // Set <qr-code> attributes
-  //   // const qrCode = (
-  //   // );
-  //   const shadow = this.bitcoinQR.attachShadow({ mode: 'open' });
-  //   const qrCode = document.createElement('qr-code') as HTMLElement;
-  //   qrCode.setAttribute('id', 'qr-code');
-  //   qrCode.setAttribute('contents', this.uri);
-  //   qrCode.setAttribute('module-color', this.moduleColor);
-  //   qrCode.setAttribute('position-ring-color', this.positionRingColor);
-  //   qrCode.setAttribute('position-center-color', this.positionCenterColor);
-  //   qrCode.setAttribute('style', this.bitcoinQR.style.cssText);
-  //   this.bitcoinQR.appendChild(qrCode);
-  //   shadow.appendChild(qrCode);
-  //   console.log('this', qrCode, this.bitcoinQR);
-  //   if (this.isPolling) {
-  //     this.poll();
-  //   }
-  // }
+  @Method()
+  async animateQRCode(animation: QrAnimations = 'FadeInCenterOut') {
+    const qrCode = this.bitcoinQR.shadowRoot.querySelector('qr-code') as any;
+    qrCode.animateQRCode(animation);
+  }
 
   poll() {
     if (!this.isPolling) {
@@ -92,7 +80,7 @@ export class BitcoinQR {
     return (
       <qr-code
         id="qr-code"
-        style={this.bitcoinQR.style.cssText}
+        class={this.bitcoinQR.className}
         contents={this.uri}
         module-color={this.moduleColor}
         position-ring-color={this.positionRingColor}

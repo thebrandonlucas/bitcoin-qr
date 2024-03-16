@@ -5,8 +5,11 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { QrAnimations } from "./components/my-component/bitcoin-qr";
+export { QrAnimations } from "./components/my-component/bitcoin-qr";
 export namespace Components {
     interface BitcoinQr {
+        "animateQRCode": (animation?: QrAnimations) => Promise<void>;
         "bip21": string;
         "bitcoin": string;
         "callback": () => void;

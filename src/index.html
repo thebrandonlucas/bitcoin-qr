@@ -4,25 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
     <title>Stencil Component Starter</title>
+    <!-- NOTE: Don't use tailwind cdn in production!`dd -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- TODO: package this script together with bitcoin-qr so consumers don't have to load it -->
     <script src="https://unpkg.com/@bitjson/qr-code@1.0.2/dist/qr-code.js"></script>
     <script type="module" src="/build/bitcoin-qr-stencil.esm.js"></script>
     <script nomodule src="/build/bitcoin-qr-stencil.js"></script>
   </head>
   <body>
-    <bitcoin-qr
-      id="qr"
-      bitcoin="BC1QYLH3U67J673H6Y6ALV70M0PL2YZ53TZHVXGG7U"
-      module-color="#ff5000"
-      position-center-color="#cc4100"
-      position-ring-color="#9f3200f5"
-      is-polling="true"
-      interval="3000"
-    >
-    </bitcoin-qr>
-    <script>
-      document.addEventListener('codeRendered', () => {
-        document.getElementById('qr').animateQRCode('MaterializeIn');
-      });
-    </script>
+    <div class="flex flex-col items-center">
+      <bitcoin-qr
+        id="qr"
+        class="w-1/3"
+        bitcoin="BC1QYLH3U67J673H6Y6ALV70M0PL2YZ53TZHVXGG7U"
+        module-color="#ff5000"
+        position-center-color="#cc4100"
+        position-ring-color="#9f3200f5"
+        img-src="./assets/voltage.svg"
+        is-polling="true"
+        interval="3000"
+      >
+      </bitcoin-qr>
+    </div>
   </body>
 </html>
