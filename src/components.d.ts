@@ -6,56 +6,56 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first": string;
-        /**
-          * The last name
-         */
-        "last": string;
-        /**
-          * The middle name
-         */
-        "middle": string;
+    interface BitcoinQr {
+        "bip21": string;
+        "bitcoin": string;
+        "callback": () => void;
+        "imgSrc": string;
+        "interval": number;
+        "isPolling": boolean;
+        "lightning": string;
+        "moduleColor": string;
+        "parameters": string;
+        "positionCenterColor": string;
+        "positionRingColor": string;
+        "style": string;
     }
 }
 declare global {
-    interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
+    interface HTMLBitcoinQrElement extends Components.BitcoinQr, HTMLStencilElement {
     }
-    var HTMLMyComponentElement: {
-        prototype: HTMLMyComponentElement;
-        new (): HTMLMyComponentElement;
+    var HTMLBitcoinQrElement: {
+        prototype: HTMLBitcoinQrElement;
+        new (): HTMLBitcoinQrElement;
     };
     interface HTMLElementTagNameMap {
-        "my-component": HTMLMyComponentElement;
+        "bitcoin-qr": HTMLBitcoinQrElement;
     }
 }
 declare namespace LocalJSX {
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first"?: string;
-        /**
-          * The last name
-         */
-        "last"?: string;
-        /**
-          * The middle name
-         */
-        "middle"?: string;
+    interface BitcoinQr {
+        "bip21"?: string;
+        "bitcoin"?: string;
+        "callback"?: () => void;
+        "imgSrc"?: string;
+        "interval"?: number;
+        "isPolling"?: boolean;
+        "lightning"?: string;
+        "moduleColor"?: string;
+        "parameters"?: string;
+        "positionCenterColor"?: string;
+        "positionRingColor"?: string;
+        "style"?: string;
     }
     interface IntrinsicElements {
-        "my-component": MyComponent;
+        "bitcoin-qr": BitcoinQr;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "bitcoin-qr": LocalJSX.BitcoinQr & JSXBase.HTMLAttributes<HTMLBitcoinQrElement>;
         }
     }
 }
