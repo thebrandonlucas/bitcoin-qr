@@ -1,7 +1,7 @@
 {
-  "name": "bitcoin-qr-stencil",
+  "name": "bitcoin-qr",
   "version": "0.0.1",
-  "description": "Stencil Component Starter",
+  "description": "An animate-able, framework-less web component for polling Bitcoin on-chain and Lightning payments",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
   "es2015": "dist/esm/index.js",
@@ -9,10 +9,10 @@
   "types": "dist/types/index.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
-  "unpkg": "dist/bitcoin-qr-stencil/bitcoin-qr-stencil.esm.js",
+  "unpkg": "dist/bitcoin-qr/bitcoin-qr.esm.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ionic-team/stencil-component-starter.git"
+    "url": "https://github.com/thebrandonlucas/bitcoin-qr.git"
   },
   "files": [
     "dist/",
@@ -22,14 +22,12 @@
     "build": "stencil build",
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
-    "test.watch": "stencil test --spec --e2e --watchAll",
+    "test.watch": "stencil test --sp,ec --e2e --watchAll",
     "generate": "stencil generate"
   },
-  "dependencies": {
-    "@bitjson/qr-code": "^1.0.2",
-    "@stencil/core": "^4.7.0"
-  },
   "devDependencies": {
+    "@bitjson/qr-code": "^1.0.2",
+    "@stencil/core": "^4.7.0",
     "@types/jest": "^29.5.6",
     "@types/node": "^16.18.11",
     "jest": "^29.7.0",

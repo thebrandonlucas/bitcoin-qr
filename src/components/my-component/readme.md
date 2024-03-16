@@ -20,6 +20,25 @@
 | `positionRingColor`   | `position-ring-color`   |             | `string`     | `undefined` |
 
 
+## Methods
+
+### `animateQRCode(animation?: QrAnimations) => Promise<void>`
+
+
+
+#### Parameters
+
+| Name        | Type                                                                                            | Description |
+| ----------- | ----------------------------------------------------------------------------------------------- | ----------- |
+| `animation` | `"FadeInCenterOut" \| "FadeInTopDown" \| "MaterializeIn" \| "RadialRipple" \| "RadialRippleIn"` |             |
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*
