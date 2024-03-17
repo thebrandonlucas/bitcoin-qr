@@ -1,6 +1,6 @@
 {
   "name": "bitcoin-qr",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "An animate-able, framework-less web component for polling Bitcoin on-chain and Lightning payments",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
