@@ -1,0 +1,33 @@
+{
+	"root": true,
+	"parser": "@typescript-eslint/parser",
+	"extends": [
+		"eslint:recommended",
+		"plugin:@typescript-eslint/recommended",
+		"prettier",
+		"plugin:svelte/recommended"
+	],
+	"plugins": ["@typescript-eslint"],
+	"rules": {
+		"curly": ["error"],
+		// No unused vars except if prefixed with underscore
+		"no-unused-vars": "off",
+		"@typescript-eslint/no-unused-vars": [
+			"error",
+			{
+				"argsIgnorePattern": "^_",
+				"varsIgnorePattern": "^_",
+				"caughtErrorsIgnorePattern": "^_"
+			}
+		]
+	},
+	"parserOptions": {
+		"sourceType": "module",
+		"ecmaVersion": "latest"
+	},
+	"env": {
+		"browser": true,
+		"es2017": true,
+		"node": true
+	}
+}
