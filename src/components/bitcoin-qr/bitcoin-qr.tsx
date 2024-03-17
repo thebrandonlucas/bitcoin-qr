@@ -1,8 +1,10 @@
 import { Component, Element, Method, Prop, h } from '@stencil/core';
+import { defineCustomElements } from '@bitjson/qr-code';
 
 // TODO: Add ability to do custom animations
 export type QrAnimations = 'FadeInCenterOut' | 'FadeInTopDown' | 'MaterializeIn' | 'RadialRipple' | 'RadialRippleIn';
 
+defineCustomElements(window);
 @Component({
   tag: 'bitcoin-qr',
   shadow: true,
