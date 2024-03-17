@@ -6,3 +6,5 @@ To run:
 yarn
 yarn dev
 ```
+
+App will be running on http://localhost:3000
