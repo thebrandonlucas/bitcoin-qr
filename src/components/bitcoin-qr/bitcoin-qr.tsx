@@ -35,6 +35,9 @@ export class BitcoinQR {
     if (!this.isPolling) {
       return;
     }
+    if (!this.callback || !this.interval) {
+      throw new Error('Must pass callback and interval props to bitcoin-qr when is-polling is true');
+    }
     setTimeout(() => {
       try {
         this.callback();
