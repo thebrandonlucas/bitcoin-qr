@@ -11,13 +11,15 @@ export class BitcoinQR {
   // TODO: comments
   @Element() bitcoinQR: HTMLElement;
 
+  // [BIP-21](https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki) format,
+  // overrides `bitcoin`, `lightning`, and `parameters` props
+  @Prop() unified: string;
   @Prop() bitcoin: string;
   @Prop() lightning: string;
-  @Prop() bip21: string;
   @Prop() parameters: string;
-  @Prop() interval: number;
   @Prop() callback: () => void;
   @Prop() isPolling: boolean;
+  @Prop() interval: number;
   @Prop() imgSrc: string;
   @Prop() moduleColor: string;
   @Prop() positionRingColor: string;
@@ -44,12 +46,12 @@ export class BitcoinQR {
   }
 
   get uri() {
-    if (!(this.bitcoin || this.lightning || this.bip21)) {
-      throw new Error('Must pass at least one of the following props to bitcoin-qr: bitcoin, lightning, bip21');
+    if (!(this.bitcoin || this.lightning || this.unified)) {
+      throw new Error('Must pass at least one of the following props to bitcoin-qr: bitcoin, lightning, unified');
     }
-    // TODO: bip21 validation
-    if (this.bip21) {
-      return this.bip21;
+    // TODO: unified validation
+    if (this.unified) {
+      return this.unified;
     }
     // We only use lightning as protocol if there is no on-chain bitcoin.
     // Otherise we use it as a parameter.
