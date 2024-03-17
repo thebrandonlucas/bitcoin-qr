@@ -10,7 +10,6 @@ export { QrAnimations } from "./components/bitcoin-qr/bitcoin-qr";
 export namespace Components {
     interface BitcoinQr {
         "animateQRCode": (animation?: QrAnimations) => Promise<void>;
-        "bip21": string;
         "bitcoin": string;
         "callback": () => void;
         "imgSrc": string;
@@ -21,6 +20,7 @@ export namespace Components {
         "parameters": string;
         "positionCenterColor": string;
         "positionRingColor": string;
+        "unified": string;
     }
 }
 declare global {
@@ -36,7 +36,6 @@ declare global {
 }
 declare namespace LocalJSX {
     interface BitcoinQr {
-        "bip21"?: string;
         "bitcoin"?: string;
         "callback"?: () => void;
         "imgSrc"?: string;
@@ -47,6 +46,7 @@ declare namespace LocalJSX {
         "parameters"?: string;
         "positionCenterColor"?: string;
         "positionRingColor"?: string;
+        "unified"?: string;
     }
     interface IntrinsicElements {
         "bitcoin-qr": BitcoinQr;
