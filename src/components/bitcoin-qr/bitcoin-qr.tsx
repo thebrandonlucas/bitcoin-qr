@@ -1,7 +1,5 @@
 import { Component, Element, Method, Prop, h } from '@stencil/core';
-
-// TODO: Add ability to do custom animations
-export type QrAnimations = 'FadeInCenterOut' | 'FadeInTopDown' | 'MaterializeIn' | 'RadialRipple' | 'RadialRippleIn';
+import QRCodeStyling, { CornerDotType, CornerSquareType, DotType, DotTypes, DrawType, ErrorCorrectionLevel, Gradient, Mode, Options, ShapeType, TypeNumber } from 'qr-code-styling';
 
 @Component({
   tag: 'bitcoin-qr',
@@ -20,16 +18,38 @@ export class BitcoinQR {
   @Prop() callback: () => void;
   @Prop() isPolling: boolean;
   @Prop() interval: number;
-  @Prop() imgSrc: string;
-  @Prop() moduleColor: string;
-  @Prop() positionRingColor: string;
-  @Prop() positionCenterColor: string;
 
-  @Method()
-  async animateQRCode(animation: QrAnimations = 'FadeInCenterOut') {
-    const qrCode = this.bitcoinQR.shadowRoot.querySelector('qr-code') as any;
-    qrCode.animateQRCode(animation);
-  }
+  // QR code styling options
+  @Prop() width: number;
+  @Prop() height: number;
+  @Prop() type: DrawType;
+  @Prop() margin: number;
+  @Prop() image: string;
+  @Prop() shape: ShapeType;
+  @Prop() qrTypeNumber: TypeNumber;
+  @Prop() qrMode: Mode;
+  @Prop() qrErrorCorrectionLevel: ErrorCorrectionLevel;
+  // Image options
+  @Prop() imageHideBackgroundDots: boolean;
+  @Prop() imageSize: number;
+  @Prop() imageCrossOrigin: string;
+  @Prop() imageMargin: number;
+  // Dots options
+  @Prop() dotsType: DotType;
+  @Prop() dotsColor: string;
+  @Prop() dotsGradient: Gradient;
+  // Corners square options
+  @Prop() cornersSquareType: CornerSquareType;
+  @Prop() cornersSquareColor: string;
+  @Prop() cornersSquareGradient: Gradient;
+  // Corners dot options
+  @Prop() cornersDotType: CornerDotType;
+  @Prop() cornersDotColor: string;
+  @Prop() cornersDotGradient: Gradient;
+  // Background options
+  @Prop() backgroundRound: number;
+  @Prop() backgroundColor: string;
+  @Prop() backgroundGradient: Gradient;
 
   poll() {
     if (!this.isPolling) {
@@ -78,21 +98,48 @@ export class BitcoinQR {
   }
 
   render() {
-    let slottedImg: HTMLElement;
-    if (this.imgSrc) {
-      slottedImg = <img slot="icon" src={this.imgSrc} />;
-    }
-    return (
-      <qr-code
-        id="qr-code"
-        class={this.bitcoinQR.className}
-        contents={this.uri}
-        module-color={this.moduleColor}
-        position-ring-color={this.positionRingColor}
-        position-center-color={this.positionCenterColor}
-      >
-        {slottedImg}
-      </qr-code>
-    );
+    const options: Omit<Options, 'data'> = {
+      width: this.width,
+      height: this.height,
+      type: this.type,
+      margin: this.margin,
+      image: this.image,
+      qrOptions: {
+        typeNumber: this.qrTypeNumber,
+        mode: this.qrMode,
+        errorCorrectionLevel: this.qrErrorCorrectionLevel,
+      },
+      imageOptions: {
+        hideBackgroundDots: this.imageHideBackgroundDots,
+        imageSize: this.imageSize,
+        crossOrigin: this.imageCrossOrigin,
+        margin: this.imageMargin,
+      },
+      dotsOptions: {
+        type: this.dotsType,
+        color: this.dotsColor,
+        gradient: this.dotsGradient,
+      },
+      cornersSquareOptions: {
+        type: this.cornersSquareType,
+        color: this.cornersSquareColor,
+        gradient: this.cornersSquareGradient,
+      },
+      cornersDotOptions: {
+        type: this.cornersDotType,
+        color: this.cornersDotColor,
+        gradient: this.cornersDotGradient,
+      },
+      backgroundOptions: {
+        round: this.backgroundRound,
+        color: this.backgroundColor,
+        gradient: this.backgroundGradient,
+      },
+    };
+    const qrCode = new QRCodeStyling({ ...options, data: this.uri });
+    const canvas = document.createElement('div');
+    canvas.id = 'canvas';
+    qrCode.append(canvas);
+    this.bitcoinQR.shadowRoot.appendChild(qrCode as unknown as Node);
   }
 }

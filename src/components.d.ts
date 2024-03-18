@@ -5,22 +5,42 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { QrAnimations } from "./components/bitcoin-qr/bitcoin-qr";
-export { QrAnimations } from "./components/bitcoin-qr/bitcoin-qr";
+import { CornerDotType, CornerSquareType, DotType, DrawType, ErrorCorrectionLevel, Gradient, Mode, ShapeType, TypeNumber } from "qr-code-styling";
+export { CornerDotType, CornerSquareType, DotType, DrawType, ErrorCorrectionLevel, Gradient, Mode, ShapeType, TypeNumber } from "qr-code-styling";
 export namespace Components {
     interface BitcoinQr {
-        "animateQRCode": (animation?: QrAnimations) => Promise<void>;
+        "backgroundColor": string;
+        "backgroundGradient": Gradient;
+        "backgroundRound": number;
         "bitcoin": string;
         "callback": () => void;
-        "imgSrc": string;
+        "cornersDotColor": string;
+        "cornersDotGradient": Gradient;
+        "cornersDotType": CornerDotType;
+        "cornersSquareColor": string;
+        "cornersSquareGradient": Gradient;
+        "cornersSquareType": CornerSquareType;
+        "dotsColor": string;
+        "dotsGradient": Gradient;
+        "dotsType": DotType;
+        "height": number;
+        "image": string;
+        "imageCrossOrigin": string;
+        "imageHideBackgroundDots": boolean;
+        "imageMargin": number;
+        "imageSize": number;
         "interval": number;
         "isPolling": boolean;
         "lightning": string;
-        "moduleColor": string;
+        "margin": number;
         "parameters": string;
-        "positionCenterColor": string;
-        "positionRingColor": string;
+        "qrErrorCorrectionLevel": ErrorCorrectionLevel;
+        "qrMode": Mode;
+        "qrTypeNumber": TypeNumber;
+        "shape": ShapeType;
+        "type": DrawType;
         "unified": string;
+        "width": number;
     }
 }
 declare global {
@@ -36,17 +56,38 @@ declare global {
 }
 declare namespace LocalJSX {
     interface BitcoinQr {
+        "backgroundColor"?: string;
+        "backgroundGradient"?: Gradient;
+        "backgroundRound"?: number;
         "bitcoin"?: string;
         "callback"?: () => void;
-        "imgSrc"?: string;
+        "cornersDotColor"?: string;
+        "cornersDotGradient"?: Gradient;
+        "cornersDotType"?: CornerDotType;
+        "cornersSquareColor"?: string;
+        "cornersSquareGradient"?: Gradient;
+        "cornersSquareType"?: CornerSquareType;
+        "dotsColor"?: string;
+        "dotsGradient"?: Gradient;
+        "dotsType"?: DotType;
+        "height"?: number;
+        "image"?: string;
+        "imageCrossOrigin"?: string;
+        "imageHideBackgroundDots"?: boolean;
+        "imageMargin"?: number;
+        "imageSize"?: number;
         "interval"?: number;
         "isPolling"?: boolean;
         "lightning"?: string;
-        "moduleColor"?: string;
+        "margin"?: number;
         "parameters"?: string;
-        "positionCenterColor"?: string;
-        "positionRingColor"?: string;
+        "qrErrorCorrectionLevel"?: ErrorCorrectionLevel;
+        "qrMode"?: Mode;
+        "qrTypeNumber"?: TypeNumber;
+        "shape"?: ShapeType;
+        "type"?: DrawType;
         "unified"?: string;
+        "width"?: number;
     }
     interface IntrinsicElements {
         "bitcoin-qr": BitcoinQr;
