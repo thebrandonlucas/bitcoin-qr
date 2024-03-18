@@ -8,6 +8,7 @@ export const config: Config = {
       type: 'dist',
       esmLoaderPath: '../loader',
     },
+    // NOTE: Uncomment this for dev server
     // {
     //   type: 'www',
     //   serviceWorker: null, // disable service workers
