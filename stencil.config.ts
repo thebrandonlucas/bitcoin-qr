@@ -9,10 +9,10 @@ export const config: Config = {
       esmLoaderPath: '../loader',
     },
     // NOTE: Uncomment this for dev server
-    // {
-    //   type: 'www',
-    //   serviceWorker: null, // disable service workers
-    // },
+    {
+      type: 'www',
+      serviceWorker: null, // disable service workers
+    },
   ],
   testing: {
     browserHeadless: 'new',
