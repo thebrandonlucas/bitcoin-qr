@@ -1,12 +1,11 @@
-import { Component, Element, Host, Method, Prop, State, h } from '@stencil/core';
-import QRCodeStyling, { CornerDotType, CornerSquareType, DotType, DotTypes, DrawType, ErrorCorrectionLevel, Gradient, Mode, Options, ShapeType, TypeNumber } from 'qr-code-styling';
+import { Component, Element, Prop, h } from '@stencil/core';
+import QRCodeStyling, { CornerDotType, CornerSquareType, DotType, DrawType, ErrorCorrectionLevel, Gradient, Mode, Options, ShapeType, TypeNumber } from 'qr-code-styling';
 
 @Component({
   tag: 'bitcoin-qr',
   shadow: true,
 })
 export class BitcoinQR {
-  // TODO: comments
   @Element() bitcoinQR: HTMLElement;
 
   // [BIP-21](https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki) format,
