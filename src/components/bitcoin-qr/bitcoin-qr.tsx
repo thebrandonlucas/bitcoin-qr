@@ -1,4 +1,4 @@
-import { Component, Element, Method, Prop, h } from '@stencil/core';
+import { Component, Element, Host, Method, Prop, State, h } from '@stencil/core';
 import QRCodeStyling, { CornerDotType, CornerSquareType, DotType, DotTypes, DrawType, ErrorCorrectionLevel, Gradient, Mode, Options, ShapeType, TypeNumber } from 'qr-code-styling';
 
 @Component({
@@ -20,36 +20,36 @@ export class BitcoinQR {
   @Prop() interval: number;
 
   // QR code styling options
-  @Prop() width: number;
-  @Prop() height: number;
-  @Prop() type: DrawType;
-  @Prop() margin: number;
-  @Prop() image: string;
-  @Prop() shape: ShapeType;
-  @Prop() qrTypeNumber: TypeNumber;
-  @Prop() qrMode: Mode;
-  @Prop() qrErrorCorrectionLevel: ErrorCorrectionLevel;
+  @Prop() width?: number;
+  @Prop() height?: number;
+  @Prop() type?: DrawType;
+  @Prop() margin?: number;
+  @Prop() image?: string;
+  @Prop() shape?: ShapeType;
+  @Prop() qrTypeNumber?: TypeNumber;
+  @Prop() qrMode?: Mode;
+  @Prop() qrErrorCorrectionLevel?: ErrorCorrectionLevel;
   // Image options
-  @Prop() imageHideBackgroundDots: boolean;
-  @Prop() imageSize: number;
-  @Prop() imageCrossOrigin: string;
-  @Prop() imageMargin: number;
+  @Prop() imageHideBackgroundDots?: boolean;
+  @Prop() imageSize?: number;
+  @Prop() imageCrossOrigin?: string;
+  @Prop() imageMargin?: number;
   // Dots options
-  @Prop() dotsType: DotType;
-  @Prop() dotsColor: string;
-  @Prop() dotsGradient: Gradient;
+  @Prop() dotsType?: DotType;
+  @Prop() dotsColor?: string;
+  @Prop() dotsGradient?: Gradient;
   // Corners square options
-  @Prop() cornersSquareType: CornerSquareType;
-  @Prop() cornersSquareColor: string;
-  @Prop() cornersSquareGradient: Gradient;
+  @Prop() cornersSquareType?: CornerSquareType;
+  @Prop() cornersSquareColor?: string;
+  @Prop() cornersSquareGradient?: Gradient;
   // Corners dot options
-  @Prop() cornersDotType: CornerDotType;
-  @Prop() cornersDotColor: string;
-  @Prop() cornersDotGradient: Gradient;
+  @Prop() cornersDotType?: CornerDotType;
+  @Prop() cornersDotColor?: string;
+  @Prop() cornersDotGradient?: Gradient;
   // Background options
-  @Prop() backgroundRound: number;
-  @Prop() backgroundColor: string;
-  @Prop() backgroundGradient: Gradient;
+  @Prop() backgroundRound?: number;
+  @Prop() backgroundColor?: string;
+  @Prop() backgroundGradient?: Gradient;
 
   poll() {
     if (!this.isPolling) {
@@ -97,49 +97,57 @@ export class BitcoinQR {
     return uri.toString();
   }
 
-  render() {
-    const options: Omit<Options, 'data'> = {
-      width: this.width,
-      height: this.height,
-      type: this.type,
-      margin: this.margin,
-      image: this.image,
-      qrOptions: {
-        typeNumber: this.qrTypeNumber,
-        mode: this.qrMode,
-        errorCorrectionLevel: this.qrErrorCorrectionLevel,
-      },
-      imageOptions: {
-        hideBackgroundDots: this.imageHideBackgroundDots,
-        imageSize: this.imageSize,
-        crossOrigin: this.imageCrossOrigin,
-        margin: this.imageMargin,
-      },
-      dotsOptions: {
-        type: this.dotsType,
-        color: this.dotsColor,
-        gradient: this.dotsGradient,
-      },
-      cornersSquareOptions: {
-        type: this.cornersSquareType,
-        color: this.cornersSquareColor,
-        gradient: this.cornersSquareGradient,
-      },
-      cornersDotOptions: {
-        type: this.cornersDotType,
-        color: this.cornersDotColor,
-        gradient: this.cornersDotGradient,
-      },
-      backgroundOptions: {
-        round: this.backgroundRound,
-        color: this.backgroundColor,
-        gradient: this.backgroundGradient,
-      },
+  getDefinedProps() {
+    if (!this.uri) {
+      throw new Error('Must pass at least one of the following props to bitcoin-qr: bitcoin, lightning, unified');
+    }
+    const optionsKeys = [
+      'width',
+      'height',
+      'type',
+      'margin',
+      'image',
+      'shape',
+      'qrTypeNumber',
+      'qrMode',
+      'qrErrorCorrectionLevel',
+      'imageHideBackgroundDots',
+      'imageSize',
+      'imageCrossOrigin',
+      'imageMargin',
+      'dotsType',
+      'dotsColor',
+      'dotsGradient',
+      'cornersSquareType',
+      'cornersSquareColor',
+      'cornersSquareGradient',
+      'cornersDotType',
+      'cornersDotColor',
+      'cornersDotGradient',
+      'backgroundRound',
+      'backgroundColor',
+      'backgroundGradient',
+    ];
+    const options: Options = {};
+    optionsKeys.forEach(key => {
+      if (this[key] !== undefined) {
+        options[key] = this[key];
+      }
+    });
+    return {
+      data: this.uri,
+      ...options,
     };
-    const qrCode = new QRCodeStyling({ ...options, data: this.uri });
-    const canvas = document.createElement('div');
-    canvas.id = 'canvas';
-    qrCode.append(canvas);
-    this.bitcoinQR.shadowRoot.appendChild(qrCode as unknown as Node);
+  }
+
+  componentDidLoad() {
+    this.poll();
+    const qr = new QRCodeStyling(this.getDefinedProps());
+    const shadowContainer = this.bitcoinQR.shadowRoot.getElementById('bitcoin-qr-container');
+    qr.append(shadowContainer);
+  }
+
+  render() {
+    return <div id="bitcoin-qr-container"></div>;
   }
 }

@@ -9,38 +9,38 @@ import { CornerDotType, CornerSquareType, DotType, DrawType, ErrorCorrectionLeve
 export { CornerDotType, CornerSquareType, DotType, DrawType, ErrorCorrectionLevel, Gradient, Mode, ShapeType, TypeNumber } from "qr-code-styling";
 export namespace Components {
     interface BitcoinQr {
-        "backgroundColor": string;
-        "backgroundGradient": Gradient;
-        "backgroundRound": number;
+        "backgroundColor"?: string;
+        "backgroundGradient"?: Gradient;
+        "backgroundRound"?: number;
         "bitcoin": string;
         "callback": () => void;
-        "cornersDotColor": string;
-        "cornersDotGradient": Gradient;
-        "cornersDotType": CornerDotType;
-        "cornersSquareColor": string;
-        "cornersSquareGradient": Gradient;
-        "cornersSquareType": CornerSquareType;
-        "dotsColor": string;
-        "dotsGradient": Gradient;
-        "dotsType": DotType;
-        "height": number;
-        "image": string;
-        "imageCrossOrigin": string;
-        "imageHideBackgroundDots": boolean;
-        "imageMargin": number;
-        "imageSize": number;
+        "cornersDotColor"?: string;
+        "cornersDotGradient"?: Gradient;
+        "cornersDotType"?: CornerDotType;
+        "cornersSquareColor"?: string;
+        "cornersSquareGradient"?: Gradient;
+        "cornersSquareType"?: CornerSquareType;
+        "dotsColor"?: string;
+        "dotsGradient"?: Gradient;
+        "dotsType"?: DotType;
+        "height"?: number;
+        "image"?: string;
+        "imageCrossOrigin"?: string;
+        "imageHideBackgroundDots"?: boolean;
+        "imageMargin"?: number;
+        "imageSize"?: number;
         "interval": number;
         "isPolling": boolean;
         "lightning": string;
-        "margin": number;
+        "margin"?: number;
         "parameters": string;
-        "qrErrorCorrectionLevel": ErrorCorrectionLevel;
-        "qrMode": Mode;
-        "qrTypeNumber": TypeNumber;
-        "shape": ShapeType;
-        "type": DrawType;
+        "qrErrorCorrectionLevel"?: ErrorCorrectionLevel;
+        "qrMode"?: Mode;
+        "qrTypeNumber"?: TypeNumber;
+        "shape"?: ShapeType;
+        "type"?: DrawType;
         "unified": string;
-        "width": number;
+        "width"?: number;
     }
 }
 declare global {
