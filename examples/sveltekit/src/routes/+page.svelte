@@ -65,6 +65,11 @@
 				is-polling={isPolling}
 				{interval}
 			/>
+		{:else}
+			<strong>
+				Must provide a value for one of the following: Unified, Bitcoin Address, or Lightning
+				Invoice
+			</strong>
 		{/if}
 		<div class="max-w-[800px]">
 			<HighlightAuto {code} />
