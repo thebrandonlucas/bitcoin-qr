@@ -58,7 +58,6 @@ async function callbackExample() {
 			: '';
 
 	const pollFunction = async function callbackExample() {
-		console.log('polling...');
 		const qr = document.getElementById('qr') as any;
 		pollCount += 1;
 		if (pollCount >= 5) {
@@ -78,9 +77,10 @@ async function callbackExample() {
 	}
 
 	onMount(() => {
-		const qr = document.getElementById('qr') as any;
-		console.log({ qr });
-		qr.callback = pollFunction; // must set the callback function as a property of the element, NOT as an attribute
+		document.addEventListener('codeRendered', () => {
+			const qr = document.getElementById('qr') as any;
+			qr.callback = pollFunction; // must set the callback function as a property of the element, NOT as an attribute
+		});
 	});
 </script>
 
@@ -95,15 +95,6 @@ async function callbackExample() {
 <div class="flex flex-col gap-4 lg:flex-row">
 	<div class="ml-4 flex flex-1 flex-col items-center gap-4">
 		{#if !paid && (unified || address || invoice)}
-			{#if isPolling}
-				<Capsule bgColor="bg-yellow-500">Polling...</Capsule>
-				<span>{pollCount}</span>
-			{:else}
-				<div class="flex gap-4">
-					<Button on:click={() => (isPolling = true)}>Start Polling for Payment</Button>
-					<Button on:click={reset}>Reset</Button>
-				</div>
-			{/if}
 			<bitcoin-qr
 				id="qr"
 				class="w-1/2"
@@ -118,6 +109,15 @@ async function callbackExample() {
 				is-polling={isPolling}
 				{interval}
 			/>
+			{#if isPolling}
+				<Capsule bgColor="bg-yellow-500">Polling...</Capsule>
+				<span>{pollCount}</span>
+				<Button on:click={reset}>Reset</Button>
+			{:else}
+				<div class="flex gap-4">
+					<Button on:click={() => (isPolling = true)}>Start Polling for Payment</Button>
+				</div>
+			{/if}
 		{:else if paid}
 			<Capsule bgColor="bg-green-500">Paid!</Capsule>
 		{:else}
