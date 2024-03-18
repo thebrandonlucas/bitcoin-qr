@@ -33,6 +33,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"bitcoin-qr": "^1.0.5"
+		"bitcoin-qr": "^1.0.5",
+		"highlight.js": "^11.9.0"
 	}
 }
