@@ -1,5 +1,5 @@
 import { Component, Element, Prop, h } from '@stencil/core';
-import QRCodeStyling from 'qr-code-styling';
+import QRCodeStyling, { Options } from 'qr-code-styling';
 
 @Component({
   tag: 'bitcoin-qr',
