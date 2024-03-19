@@ -54,12 +54,13 @@ export class BitcoinQR {
   // @Prop() backgroundGradient?: Gradient;
 
   poll() {
+    if (!this.callback) {
+      return;
+    }
     if (!this.isPolling) {
       return;
     }
-    if (!this.callback || !this.interval) {
-      throw new Error('Must pass callback and interval props to bitcoin-qr when is-polling is true');
-    }
+
     setTimeout(() => {
       try {
         this.callback();
@@ -67,7 +68,7 @@ export class BitcoinQR {
       } catch (e) {
         throw new Error(String(e));
       }
-    }, this.interval);
+    }, this.pollInterval);
   }
 
   get uri() {
@@ -104,6 +105,12 @@ export class BitcoinQR {
       throw new Error('Must pass at least one of the following props to bitcoin-qr: bitcoin, lightning, unified');
     }
     const optionsKeys = [
+      'unified',
+      'bitcoin',
+      'lightning',
+      'parameters',
+      'isPolling',
+      'pollInterval',
       'width',
       'height',
       'type',
@@ -142,6 +149,13 @@ export class BitcoinQR {
     };
   }
 
+  componentWillLoad() {
+    if (!this.pollInterval) {
+      console.warn('Attribute "Interval" not provided, defaulting to poll every 5 seconds');
+      this.pollInterval = 5000;
+    }
+  }
+
   componentDidLoad() {
     this.poll();
     const qr = new QRCodeStyling(this.getDefinedProps());
@@ -149,6 +163,7 @@ export class BitcoinQR {
     qr.append(shadowContainer);
   }
 
+  // @Watch('')
   render() {
     return <div id="bitcoin-qr-container"></div>;
   }
