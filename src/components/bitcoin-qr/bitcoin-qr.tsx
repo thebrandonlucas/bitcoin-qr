@@ -1,5 +1,5 @@
 import { Component, Element, Prop, h } from '@stencil/core';
-import QRCodeStyling, { CornerDotType, CornerSquareType, DotType, DrawType, ErrorCorrectionLevel, Gradient, Mode, Options, ShapeType, TypeNumber } from 'qr-code-styling';
+import QRCodeStyling from 'qr-code-styling';
 
 @Component({
   tag: 'bitcoin-qr',
@@ -10,45 +10,48 @@ export class BitcoinQR {
 
   // [BIP-21](https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki) format,
   // overrides `bitcoin`, `lightning`, and `parameters` props
-  @Prop() unified: string;
-  @Prop() bitcoin: string;
-  @Prop() lightning: string;
-  @Prop() parameters: string;
-  @Prop() callback: () => void;
-  @Prop() isPolling: boolean;
-  @Prop() interval: number;
+  @Prop() unified?: string;
+  @Prop() bitcoin?: string;
+  @Prop() lightning?: string;
+  @Prop() parameters?: string;
+  @Prop() callback?: () => void;
+  @Prop() isPolling?: boolean;
+  @Prop({ mutable: true }) pollInterval?: number;
 
   // QR code styling options
   @Prop() width?: number;
   @Prop() height?: number;
-  @Prop() type?: DrawType;
+  @Prop() type?: 'canvas' | 'svg'; // DrawType
   @Prop() margin?: number;
   @Prop() image?: string;
-  @Prop() shape?: ShapeType;
-  @Prop() qrTypeNumber?: TypeNumber;
-  @Prop() qrMode?: Mode;
-  @Prop() qrErrorCorrectionLevel?: ErrorCorrectionLevel;
+  @Prop() shape?: 'square' | 'circle'; // ShapeType
+  @Prop() qrTypeNumber?: number; // QrTypeNumber
+  @Prop() qrMode?: 'Numeric' | 'Alphanumeric' | 'Byte' | 'Kanji'; // Mode
+  @Prop() qrErrorCorrectionLevel?: 'L' | 'M' | 'Q' | 'H'; // ErrorCorrectionLevel
   // Image options
   @Prop() imageHideBackgroundDots?: boolean;
   @Prop() imageSize?: number;
   @Prop() imageCrossOrigin?: string;
   @Prop() imageMargin?: number;
   // Dots options
-  @Prop() dotsType?: DotType;
+  @Prop() dotsType?: 'square' | 'dots' | 'rounded' | 'classy' | 'classy-rounded' | 'extra-rounded';
   @Prop() dotsColor?: string;
-  @Prop() dotsGradient?: Gradient;
+  @Prop() dotsGradientType?: 'radial' | 'linear'; // GradientType
+  @Prop() dotsRotation?: number;
+  // TODO: gradient options
+  // @Prop() dotsGradient?: Gradient;
   // Corners square options
-  @Prop() cornersSquareType?: CornerSquareType;
+  @Prop() cornersSquareType?: 'square' | 'extra-rounded' | 'dot'; // CornerSquareType
   @Prop() cornersSquareColor?: string;
-  @Prop() cornersSquareGradient?: Gradient;
+  // @Prop() cornersSquareGradient?: Gradient;
   // Corners dot options
-  @Prop() cornersDotType?: CornerDotType;
+  @Prop() cornersDotType?: 'square' | 'dot'; // CornerDotType
   @Prop() cornersDotColor?: string;
-  @Prop() cornersDotGradient?: Gradient;
+  // @Prop() cornersDotGradient?: Gradient;
   // Background options
   @Prop() backgroundRound?: number;
   @Prop() backgroundColor?: string;
-  @Prop() backgroundGradient?: Gradient;
+  // @Prop() backgroundGradient?: Gradient;
 
   poll() {
     if (!this.isPolling) {
