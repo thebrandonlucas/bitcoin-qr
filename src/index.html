@@ -14,10 +14,13 @@
       async function callbackExample() {
         pollCount += 1;
         console.log({ pollCount });
+
         if (pollCount >= 5) {
           isPolling = false;
           paid = true;
           alert('Paid!');
+          const qr = document.getElementById('qr');
+          qr.setAttribute('is-polling', false);
         }
       }
 
@@ -42,6 +45,7 @@
         parameters="jflsdkajfklsa;jfklajfsjdafjsafjlasjfl;kajflk;ajd;sf;kladsjflkajdsklfjas"
         image="./assets/voltage.svg"
         is-polling="true"
+        poll-interval="1000"
         type="svg"
         shape="square"
         dots-type="rounded"
