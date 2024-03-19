@@ -5,41 +5,37 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { CornerDotType, CornerSquareType, DotType, DrawType, ErrorCorrectionLevel, Gradient, Mode, ShapeType, TypeNumber } from "qr-code-styling";
-export { CornerDotType, CornerSquareType, DotType, DrawType, ErrorCorrectionLevel, Gradient, Mode, ShapeType, TypeNumber } from "qr-code-styling";
 export namespace Components {
     interface BitcoinQr {
         "backgroundColor"?: string;
-        "backgroundGradient"?: Gradient;
         "backgroundRound"?: number;
-        "bitcoin": string;
-        "callback": () => void;
+        "bitcoin"?: string;
+        "callback"?: () => void;
         "cornersDotColor"?: string;
-        "cornersDotGradient"?: Gradient;
-        "cornersDotType"?: CornerDotType;
+        "cornersDotType"?: 'square' | 'dot';
         "cornersSquareColor"?: string;
-        "cornersSquareGradient"?: Gradient;
-        "cornersSquareType"?: CornerSquareType;
+        "cornersSquareType"?: 'square' | 'extra-rounded' | 'dot';
         "dotsColor"?: string;
-        "dotsGradient"?: Gradient;
-        "dotsType"?: DotType;
+        "dotsGradientType"?: 'radial' | 'linear';
+        "dotsRotation"?: number;
+        "dotsType"?: 'square' | 'dots' | 'rounded' | 'classy' | 'classy-rounded' | 'extra-rounded';
         "height"?: number;
         "image"?: string;
         "imageCrossOrigin"?: string;
         "imageHideBackgroundDots"?: boolean;
         "imageMargin"?: number;
         "imageSize"?: number;
-        "interval": number;
-        "isPolling": boolean;
-        "lightning": string;
+        "isPolling"?: boolean;
+        "lightning"?: string;
         "margin"?: number;
-        "parameters": string;
-        "qrErrorCorrectionLevel"?: ErrorCorrectionLevel;
-        "qrMode"?: Mode;
-        "qrTypeNumber"?: TypeNumber;
-        "shape"?: ShapeType;
-        "type"?: DrawType;
-        "unified": string;
+        "parameters"?: string;
+        "pollInterval"?: number;
+        "qrErrorCorrectionLevel"?: 'L' | 'M' | 'Q' | 'H';
+        "qrMode"?: 'Numeric' | 'Alphanumeric' | 'Byte' | 'Kanji';
+        "qrTypeNumber"?: number;
+        "shape"?: 'square' | 'circle';
+        "type"?: 'canvas' | 'svg';
+        "unified"?: string;
         "width"?: number;
     }
 }
@@ -57,35 +53,33 @@ declare global {
 declare namespace LocalJSX {
     interface BitcoinQr {
         "backgroundColor"?: string;
-        "backgroundGradient"?: Gradient;
         "backgroundRound"?: number;
         "bitcoin"?: string;
         "callback"?: () => void;
         "cornersDotColor"?: string;
-        "cornersDotGradient"?: Gradient;
-        "cornersDotType"?: CornerDotType;
+        "cornersDotType"?: 'square' | 'dot';
         "cornersSquareColor"?: string;
-        "cornersSquareGradient"?: Gradient;
-        "cornersSquareType"?: CornerSquareType;
+        "cornersSquareType"?: 'square' | 'extra-rounded' | 'dot';
         "dotsColor"?: string;
-        "dotsGradient"?: Gradient;
-        "dotsType"?: DotType;
+        "dotsGradientType"?: 'radial' | 'linear';
+        "dotsRotation"?: number;
+        "dotsType"?: 'square' | 'dots' | 'rounded' | 'classy' | 'classy-rounded' | 'extra-rounded';
         "height"?: number;
         "image"?: string;
         "imageCrossOrigin"?: string;
         "imageHideBackgroundDots"?: boolean;
         "imageMargin"?: number;
         "imageSize"?: number;
-        "interval"?: number;
         "isPolling"?: boolean;
         "lightning"?: string;
         "margin"?: number;
         "parameters"?: string;
-        "qrErrorCorrectionLevel"?: ErrorCorrectionLevel;
-        "qrMode"?: Mode;
-        "qrTypeNumber"?: TypeNumber;
-        "shape"?: ShapeType;
-        "type"?: DrawType;
+        "pollInterval"?: number;
+        "qrErrorCorrectionLevel"?: 'L' | 'M' | 'Q' | 'H';
+        "qrMode"?: 'Numeric' | 'Alphanumeric' | 'Byte' | 'Kanji';
+        "qrTypeNumber"?: number;
+        "shape"?: 'square' | 'circle';
+        "type"?: 'canvas' | 'svg';
         "unified"?: string;
         "width"?: number;
     }
