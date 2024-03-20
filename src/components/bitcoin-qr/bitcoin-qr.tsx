@@ -75,7 +75,7 @@ export class BitcoinQR {
     if (!(this.bitcoin || this.lightning || this.unified)) {
       throw new Error('Must pass at least one of the following props to bitcoin-qr: bitcoin, lightning, unified');
     }
-    // TODO: unified validation
+    // TODO: unified bip21 validation
     if (this.unified) {
       return this.unified;
     }
@@ -92,7 +92,12 @@ export class BitcoinQR {
     }
     let params: URLSearchParams;
     try {
-      params = new URLSearchParams(this.lightning ? `lightning=${this.lightning}&${this.parameters}` : this.parameters);
+      const isLightningOnly = this.lightning && !(this.bitcoin || this.unified);
+      console.log('isLightningOnly', isLightningOnly);
+      console.log('this.lightning', this.lightning);
+      console.log('this.bitcoin', this.bitcoin);
+      console.log('this.unified', this.unified);
+      params = new URLSearchParams(isLightningOnly ? this.parameters : `lightning=${this.lightning}&${this.parameters}`);
       uri.search = params.toString();
     } catch (e) {
       throw new Error(`Invalid URLSearchParams format: "${this.parameters}"`);
@@ -169,6 +174,8 @@ export class BitcoinQR {
     const shadowContainer = this.bitcoinQR.shadowRoot.getElementById('bitcoin-qr-container');
     qr.append(shadowContainer);
   }
+
+  // TODO: add webln optional support with copy on click
 
   // @Watch('')
   render() {
