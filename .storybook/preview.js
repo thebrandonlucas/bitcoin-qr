@@ -1,4 +1,8 @@
 /** @type { import('@storybook/html').Preview } */
+import { defineCustomElements } from '../loader';
+
+defineCustomElements();
+
 const preview = {
   parameters: {
     controls: {

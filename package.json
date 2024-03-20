@@ -28,7 +28,6 @@
     "build-storybook": "storybook build"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "^1.2.22",
     "@stencil/core": "^4.7.0",
     "@storybook/addon-essentials": "^8.0.0",
     "@storybook/addon-interactions": "^8.0.0",

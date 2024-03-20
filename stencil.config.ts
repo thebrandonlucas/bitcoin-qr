@@ -8,11 +8,11 @@ export const config: Config = {
       type: 'dist',
       esmLoaderPath: '../loader',
     },
-    // NOTE: Uncomment this for dev server
-    {
-      type: 'www',
-      serviceWorker: null, // disable service workers
-    },
+    // NOTE: Uncomment this for dev Stencil server, comment for production build & Storybook server
+    // {
+    //   type: 'www',
+    //   serviceWorker: null, // disable service workers
+    // },
   ],
   testing: {
     browserHeadless: 'new',
