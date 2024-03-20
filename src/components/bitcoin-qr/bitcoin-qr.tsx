@@ -154,6 +154,13 @@ export class BitcoinQR {
       console.warn('Attribute "Interval" not provided, defaulting to poll every 5 seconds');
       this.pollInterval = 5000;
     }
+    if (!this.width) {
+      console.warn('Attribute "width" not provided, defaulting to 300px');
+      this.width = 300;
+    }
+    if (!this.height) {
+      this.height = 300;
+    }
   }
 
   componentDidLoad() {
