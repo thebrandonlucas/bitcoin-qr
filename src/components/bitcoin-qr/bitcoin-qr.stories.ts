@@ -22,7 +22,8 @@ export default {
     bitcoin: { control: 'text' },
     lightning: { control: 'text' },
     parameters: { control: 'text' },
-    callback: { control: 'text' },
+    // TODO
+    callback: { action: '' },
     onclick: { control: 'onclick' },
     isPolling: { control: 'boolean' },
     pollInterval: { control: 'number' },
@@ -75,9 +76,16 @@ export const Lightning = {
   },
 };
 
-export const ParametersQueryString = {
+export const ParametersAsQueryString = {
   args: {
     bitcoin: 'BC1QYLH3U67J673H6Y6ALV70M0PL2YZ53TZHVXGG7U',
     parameters: 'amount=0.00001&label=sbddesign%3A%20For%20lunch%20Tuesday&message=For%20lunch%20Tuesday',
+  },
+};
+
+export const ImageAndColors = {
+  args: {
+    bitcoin: 'BC1QYLH3U67J673H6Y6ALV70M0PL2YZ53TZHVXGG7U',
+    image: './assets/voltage.svg',
   },
 };
