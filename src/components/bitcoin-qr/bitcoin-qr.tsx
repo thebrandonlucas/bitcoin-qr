@@ -1,63 +1,67 @@
-import { Component, Element, Method, Prop, h } from '@stencil/core';
-import QRCodeStyling, { CornerDotType, CornerSquareType, DotType, DotTypes, DrawType, ErrorCorrectionLevel, Gradient, Mode, Options, ShapeType, TypeNumber } from 'qr-code-styling';
+import { Component, Element, Prop, h } from '@stencil/core';
+import QRCodeStyling, { Options } from 'qr-code-styling';
 
 @Component({
   tag: 'bitcoin-qr',
   shadow: true,
 })
 export class BitcoinQR {
-  // TODO: comments
   @Element() bitcoinQR: HTMLElement;
 
   // [BIP-21](https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki) format,
   // overrides `bitcoin`, `lightning`, and `parameters` props
-  @Prop() unified: string;
-  @Prop() bitcoin: string;
-  @Prop() lightning: string;
-  @Prop() parameters: string;
-  @Prop() callback: () => void;
-  @Prop() isPolling: boolean;
-  @Prop() interval: number;
+  @Prop() unified?: string;
+  @Prop() bitcoin?: string;
+  @Prop() lightning?: string;
+  @Prop() parameters?: string;
+  @Prop() callback?: () => void;
+  @Prop() onclick?: () => void;
+  @Prop() isPolling?: boolean;
+  @Prop({ mutable: true }) pollInterval?: number;
 
   // QR code styling options
-  @Prop() width: number;
-  @Prop() height: number;
-  @Prop() type: DrawType;
-  @Prop() margin: number;
-  @Prop() image: string;
-  @Prop() shape: ShapeType;
-  @Prop() qrTypeNumber: TypeNumber;
-  @Prop() qrMode: Mode;
-  @Prop() qrErrorCorrectionLevel: ErrorCorrectionLevel;
+  @Prop() width?: number;
+  @Prop() height?: number;
+  @Prop() type?: 'canvas' | 'svg'; // DrawType
+  @Prop() margin?: number;
+  @Prop() image?: string;
+  @Prop() shape?: 'square' | 'circle'; // ShapeType
+  @Prop() qrTypeNumber?: number; // QrTypeNumber
+  @Prop() qrMode?: 'Numeric' | 'Alphanumeric' | 'Byte' | 'Kanji'; // Mode
+  @Prop() qrErrorCorrectionLevel?: 'L' | 'M' | 'Q' | 'H'; // ErrorCorrectionLevel
   // Image options
-  @Prop() imageHideBackgroundDots: boolean;
-  @Prop() imageSize: number;
-  @Prop() imageCrossOrigin: string;
-  @Prop() imageMargin: number;
+  @Prop() imageHideBackgroundDots?: boolean;
+  @Prop() imageSize?: number;
+  @Prop() imageCrossOrigin?: string;
+  @Prop() imageMargin?: number;
   // Dots options
-  @Prop() dotsType: DotType;
-  @Prop() dotsColor: string;
-  @Prop() dotsGradient: Gradient;
+  @Prop() dotsType?: 'square' | 'dots' | 'rounded' | 'classy' | 'classy-rounded' | 'extra-rounded';
+  @Prop() dotsColor?: string;
+  @Prop() dotsGradientType?: 'radial' | 'linear'; // GradientType
+  @Prop() dotsRotation?: number;
+  // TODO: gradient options
+  // @Prop() dotsGradient?: Gradient;
   // Corners square options
-  @Prop() cornersSquareType: CornerSquareType;
-  @Prop() cornersSquareColor: string;
-  @Prop() cornersSquareGradient: Gradient;
+  @Prop() cornersSquareType?: 'square' | 'extra-rounded' | 'dot'; // CornerSquareType
+  @Prop() cornersSquareColor?: string;
+  // @Prop() cornersSquareGradient?: Gradient;
   // Corners dot options
-  @Prop() cornersDotType: CornerDotType;
-  @Prop() cornersDotColor: string;
-  @Prop() cornersDotGradient: Gradient;
+  @Prop() cornersDotType?: 'square' | 'dot'; // CornerDotType
+  @Prop() cornersDotColor?: string;
+  // @Prop() cornersDotGradient?: Gradient;
   // Background options
-  @Prop() backgroundRound: number;
-  @Prop() backgroundColor: string;
-  @Prop() backgroundGradient: Gradient;
+  @Prop() backgroundRound?: number;
+  @Prop() backgroundColor?: string;
+  // @Prop() backgroundGradient?: Gradient;
 
   poll() {
+    if (!this.callback) {
+      return;
+    }
     if (!this.isPolling) {
       return;
     }
-    if (!this.callback || !this.interval) {
-      throw new Error('Must pass callback and interval props to bitcoin-qr when is-polling is true');
-    }
+
     setTimeout(() => {
       try {
         this.callback();
@@ -65,14 +69,14 @@ export class BitcoinQR {
       } catch (e) {
         throw new Error(String(e));
       }
-    }, this.interval);
+    }, this.pollInterval);
   }
 
   get uri() {
     if (!(this.bitcoin || this.lightning || this.unified)) {
       throw new Error('Must pass at least one of the following props to bitcoin-qr: bitcoin, lightning, unified');
     }
-    // TODO: unified validation
+    // TODO: unified bip21 validation
     if (this.unified) {
       return this.unified;
     }
@@ -89,7 +93,8 @@ export class BitcoinQR {
     }
     let params: URLSearchParams;
     try {
-      params = new URLSearchParams(this.lightning ? `lightning=${this.lightning}&${this.parameters}` : this.parameters);
+      const isLightningOnly = this.lightning && !(this.bitcoin || this.unified);
+      params = new URLSearchParams(isLightningOnly ? this.parameters : `lightning=${this.lightning}&${this.parameters}`);
       uri.search = params.toString();
     } catch (e) {
       throw new Error(`Invalid URLSearchParams format: "${this.parameters}"`);
@@ -97,49 +102,112 @@ export class BitcoinQR {
     return uri.toString();
   }
 
-  render() {
-    const options: Omit<Options, 'data'> = {
-      width: this.width,
-      height: this.height,
-      type: this.type,
-      margin: this.margin,
-      image: this.image,
-      qrOptions: {
-        typeNumber: this.qrTypeNumber,
-        mode: this.qrMode,
-        errorCorrectionLevel: this.qrErrorCorrectionLevel,
-      },
-      imageOptions: {
-        hideBackgroundDots: this.imageHideBackgroundDots,
-        imageSize: this.imageSize,
-        crossOrigin: this.imageCrossOrigin,
-        margin: this.imageMargin,
-      },
-      dotsOptions: {
-        type: this.dotsType,
-        color: this.dotsColor,
-        gradient: this.dotsGradient,
-      },
-      cornersSquareOptions: {
-        type: this.cornersSquareType,
-        color: this.cornersSquareColor,
-        gradient: this.cornersSquareGradient,
-      },
-      cornersDotOptions: {
-        type: this.cornersDotType,
-        color: this.cornersDotColor,
-        gradient: this.cornersDotGradient,
-      },
-      backgroundOptions: {
-        round: this.backgroundRound,
-        color: this.backgroundColor,
-        gradient: this.backgroundGradient,
-      },
+  getDefinedProps() {
+    if (!this.uri) {
+      throw new Error('Must pass at least one of the following props to bitcoin-qr: bitcoin, lightning, unified');
+    }
+    const optionsKeys = [
+      'unified',
+      'bitcoin',
+      'lightning',
+      'parameters',
+      'isPolling',
+      'pollInterval',
+      'width',
+      'height',
+      'type',
+      'margin',
+      'image',
+      'shape',
+      'qrTypeNumber',
+      'qrMode',
+      'qrErrorCorrectionLevel',
+      'imageHideBackgroundDots',
+      'imageSize',
+      'imageCrossOrigin',
+      'imageMargin',
+      'dotsType',
+      'dotsColor',
+      // TODO: gradient support
+      // 'dotsGradient',
+      'dotsType',
+      // 'dotsRotation',
+      'cornersSquareType',
+      'cornersSquareColor',
+      // 'cornersSquareGradient',
+      'cornersDotType',
+      'cornersDotColor',
+      // 'cornersDotGradient',
+      'backgroundRound',
+      'backgroundColor',
+      // 'backgroundGradient',
+    ];
+    const options: Options = {};
+    const nestedOptionKeyPrefixes = ['qr', 'image', 'dots', 'cornersSquare', 'cornersDot', 'background'];
+    optionsKeys.forEach(key => {
+      if (this[key] !== undefined) {
+        // Some options have nesting in qr-code-styling, so we need to build the object accordingly
+        // e.x.
+        // imageOptions {
+        //   imageSize: 0.4,
+        //   margin: 1
+        // }
+        // Image is a special case because it has a top-level key just called "image"
+
+        const prefix = nestedOptionKeyPrefixes.find(prefix => key.startsWith(prefix));
+        if (key !== 'image' && prefix) {
+          const optionKey = `${prefix}Options`;
+          if (optionKey) {
+            if (!options[optionKey]) {
+              options[optionKey] = {};
+            }
+            // imageSize, is the one exception where the option has the key in both the top-level and nested object
+            if (key === 'imageSize') {
+              options[optionKey][key] = this[key];
+              return;
+            }
+            let nestedKey = key.replace(`${prefix}`, '');
+            nestedKey = nestedKey[0].toLowerCase() + nestedKey.slice(1);
+            const nestedOption = options[optionKey];
+            nestedOption[nestedKey] = this[key];
+          }
+        }
+        options[key] = this[key];
+      }
+    });
+    return {
+      data: this.uri,
+      ...options,
     };
-    const qrCode = new QRCodeStyling({ ...options, data: this.uri });
-    const canvas = document.createElement('div');
-    canvas.id = 'canvas';
-    qrCode.append(canvas);
-    this.bitcoinQR.shadowRoot.appendChild(qrCode as unknown as Node);
+  }
+
+  componentWillLoad() {
+    if (!this.pollInterval) {
+      console.warn('Attribute "interval" not provided, defaulting to poll every 5 seconds');
+      this.pollInterval = 5000;
+    }
+    if (!this.width) {
+      console.warn('Attribute "width" not provided, defaulting to 300px');
+      this.width = 300;
+    }
+    if (!this.height) {
+      this.height = 300;
+    }
+  }
+
+  componentDidLoad() {
+    this.poll();
+    const qr = new QRCodeStyling(this.getDefinedProps());
+    const shadowContainer = this.bitcoinQR.shadowRoot.getElementById('bitcoin-qr-container');
+    qr.append(shadowContainer);
+  }
+
+  // TODO: add webln optional support with copy on click
+  // i.e. copyOnClick: true
+  // weblnOnClick: true
+
+  // @Watch('')
+  render() {
+    return <div id="bitcoin-qr-container"></div>;
   }
 }

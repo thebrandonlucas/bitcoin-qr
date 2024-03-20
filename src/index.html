@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html dir="ltr" lang="en">
   <head>
     <meta charset="utf-8" />
@@ -13,9 +13,14 @@
 
       async function callbackExample() {
         pollCount += 1;
+        console.log({ pollCount });
+
         if (pollCount >= 5) {
           isPolling = false;
           paid = true;
+          alert('Paid!');
+          const qr = document.getElementById('qr');
+          qr.setAttribute('is-polling', false);
         }
       }
 
@@ -30,19 +35,30 @@
       }
     </script>
   </head>
-  <body>
+  <body style="background-color: black">
     <div class="flex flex-col items-center">
       <bitcoin-qr
         id="qr"
-        class="w-1/3"
+        width="400"
+        height="400"
         bitcoin="BC1QYLH3U67J673H6Y6ALV70M0PL2YZ53TZHVXGG7U"
-        module-color="#ff5000"
-        position-center-color="#cc4100"
-        position-ring-color="#9f3200"
-        img-src="./assets/voltage.svg"
+        parameters="jflsdkajfklsa;jfklajfsjdafjsafjlasjfl;kajflk;ajd;sf;kladsjflkajdsklfjas"
+        image="./assets/voltage.svg"
         is-polling="true"
-        interval="3000"
+        poll-interval="1000"
+        type="svg"
+        shape="square"
+        dots-type="rounded"
+        image-size="100"
+        image-margin="300"
+        cornersSquareType="extra-rounded"
+        dots-color="blue"
       />
     </div>
+    <button onclick="start()">Start</button>
+    <button onclick="reset()">Reset</button>
+    <script>
+      document.getElementById('qr').callback = callbackExample;
+    </script>
   </body>
 </html>
