@@ -47,5 +47,6 @@
   "dependencies": {
     "qr-code-styling": "^1.6.0-rc.1"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "packageManager": "yarn@4.1.1"
 }
