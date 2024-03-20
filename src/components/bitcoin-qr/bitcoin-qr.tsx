@@ -128,20 +128,50 @@ export class BitcoinQR {
       'imageMargin',
       'dotsType',
       'dotsColor',
-      'dotsGradient',
+      // TODO: gradient support
+      // 'dotsGradient',
+      'dotsType',
+      // 'dotsRotation',
       'cornersSquareType',
       'cornersSquareColor',
-      'cornersSquareGradient',
+      // 'cornersSquareGradient',
       'cornersDotType',
       'cornersDotColor',
-      'cornersDotGradient',
+      // 'cornersDotGradient',
       'backgroundRound',
       'backgroundColor',
-      'backgroundGradient',
+      // 'backgroundGradient',
     ];
     const options: Options = {};
+    const nestedOptionKeyPrefixes = ['qr', 'image', 'dots', 'cornersSquare', 'cornersDot', 'background'];
     optionsKeys.forEach(key => {
       if (this[key] !== undefined) {
+        // Some options have nesting in qr-code-styling, so we need to build the object accordingly
+        // e.x.
+        // imageOptions {
+        //   imageSize: 0.4,
+        //   margin: 1
+        // }
+        // Image is a special case because it has a top-level key just called "image"
+
+        const prefix = nestedOptionKeyPrefixes.find(prefix => key.startsWith(prefix));
+        if (key !== 'image' && prefix) {
+          const optionKey = `${prefix}Options`;
+          if (optionKey) {
+            if (!options[optionKey]) {
+              options[optionKey] = {};
+            }
+            // imageSize, is the one exception where the option has the key in both the top-level and nested object
+            if (key === 'imageSize') {
+              options[optionKey][key] = this[key];
+              return;
+            }
+            let nestedKey = key.replace(`${prefix}`, '');
+            nestedKey = nestedKey[0].toLowerCase() + nestedKey.slice(1);
+            const nestedOption = options[optionKey];
+            nestedOption[nestedKey] = this[key];
+          }
+        }
         options[key] = this[key];
       }
     });

@@ -23,34 +23,34 @@ export default {
     lightning: { control: 'text' },
     parameters: { control: 'text' },
     // TODO
-    callback: { action: '' },
-    onclick: { control: 'onclick' },
-    isPolling: { control: 'boolean' },
-    pollInterval: { control: 'number' },
     width: { control: 'number' },
     height: { control: 'number' },
-    type: { control: 'radio', options: ['canvas', 'svg'] },
+    type: { control: 'radio', options: ['svg', 'canvas'] },
     margin: { control: 'number' },
     image: { control: 'text' },
     shape: { control: 'radio', options: ['square', 'circle'] },
-    qrTypeNumber: { control: 'number' },
-    qrMode: { control: 'radio', options: ['Numeric', 'Alphanumeric', 'Byte', 'Kanji'] },
-    qrErrorCorrectionLevel: { control: 'radio', options: ['L', 'M', 'Q', 'H'] },
     imageHideBackgroundDots: { control: 'boolean' },
     imageSize: { control: 'number' },
     imageCrossOrigin: { control: 'text' },
     imageMargin: { control: 'number' },
     dotsType: { control: 'radio', options: ['square', 'dots', 'rounded', 'classy', 'classy-rounded', 'extra-rounded'] },
     dotsColor: { control: 'text' },
-    dotsGradientType: { control: 'radio', options: ['radial', 'linear'] },
+    // dotsGradientType: { control: 'radio', options: ['radial', 'linear'] },
     dotsRotation: { control: 'number' },
-    cornersSquareType: { control: 'radio', options: ['square', 'extra-rounded', 'dot'] },
+    cornersSquareType: { control: 'radio', options: ['square', 'rounded', 'extra-rounded', 'dot'] },
     cornersSquareColor: { control: 'text' },
     cornersDotType: { control: 'radio', options: ['square', 'dot'] },
     cornersDotColor: { control: 'text' },
     backgroundRound: { control: 'number' },
     backgroundColor: { control: 'text' },
-    backgroundGradient: { control: 'text' },
+    qrTypeNumber: { control: 'number' },
+    qrMode: { control: 'radio', options: ['Numeric', 'Alphanumeric', 'Byte', 'Kanji'] },
+    qrErrorCorrectionLevel: { control: 'radio', options: ['L', 'M', 'Q', 'H'] },
+    callback: { action: '' },
+    onclick: { control: 'onclick' },
+    isPolling: { control: 'boolean' },
+    pollInterval: { control: 'number' },
+    // backgroundGradient: { control: 'text' },
   },
   // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
   args: { onclick: fn() },
@@ -63,7 +63,7 @@ export const Unified = {
   },
 };
 
-export const Bitcoin = {
+export const OnChain = {
   args: {
     bitcoin: 'BC1QYLH3U67J673H6Y6ALV70M0PL2YZ53TZHVXGG7U',
   },
@@ -76,16 +76,23 @@ export const Lightning = {
   },
 };
 
-export const ParametersAsQueryString = {
+export const WithQueryStringParameters = {
   args: {
     bitcoin: 'BC1QYLH3U67J673H6Y6ALV70M0PL2YZ53TZHVXGG7U',
     parameters: 'amount=0.00001&label=sbddesign%3A%20For%20lunch%20Tuesday&message=For%20lunch%20Tuesday',
   },
 };
 
-export const ImageAndColors = {
+export const Voltage = {
   args: {
     bitcoin: 'BC1QYLH3U67J673H6Y6ALV70M0PL2YZ53TZHVXGG7U',
-    image: './assets/voltage.svg',
+    image: 'https://voltage.imgix.net/Team.png?fm=webp&w=160',
+    dotsColor: '#ff5000',
+    dotsType: 'classy-rounded',
+    cornersSquareColor: '#b23c05',
+    cornersSquareType: 'extra-rounded',
+    cornersDotColor: '#e24a04',
+    cornersDotType: 'dot',
+    type: 'svg',
   },
 };
