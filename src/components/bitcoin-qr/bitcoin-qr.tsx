@@ -94,10 +94,6 @@ export class BitcoinQR {
     let params: URLSearchParams;
     try {
       const isLightningOnly = this.lightning && !(this.bitcoin || this.unified);
-      console.log('isLightningOnly', isLightningOnly);
-      console.log('this.lightning', this.lightning);
-      console.log('this.bitcoin', this.bitcoin);
-      console.log('this.unified', this.unified);
       params = new URLSearchParams(isLightningOnly ? this.parameters : `lightning=${this.lightning}&${this.parameters}`);
       uri.search = params.toString();
     } catch (e) {
@@ -157,7 +153,7 @@ export class BitcoinQR {
 
   componentWillLoad() {
     if (!this.pollInterval) {
-      console.warn('Attribute "Interval" not provided, defaulting to poll every 5 seconds');
+      console.warn('Attribute "interval" not provided, defaulting to poll every 5 seconds');
       this.pollInterval = 5000;
     }
     if (!this.width) {
@@ -177,6 +173,8 @@ export class BitcoinQR {
   }
 
   // TODO: add webln optional support with copy on click
+  // i.e. copyOnClick: true
+  // weblnOnClick: true
 
   // @Watch('')
   render() {

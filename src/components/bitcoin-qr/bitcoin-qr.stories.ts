@@ -9,7 +9,7 @@ export default {
     // Filter out undefined values from being passed in
     const filteredArgs = Object.fromEntries(Object.entries(args).filter(([_, value]) => value !== undefined));
     Object.entries(filteredArgs).forEach(([key, value]) => {
-      if (key === 'onclick') {
+      if (key === 'onclick' && value instanceof Function && value !== undefined) {
         el.addEventListener('click', value as () => void);
         return;
       }
@@ -23,7 +23,7 @@ export default {
     lightning: { control: 'text' },
     parameters: { control: 'text' },
     callback: { control: 'text' },
-    onclick: { control: 'text' },
+    onclick: { control: 'onclick' },
     isPolling: { control: 'boolean' },
     pollInterval: { control: 'number' },
     width: { control: 'number' },
