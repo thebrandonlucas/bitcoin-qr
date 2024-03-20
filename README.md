@@ -1,6 +1,6 @@
 # bitcoin-qr
 
-A web component for Bitcoin on-chain, lightning, and unified [BIP-21](https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki) payment QR codes with built-in polling.
+A zero-dependency, zero-framework QR code web component for Bitcoin on-chain, lightning, and unified [BIP-21](https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki) payments with built-in polling.
 
 Built on top of [qr-code-styling](https://qr-code-styling.com/), it exposes all the [options](https://github.com/kozakdenys/qr-code-styling?tab=readme-ov-file#api-documentation) provided by it.
 

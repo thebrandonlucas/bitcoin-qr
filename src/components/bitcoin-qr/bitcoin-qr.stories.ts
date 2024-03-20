@@ -83,7 +83,7 @@ export const WithQueryStringParameters = {
   },
 };
 
-export const Voltage = {
+export const CustomStyle = {
   args: {
     bitcoin: 'BC1QYLH3U67J673H6Y6ALV70M0PL2YZ53TZHVXGG7U',
     image: 'https://voltage.imgix.net/Team.png?fm=webp&w=160',
