@@ -28,6 +28,7 @@ export namespace Components {
         "isPolling"?: boolean;
         "lightning"?: string;
         "margin"?: number;
+        "onclick"?: () => void;
         "parameters"?: string;
         "pollInterval"?: number;
         "qrErrorCorrectionLevel"?: 'L' | 'M' | 'Q' | 'H';
@@ -73,6 +74,7 @@ declare namespace LocalJSX {
         "isPolling"?: boolean;
         "lightning"?: string;
         "margin"?: number;
+        "onclick"?: () => void;
         "parameters"?: string;
         "pollInterval"?: number;
         "qrErrorCorrectionLevel"?: 'L' | 'M' | 'Q' | 'H';
