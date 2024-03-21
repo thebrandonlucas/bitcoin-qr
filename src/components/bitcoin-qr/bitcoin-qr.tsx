@@ -38,7 +38,6 @@ export class BitcoinQR {
   // Dots options
   @Prop() dotsType?: 'square' | 'dots' | 'rounded' | 'classy' | 'classy-rounded' | 'extra-rounded';
   @Prop() dotsColor?: string;
-  @Prop() dotsGradientType?: 'radial' | 'linear'; // GradientType
   @Prop() dotsRotation?: number;
   // TODO: gradient options
   // @Prop() dotsGradient?: Gradient;
@@ -57,6 +56,7 @@ export class BitcoinQR {
 
   @State() qr: QRCodeStyling;
 
+  // TODO: clear timers when polling is cancelled
   @Watch('isPolling')
   @Watch('pollInterval')
   @Watch('callback')

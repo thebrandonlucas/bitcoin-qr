@@ -16,7 +16,6 @@ export namespace Components {
         "cornersSquareColor"?: string;
         "cornersSquareType"?: 'square' | 'extra-rounded' | 'dot';
         "dotsColor"?: string;
-        "dotsGradientType"?: 'radial' | 'linear';
         "dotsRotation"?: number;
         "dotsType"?: 'square' | 'dots' | 'rounded' | 'classy' | 'classy-rounded' | 'extra-rounded';
         "height"?: number;
@@ -61,7 +60,6 @@ declare namespace LocalJSX {
         "cornersSquareColor"?: string;
         "cornersSquareType"?: 'square' | 'extra-rounded' | 'dot';
         "dotsColor"?: string;
-        "dotsGradientType"?: 'radial' | 'linear';
         "dotsRotation"?: number;
         "dotsType"?: 'square' | 'dots' | 'rounded' | 'classy' | 'classy-rounded' | 'extra-rounded';
         "height"?: number;
