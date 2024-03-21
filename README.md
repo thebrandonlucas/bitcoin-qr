@@ -6,6 +6,10 @@
 
 A zero-dependency, zero-framework QR code [web component](https://developer.mozilla.org/en-US/docs/Web/API/Web_Components) for Bitcoin on-chain, Lightning, and [unified BIP-21](https://bitcoinqr.dev/) payments.
 
+PRs and suggestions welcome!
+
+Check out the [Storybook](https://storybook.js.org/) demo [here]().
+
 ![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
 
 ## Table of Contents
@@ -105,35 +109,47 @@ NOTE: There is currently no validation for the `unified`, `bitcoin`, `lightning`
 
 `<bitcoin-qr />` can also be given a `callback` property which it will poll at a given `poll-interval`
 
+```javascript
+<script>
+    async function checkPayment() {
+        ...
+    }
+
+    const qr = document.getElementById('my-bitcoin-qr')
+    qr.callback = checkPayment
+</script>
+```
+
 #### Styles
 
-This component is built on top of [qr-code-styling](https://github.com/kozakdenys/qr-code-styling), and surfaces the majority of its' [API](https://github.com/kozakdenys/qr-code-styling?tab=readme-ov-file#api-documentation):
+This component is built on top of [qr-code-styling](https://github.com/kozakdenys/qr-code-styling), refer to their documentation for more details on their [API](https://github.com/kozakdenys/qr-code-styling?tab=readme-ov-file#api-documentation), `<bitcoin-qr />` surfaces the majority of itand surfaces the majority of it:
+
+| Attribute                    | Type      | Description                                                                                                                |
+| :--------------------------- | :-------- | :------------------------------------------------------------------------------------------------------------------------- | --- |
+| `width`                      | `number`  | **Optional**. Width of the QR code.                                                                                        |
+| `height`                     | `number`  | **Optional**. Height of the QR code.                                                                                       |
+| `type`                       | `string`  | **Optional**. Type of QR code to draw. Options: `'canvas'`, `'svg'`.                                                       |
+| `margin`                     | `number`  | **Optional**. Margin around the QR code.                                                                                   |
+| `image`                      | `string`  | **Optional**. URL of the image to overlay on the QR code.                                                                  |
+| `shape`                      | `string`  | **Optional**. Shape of the QR code. Options: `'square'`, `'circle'`.                                                       |
+| `qr-type-number`             | `number`  | **Optional**. Type number of the QR code.                                                                                  |
+| `qr-mode`                    | `string`  | **Optional**. Mode of the QR code. Options: `'Numeric'`, `'Alphanumeric'`, `'Byte'`, `'Kanji'`.                            |
+| `qr-error-correction-level`  | `string`  | **Optional**. Error correction level of the QR code. Options: `'L'`, `'M'`, `'Q'`, `'H'`.                                  |
+| `image-hide-background-dots` | `boolean` | **Optional**. Whether to hide background dots behind the image.                                                            |
+| `image-size`                 | `number`  | **Optional**. Size of the image overlay on the QR code.                                                                    |
+| `image-cross-origin`         | `string`  | **Optional**. Cross-origin setting for the image overlay.                                                                  |
+| `image-margin`               | `number`  | **Optional**. Margin around the image overlay.                                                                             |
+| `dots-type`                  | `string`  | **Optional**. Type of dots. Options: `'square'`, `'dots'`, `'rounded'`, `'classy'`, `'classy-rounded'`, `'extra-rounded'`. |
+| `dots-color`                 | `string`  | **Optional**. Color of the dots.                                                                                           |     |
+| `dots-rotation`              | `number`  | **Optional**. Rotation angle for dots.                                                                                     |
+| `corners-square-type`        | `string`  | **Optional**. Type of corners for square. Options: `'square'`, `'extra-rounded'`, `'dot'`.                                 |
+| `corners-square-color`       | `string`  | **Optional**. Color of corners for square.                                                                                 |
+| `corners-dot-type`           | `string`  | **Optional**. Type of corners for dot. Options: `'square'`, `'dot'`.                                                       |
+| `corners-dot-color`          | `string`  | **Optional**. Color of corners for dot.                                                                                    |
+| `background-round`           | `number`  | **Optional**. Rounding value for the background.                                                                           |
+| `background-color`           | `string`  | **Optional**. Color of the background.                                                                                     |
 
 Currently, only `Gradient` styling options are not included.
-
-#### Get all items
-
-```http
-  GET /api/items
-```
-
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `api_key` | `string` | **Required**. Your API key |
-
-#### Get item
-
-```http
-  GET /api/items/${id}
-```
-
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `id`      | `string` | **Required**. Id of item to fetch |
-
-#### add(num1, num2)
-
-Takes two numbers and returns the sum.
 
 ## Roadmap
 
@@ -145,50 +161,36 @@ Takes two numbers and returns the sum.
 
 ## Run Locally
 
-Clone the project
+### Stencil.js
 
-```bash
-  git clone https://link-to-project
+The project uses [Stencil.js](https://stenciljs.com/) for building the web component. To run the Stencil dev server, uncomment lines 12-15 in `stencil.config.js`:
+
+```javascript
+...
+// NOTE: Uncomment this for dev Stencil server, comment for production build & Storybook server
+{
+    type: 'www',
+    serviceWorker: null, // disable service workers
+},
+...
 ```
 
-Go to the project directory
+Then,
 
 ```bash
-  cd my-project
+yarn # install dependencies
+yarn dev
 ```
 
-Install dependencies
+### Storybook
 
-```bash
-  npm install
+To run the Storybook, comment lines 12-15 in `stencil.config.js` and run:
+
 ```
-
-Start the server
-
-```bash
-  npm run start
+yarn build
+yarn storybook
 ```
-
-## Demo
-
-Check out the [Storybook](https://storybook.js.org/) demo [here]().
-
-## Acknowledgements
-
-- [Awesome Readme Templates](https://awesomeopensource.com/project/elangosundar/awesome-README-templates)
-- [Awesome README](https://github.com/matiassingers/awesome-readme)
-- [How to write a Good readme](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
 
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
-
-## FAQ
-
-#### Question 1
-
-Answer 1
-
-#### Question 2
-
-Answer 2
