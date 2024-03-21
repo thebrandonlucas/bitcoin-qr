@@ -43,6 +43,7 @@
   </head>
   <body class="flex justify-center gap-12">
     <div class="flex flex-col items-center">
+      <!-- Voltage example -->
       <bitcoin-qr
         id="qr"
         width="300"
@@ -59,6 +60,38 @@
         dots-type="classy-rounded"
         dots-color="#ff5000"
       />
+      <!-- Bitcoin example -->
+      <!-- <bitcoin-qr
+        id="qr"
+        width="300"
+        height="300"
+        bitcoin="BC1QYLH3U67J673H6Y6ALV70M0PL2YZ53TZHVXGG7U"
+        parameters="?amount=0.00001&label=sbddesign%3A%20For%20lunch%20Tuesday&message=For%20lunch%20Tuesday"
+        image="./assets/bitcoin.svg"
+        type="svg"
+        corners-dot-color="#d67b0c"
+        corners-dot-type="rounded"
+        corners-square-color="#dd7b02"
+        corners-square-type="extra-rounded"
+        dots-type="dots"
+        dots-color="#F7931A"
+      /> -->
+      <!-- Payjoin example -->
+      <!-- <bitcoin-qr
+        id="qr"
+        width="300"
+        height="300"
+        bitcoin="BCRT1QCJ4X75DUNY4X5NAWLM3CR8MALM9YAUYWWEWKWL"
+        parameters="?amount=0.00010&pj=https://localhost:3010"
+        image="./assets/payjoin.svg"
+        type="svg"
+        corners-dot-color="#ed2877"
+        corners-dot-type="dot"
+        corners-square-color="#ef5693"
+        corners-square-type="rounded"
+        dots-type="rounded"
+        dots-color="#ed71a3"
+      /> -->
     </div>
     <div class="flex flex-col gap-2">
       <span>Payment will succeed when poll count reaches 5</span>
