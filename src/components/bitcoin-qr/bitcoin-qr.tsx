@@ -15,7 +15,8 @@ export class BitcoinQR {
   @Prop() lightning?: string;
   @Prop() parameters?: string;
   @Prop() callback?: () => void;
-  @Prop() onclick?: () => void;
+  // TODO: add onclicks
+  // @Event() onClick?: () => void;
   @Prop() isPolling?: boolean;
   @Prop({ mutable: true }) pollInterval?: number;
 
