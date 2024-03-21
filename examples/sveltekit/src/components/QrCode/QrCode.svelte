@@ -14,23 +14,18 @@
 	export let pollCallback = () => {}; // FIXME: allow undefined without breaking TS
 	export let clazz = '';
 
+	defineCustomElements();
 	onMount(() => {
-		defineCustomElements();
 		const qr = document.getElementById('qr') as any;
 		if (qr) {
-			qr.addEventListener('codeRendered', () => {
-				qr.callback = pollCallback;
-				qr.animateQRCode('MaterializeIn');
-			});
+			qr.callback = pollCallback;
 		}
 	});
 
 	onDestroy(() => {
 		const qr = document.getElementById('qr') as any;
 		if (qr) {
-			qr.removeEventListener('codeRendered', () => {
-				qr.callback = undefined;
-			});
+			qr.callback = undefined;
 		}
 	});
 </script>
