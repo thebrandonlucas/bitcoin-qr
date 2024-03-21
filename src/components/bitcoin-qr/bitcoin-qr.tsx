@@ -199,6 +199,9 @@ export class BitcoinQR {
     if (!this.height) {
       this.height = 300;
     }
+    if (!this.type) {
+      this.type = 'svg';
+    }
     this.qr = new QRCodeStyling(this.getDefinedProps());
   }
 
