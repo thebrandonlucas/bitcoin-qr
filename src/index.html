@@ -7,58 +7,70 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="module" src="/build/bitcoin-qr.esm.js"></script>
     <script nomodule src="/build/bitcoin-qr.js"></script>
+    <!-- <script type="module" src="https://unpkg.com/bitcoin-qr@1.0.6/dist/bitcoin-qr/bitcoin-qr.esm.js"></script> -->
     <script>
       let pollCount = 0;
       let paid = false;
 
       async function callbackExample() {
         pollCount += 1;
-        console.log({ pollCount });
-
+        document.getElementById('poll-count').innerText = `Poll count: ${pollCount}`;
         if (pollCount >= 5) {
           isPolling = false;
           paid = true;
           alert('Paid!');
           const qr = document.getElementById('qr');
           qr.setAttribute('is-polling', false);
+          document.getElementById('paid').innerText = `Paid: ${paid}`;
         }
       }
 
       async function reset() {
         pollCount = 0;
         paid = false;
+        isPolling = true;
+        document.getElementById('toggle').innerText = 'Stop';
+        document.getElementById('poll-count').innerText = `Poll count: ${pollCount}`;
+        document.getElementById('paid').innerText = `Paid: ${paid}`;
       }
 
-      async function start() {
+      async function toggle() {
         const qr = document.getElementById('qr');
-        qr.setAttribute('is-polling', true);
+        const isPolling = qr.getAttribute('is-polling') === 'true';
+        qr.setAttribute('is-polling', !isPolling);
+        const toggle = document.getElementById('toggle');
+        toggle.innerText === 'Stop' ? (toggle.innerText = 'Start') : (toggle.innerText = 'Stop');
       }
     </script>
   </head>
-  <body style="background-color: black">
+  <body class="flex justify-center gap-12">
     <div class="flex flex-col items-center">
       <bitcoin-qr
         id="qr"
-        width="400"
-        height="400"
+        width="300"
+        height="300"
         bitcoin="BC1QYLH3U67J673H6Y6ALV70M0PL2YZ53TZHVXGG7U"
-        parameters="jflsdkajfklsa;jfklajfsjdafjsafjlasjfl;kajflk;ajd;sf;kladsjflkajdsklfjas"
-        image="./assets/voltage.svg"
+        parameters="?amount=0.00001&label=sbddesign%3A%20For%20lunch%20Tuesday&message=For%20lunch%20Tuesday"
+        image="https://voltage.imgix.net/Team.png?fm=webp&w=160"
         is-polling="true"
         poll-interval="1000"
         type="svg"
-        shape="square"
-        dots-type="rounded"
-        image-size="100"
-        image-margin="300"
-        cornersSquareType="extra-rounded"
-        dots-color="blue"
+        corners-square-color="#b23c05"
+        corners-dot-color="#e24a04"
+        corners-square-type="extra-rounded"
+        dots-type="classy-rounded"
+        dots-color="#ff5000"
       />
     </div>
-    <button onclick="start()">Start</button>
-    <button onclick="reset()">Reset</button>
-    <script>
-      document.getElementById('qr').callback = callbackExample;
-    </script>
+    <div class="flex flex-col gap-2">
+      <span>Payment will succeed when poll count reaches 5</span>
+      <span id="poll-count">Poll count: 0</span>
+      <span id="paid">Paid: false</span>
+      <button id="toggle" class="bg-[#ff5000] p-2 text-white rounded-lg" onclick="toggle()">Stop</button>
+      <button id="reset" class="bg-[#ff5000] p-2 text-white rounded-lg" onclick="reset()">Reset</button>
+    </div>
   </body>
+  <script>
+    document.getElementById('qr').callback = callbackExample;
+  </script>
 </html>
