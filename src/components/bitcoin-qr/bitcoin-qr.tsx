@@ -199,6 +199,7 @@ export class BitcoinQR {
     if (!this.height) {
       this.height = 300;
     }
+    // FIXME: is this not working properly?
     if (!this.type) {
       this.type = 'svg';
     }
