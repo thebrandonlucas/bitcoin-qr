@@ -2,7 +2,6 @@ import { fn } from '@storybook/test';
 
 export default {
   title: 'Example/BitcoinQR',
-  tags: ['autodocs'],
   render: args => {
     // TODO: add callback/polling functionality to storybook
     const el = document.createElement('bitcoin-qr');
