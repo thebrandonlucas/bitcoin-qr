@@ -1,4 +1,4 @@
-import { Component, Element, Prop, h } from '@stencil/core';
+import { Component, Element, Prop, State, Watch, h } from '@stencil/core';
 import QRCodeStyling, { Options } from 'qr-code-styling';
 
 @Component({
@@ -55,6 +55,11 @@ export class BitcoinQR {
   @Prop() backgroundColor?: string;
   // @Prop() backgroundGradient?: Gradient;
 
+  @State() qr: QRCodeStyling;
+
+  @Watch('isPolling')
+  @Watch('pollInterval')
+  @Watch('callback')
   poll() {
     if (!this.callback) {
       return;
@@ -194,20 +199,23 @@ export class BitcoinQR {
     if (!this.height) {
       this.height = 300;
     }
+    this.qr = new QRCodeStyling(this.getDefinedProps());
   }
 
   componentDidLoad() {
-    this.poll();
-    const qr = new QRCodeStyling(this.getDefinedProps());
     const shadowContainer = this.bitcoinQR.shadowRoot.getElementById('bitcoin-qr-container');
-    qr.append(shadowContainer);
+    shadowContainer.childElementCount > 0 ? this.qr.update(this.getDefinedProps()) : this.qr.append(shadowContainer);
+    this.poll();
+  }
+
+  componentWillUpdate() {
+    this.qr.update(this.getDefinedProps());
   }
 
   // TODO: add webln optional support with copy on click
   // i.e. copyOnClick: true
   // weblnOnClick: true
 
-  // @Watch('')
   render() {
     return <div id="bitcoin-qr-container"></div>;
   }
