@@ -17,4 +17,5 @@ export const config: Config = {
   testing: {
     browserHeadless: 'new',
   },
+  sourceMap: false,
 };
