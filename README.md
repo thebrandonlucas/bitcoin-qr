@@ -10,17 +10,30 @@ PRs and suggestions welcome!
 
 Check out the [Storybook](https://storybook.js.org/) demo [here]().
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![Voltage QR Code](./src/assets/images/voltage-qr.png)
+![Payjoin QR Code](./src/assets/images/payjoin-qr.png)
+![Bitcoin QR Code](./src/assets/images/bitcoin-qr.png)
 
 ## Table of Contents
 
-- [Features](#features)
-- [Background](#background)
-- [Usage](#usage)
+- [`<bitcoin-qr />`](#bitcoin-qr-)
+  - [Table of Contents](#table-of-contents)
+  - [Features](#features)
+  - [Background](#background)
   - [Installation](#installation)
-  - [Getting Started](#getting-started)
-- [Examples](#examples)
-- [Conclusion](#conclusion)
+    - [CDN](#cdn)
+    - [NPM](#npm)
+  - [Usage](#usage)
+    - [More Examples](#more-examples)
+  - [API Reference](#api-reference)
+    - [Base attributes:](#base-attributes)
+    - [Callback](#callback)
+    - [Styles](#styles)
+  - [Roadmap](#roadmap)
+  - [Run Locally](#run-locally)
+    - [Stencil.js](#stenciljs)
+    - [Storybook](#storybook)
+  - [License](#license)
 
 ## Features
 
@@ -123,31 +136,30 @@ NOTE: There is currently no validation for the `unified`, `bitcoin`, `lightning`
 #### Styles
 
 This component is built on top of [qr-code-styling](https://github.com/kozakdenys/qr-code-styling), refer to their documentation for more details on their [API](https://github.com/kozakdenys/qr-code-styling?tab=readme-ov-file#api-documentation), `<bitcoin-qr />` surfaces the majority of itand surfaces the majority of it:
-
-| Attribute                    | Type      | Description                                                                                                                |
-| :--------------------------- | :-------- | :------------------------------------------------------------------------------------------------------------------------- | --- |
-| `width`                      | `number`  | **Optional**. Width of the QR code.                                                                                        |
-| `height`                     | `number`  | **Optional**. Height of the QR code.                                                                                       |
-| `type`                       | `string`  | **Optional**. Type of QR code to draw. Options: `'canvas'`, `'svg'`.                                                       |
-| `margin`                     | `number`  | **Optional**. Margin around the QR code.                                                                                   |
-| `image`                      | `string`  | **Optional**. URL of the image to overlay on the QR code.                                                                  |
-| `shape`                      | `string`  | **Optional**. Shape of the QR code. Options: `'square'`, `'circle'`.                                                       |
-| `qr-type-number`             | `number`  | **Optional**. Type number of the QR code.                                                                                  |
-| `qr-mode`                    | `string`  | **Optional**. Mode of the QR code. Options: `'Numeric'`, `'Alphanumeric'`, `'Byte'`, `'Kanji'`.                            |
-| `qr-error-correction-level`  | `string`  | **Optional**. Error correction level of the QR code. Options: `'L'`, `'M'`, `'Q'`, `'H'`.                                  |
-| `image-hide-background-dots` | `boolean` | **Optional**. Whether to hide background dots behind the image.                                                            |
-| `image-size`                 | `number`  | **Optional**. Size of the image overlay on the QR code.                                                                    |
-| `image-cross-origin`         | `string`  | **Optional**. Cross-origin setting for the image overlay.                                                                  |
-| `image-margin`               | `number`  | **Optional**. Margin around the image overlay.                                                                             |
-| `dots-type`                  | `string`  | **Optional**. Type of dots. Options: `'square'`, `'dots'`, `'rounded'`, `'classy'`, `'classy-rounded'`, `'extra-rounded'`. |
-| `dots-color`                 | `string`  | **Optional**. Color of the dots.                                                                                           |     |
-| `dots-rotation`              | `number`  | **Optional**. Rotation angle for dots.                                                                                     |
-| `corners-square-type`        | `string`  | **Optional**. Type of corners for square. Options: `'square'`, `'extra-rounded'`, `'dot'`.                                 |
-| `corners-square-color`       | `string`  | **Optional**. Color of corners for square.                                                                                 |
-| `corners-dot-type`           | `string`  | **Optional**. Type of corners for dot. Options: `'square'`, `'dot'`.                                                       |
-| `corners-dot-color`          | `string`  | **Optional**. Color of corners for dot.                                                                                    |
-| `background-round`           | `number`  | **Optional**. Rounding value for the background.                                                                           |
-| `background-color`           | `string`  | **Optional**. Color of the background.                                                                                     |
+| Attribute | Type | Description |
+| :--------------------------- | :-------- | :------------------------------------------------------------------- |
+| `width` | `number` | **Optional**. Width of the QR code. |
+| `height` | `number` | **Optional**. Height of the QR code. |
+| `type` | `string` | **Optional**. Type of QR code to draw. Options: `'canvas'`, `'svg'`. |
+| `margin` | `number` | **Optional**. Margin around the QR code. |
+| `image` | `string` | **Optional**. URL of the image to overlay on the QR code. |
+| `shape` | `string` | **Optional**. Shape of the QR code. Options: `'square'`, `'circle'`. |
+| `qr-type-number` | `number` | **Optional**. Type number of the QR code. |
+| `qr-mode` | `string` | **Optional**. Mode of the QR code. Options: `'Numeric'`, `'Alphanumeric'`, `'Byte'`, `'Kanji'`. |
+| `qr-error-correction-level` | `string` | **Optional**. Error correction level of the QR code. Options: `'L'`, `'M'`, `'Q'`, `'H'`. |
+| `image-hide-background-dots` | `boolean` | **Optional**. Whether to hide background dots behind the image. |
+| `image-size` | `number` | **Optional**. Size of the image overlay on the QR code. |
+| `image-cross-origin` | `string` | **Optional**. Cross-origin setting for the image overlay. |
+| `image-margin` | `number` | **Optional**. Margin around the image overlay. |
+| `dots-type` | `string` | **Optional**. Type of dots. Options: `'square'`, `'dots'`, `'rounded'`, `'classy'`, `'classy-rounded'`, `'extra-rounded'`. |
+| `dots-color` | `string` | **Optional**. Color of the dots. |
+| `dots-rotation` | `number` | **Optional**. Rotation angle for dots. |
+| `corners-square-type` | `string` | **Optional**. Type of corners for square. Options: `'square'`, `'extra-rounded'`, `'dot'`. |
+| `corners-square-color` | `string` | **Optional**. Color of corners for square. |
+| `corners-dot-type` | `string` | **Optional**. Type of corners for dot. Options: `'square'`, `'dot'`.|
+| `corners-dot-color` | `string` | **Optional**. Color of corners for dot. |
+| `background-round` | `number` | **Optional**. Rounding value for the background. |
+| `background-color` | `string` | **Optional**. Color of the background. |
 
 Currently, only `Gradient` styling options are not included.
 
