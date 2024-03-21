@@ -8,8 +8,6 @@ A zero-dependency, zero-framework QR code [web component](https://developer.mozi
 
 PRs and suggestions welcome!
 
-Check out the [Storybook](https://storybook.js.org/) demo [here]().
-
 ![Voltage QR Code](./src/assets/images/voltage-qr.png)
 ![Payjoin QR Code](./src/assets/images/payjoin-qr.png)
 ![Bitcoin QR Code](./src/assets/images/bitcoin-qr.png)
@@ -165,6 +163,7 @@ Currently, only `Gradient` styling options are not included.
 
 ## Roadmap
 
+- [ ] Add Storybook demo server
 - [ ] Address, invoice, BIP-21, and parameter validation
 - [ ] Add tests
 - [ ] Click to copy
