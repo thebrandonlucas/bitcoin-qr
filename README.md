@@ -49,7 +49,7 @@ This project aims to provide everything needed to allow standard Bitcoin & Light
 
 🚧 Work in progress 🚧
 
-See the [Roadmap]()
+See the [Roadmap](#roadmap)
 
 ## Installation
 
@@ -96,8 +96,8 @@ To get the first image above:
 
 #### More Examples
 
-- [Sveltekit (source)]()
-- [Poll for payment (source)]()
+- [Sveltekit (source)](./examples/sveltekit/)
+- [Poll for payment (source)](./src/index.html)
 
 ## API Reference
 
