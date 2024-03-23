@@ -34,3 +34,5 @@ UserInterfaceState.xcuserstate
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+examples/sveltekit/.yarn
