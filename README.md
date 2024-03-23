@@ -98,8 +98,8 @@ To get the first image above:
 
 #### More Examples
 
-- [Sveltekit (source)](./examples/sveltekit/)
-- [Poll for payment (source)](./src/index.html)
+- [Poll for payment HTML (source)](./src/index.html)
+- [Sveltekit kitchen sink (source)](./examples/sveltekit-kitchen-sink/)
 
 ## API Reference
 

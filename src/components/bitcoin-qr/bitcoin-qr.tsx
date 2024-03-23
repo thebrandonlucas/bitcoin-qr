@@ -219,7 +219,6 @@ export class BitcoinQR {
   // TODO: add webln optional support with copy on click
   // i.e. copyOnClick: true
   // weblnOnClick: true
-
   render() {
     return <div id="bitcoin-qr-container"></div>;
   }
