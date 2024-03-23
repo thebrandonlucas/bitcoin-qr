@@ -127,7 +127,7 @@ Sveltekit:
 
 #### More Examples
 
-- [Poll for payment HTML (source)](./src/index.html)
+- [HTML poll for payment (source)](./src/index.html)
 - [Sveltekit (source)](./examples/sveltekit/)
 - [Sveltekit kitchen sink (source)](./examples/sveltekit-kitchen-sink/)
 
