@@ -58,7 +58,7 @@ See the [Roadmap](#roadmap)
 #### CDN
 
 ```html
-<script type="module" src="https://unpkg.com/bitcoin-qr@1.1.0/dist/bitcoin-qr/bitcoin-qr.esm.js"></script>
+<script type="module" src="https://unpkg.com/bitcoin-qr@1.1.4/dist/bitcoin-qr/bitcoin-qr.esm.js"></script>
 ```
 
 #### NPM
@@ -77,7 +77,7 @@ HTML:
 <!doctype html>
 <html lang="en">
   <head>
-    <script type="module" src="https://unpkg.com/bitcoin-qr@1.1.0/dist/bitcoin-qr/bitcoin-qr.esm.js"></script>
+    <script type="module" src="https://unpkg.com/bitcoin-qr@1.1.4/dist/bitcoin-qr/bitcoin-qr.esm.js"></script>
   </head>
   <body>
     <bitcoin-qr
