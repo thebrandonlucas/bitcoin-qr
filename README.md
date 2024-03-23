@@ -47,7 +47,7 @@ When developing a Bitcoin payment flow, there are multiple ways a user can expec
 
 This flexibility opens up many [exciting use cases](https://brandonlucas.net/articles/bitcoin/micropayments), but often comes at the cost of being able to easily develop a smooth experience for the user. The greater the developer's cognitive load, the more difficult it is to create intuitive UX.
 
-This project aims to provide everything needed to allow standard Bitcoin & Lightning Network payments out of the box. It handles creating the proper [URIs](https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki) from just an address or invoice, and favors creating unified URIs whenever possible. Styles are highly customizable and images can be embedded. It also includes polling functionality -- a callback can be passed as a property of the element to periodicaly check for payment.
+This project aims to provide everything needed to allow standard Bitcoin & Lightning Network payments out of the box. It handles creating the proper [URIs](https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki) from just an address or invoice, and favors creating unified URIs whenever possible. Styles are highly customizable and images can be embedded. It also includes polling functionality -- a callback can be passed as a property of the element to periodically check for payment.
 
 🚧 Work in progress 🚧
 
