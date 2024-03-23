@@ -35,4 +35,4 @@ UserInterfaceState.xcuserstate
 !.yarn/sdks
 !.yarn/versions
 
-examples/sveltekit/.yarn
+examples/sveltekit/.yarn/install-state.gz
