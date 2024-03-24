@@ -1,45 +1,67 @@
 <script lang="ts">
 	import { onDestroy, onMount } from 'svelte';
 	import { defineCustomElements } from 'bitcoin-qr/loader';
+	import { browser } from '$app/environment';
 
+	export let unified = '';
+	export let bitcoin = '';
+	export let lightning = '';
 	export let parameters = '';
-	export let address = '';
-	export let invoice = '';
-	export let imgSrc = './assets/voltage.svg';
-	export let moduleColor = '#ff5000';
-	export let positionCenterColor = '#cc4100';
-	export let positionRingColor = '#9f3200';
+	export let width = 300;
+	export let height = 300;
+	export let image = '';
 	export let isPolling = false;
-	export let interval = 3000; // Interval to poll in milliseconds
+	export let pollInterval = 1000;
+	export let type = 'svg';
+	export let cornersSquareColor = '#b23c05';
+	export let cornersDotColor = '#e24a04';
+	export let cornersSquareType = 'extra-rounded';
+	export let dotsType = 'classy-rounded';
+	export let dotsColor = '#ff5000';
 	export let pollCallback = () => {}; // FIXME: allow undefined without breaking TS
-	export let clazz = '';
+
+	// https://stackoverflow.com/questions/75896304/add-class-to-svelte-component
+	let className = '';
+	let idName = '';
+	export { className as class };
+	export { idName as id };
 
 	defineCustomElements();
+
 	onMount(() => {
 		const qr = document.getElementById('qr') as any;
+		console.log({ qr });
 		if (qr) {
 			qr.callback = pollCallback;
 		}
 	});
 
 	onDestroy(() => {
-		const qr = document.getElementById('qr') as any;
-		if (qr) {
-			qr.callback = undefined;
+		if (browser) {
+			const qr = document.getElementById('qr') as any;
+			if (qr) {
+				qr.callback = undefined;
+			}
 		}
 	});
 </script>
 
 <bitcoin-qr
-	id="qr"
-	class={clazz}
-	bitcoin={address}
-	lightning={invoice}
+	id={idName}
+	class={className}
+	{width}
+	{height}
+	{unified}
+	{bitcoin}
+	{lightning}
 	{parameters}
-	module-color={moduleColor}
-	position-center-color={positionCenterColor}
-	position-ring-color={positionRingColor}
-	img-src={imgSrc}
+	{image}
 	is-polling={isPolling}
-	{interval}
+	poll-interval={pollInterval}
+	{type}
+	corners-square-color={cornersSquareColor}
+	corners-dot-color={cornersDotColor}
+	corners-square-type={cornersSquareType}
+	dots-type={dotsType}
+	dots-color={dotsColor}
 />

@@ -7,6 +7,7 @@
 	import { onMount } from 'svelte';
 	import { typescript } from 'svelte-highlight/languages';
 	import Button from '$components/Button/Button.svelte';
+	import QrCode from '$components/QrCode/QrCode.svelte';
 
 	defineCustomElements();
 
@@ -27,34 +28,49 @@ async function callbackExample() {
 	let invoice =
 		'LNBC10U1P3PJ257PP5YZTKWJCZ5FTL5LAXKAV23ZMZEKAW37ZK6KMV80PK4XAEV5QHTZ7QDPDWD3XGER9WD5KWM36YPRX7U3QD36KUCMGYP282ETNV3SHJCQZPGXQYZ5VQSP5USYC4LK9CHSFP53KVCNVQ456GANH60D89REYKDNGSMTJ6YW3NHVQ9QYYSSQJCEWM5CJWZ4A6RFJX77C490YCED6PEMK0UPKXHY89CMM7SCT66K8GNEANWYKZGDRWRFJE69H9U5U0W57RRCSYSAS7GADWMZXC8C6T0SPJAZUP6';
 	let parameters = '?amount=0.00001&label=payjoin.org&message=Donation%20to%20payjoin.org';
-	let moduleColor = '#ff5000';
-	let positionCenterColor = '#cc4100';
-	let positionRingColor = '#9f3200';
-	let imgSrc = './assets/voltage.svg';
+	let image = 'https://voltage.imgix.net/Team.png?fm=webp&w=160';
+	let width = 300;
+	let height = 300;
+	let cornersSquareColor = '#b23c05';
+	let cornersDotColor = '#e24a04';
+	let cornersSquareType = 'extra-rounded';
+	let dotsType = 'classy-rounded';
+	let dotsColor = '#ff5000';
+	let type = 'svg';
 	let isPolling = false;
-	let interval = 3000;
+	let pollInterval = 1000;
 
 	let pollCount = 0;
 	let paid = false;
 
 	$: component =
-		unified || address || invoice || moduleColor || positionCenterColor || positionRingColor
+		unified ||
+		address ||
+		invoice ||
+		parameters ||
+		image ||
+		cornersSquareColor ||
+		cornersDotColor ||
+		cornersSquareType ||
+		dotsType ||
+		dotsColor
 			? `
 <bitcoin-qr
 	id="qr"
-	class="w-1/2"
-	unified="${unified}"
+	width="${width}"
+	height="${height}"
 	bitcoin="${address}"
-	lightning="${invoice}"
 	parameters="${parameters}"
-	module-color="${moduleColor}"
-	position-center-color="${positionCenterColor}"
-	position-ring-color="${positionRingColor}"
-	img-src="${imgSrc}"
+	image="${image}"
 	is-polling="${isPolling}"
-	interval="${interval}"
-/>
-	`
+	poll-interval="${pollInterval}"
+	type="${type}"
+	corners-square-color="${cornersSquareColor}"
+	corners-dot-color="${cornersDotColor}"
+	corners-square-type="${cornersSquareType}"
+	dots-type="${dotsType}"
+	dots-color="${dotsColor}"
+/>`
 			: '';
 
 	const pollFunction = async function callbackExample() {
@@ -77,10 +93,8 @@ async function callbackExample() {
 	}
 
 	onMount(() => {
-		document.addEventListener('codeRendered', () => {
-			const qr = document.getElementById('qr') as any;
-			qr.callback = pollFunction; // must set the callback function as a property of the element, NOT as an attribute
-		});
+		const qr = document.getElementById('qr') as any;
+		qr.callback = pollFunction; // must set the callback function as a property of the element, NOT as an attribute
 	});
 </script>
 
@@ -88,27 +102,14 @@ async function callbackExample() {
 	{@html dracula}
 </svelte:head>
 
-<div class="my-8 flex flex-col items-center">
-	<h2 class="text-lg font-bold">&ltbitcoin-qr/&gt;</h2>
+<div class="my-12 flex flex-col items-center">
+	<h2 class="text-4xl font-bold">&ltbitcoin-qr/&gt;</h2>
 </div>
 
 <div class="flex flex-col gap-4 lg:flex-row">
 	<div class="ml-4 flex flex-1 flex-col items-center gap-4">
 		{#if !paid && (unified || address || invoice)}
-			<bitcoin-qr
-				id="qr"
-				class="w-1/2"
-				{unified}
-				bitcoin={address}
-				lightning={invoice}
-				{parameters}
-				module-color={moduleColor}
-				position-center-color={positionCenterColor}
-				position-ring-color={positionRingColor}
-				img-src={imgSrc}
-				is-polling={isPolling}
-				{interval}
-			/>
+			<QrCode id="qr" {unified} bitcoin={address} lightning={invoice} {parameters} {image} />
 			{#if isPolling}
 				<Capsule bgColor="bg-yellow-500">Polling...</Capsule>
 				<span>{pollCount}</span>
@@ -133,25 +134,30 @@ async function callbackExample() {
 					<input id="is-polling" type="checkbox" bind:checked={isPolling} />
 				</div>
 				<div class="flex flex-col">
-					<Input bind:value={interval} label="Interval" />
+					<Input bind:value={pollInterval} label="poll-interval (milliseconds)" />
 				</div>
 			</div>
 			<Input bind:value={unified} label="Unified (BIP-21)" />
 			<Input bind:value={invoice} label="Lightning Invoice" />
 			<Input bind:value={address} label="Bitcoin Address" />
 			<Input bind:value={parameters} label="Parameters" />
+			<Input
+				bind:value={image}
+				label="Image URL"
+				placeholder="https://voltage.imgix.net/Team.png?fm=webp&w=160"
+			/>
 			<div class="flex gap-4">
 				<div>
-					<label for="moduleColor">Module Color ({moduleColor})</label>
-					<input bind:value={moduleColor} placeholder="#ff5000" type="color" />
+					<label for="cornersSquareColor">Corners Square Color ({cornersSquareColor})</label>
+					<input bind:value={cornersSquareColor} placeholder="#b23c05" type="color" />
 				</div>
 				<div>
-					<label for="positionCenterColor">Position Center Color ({positionCenterColor})</label>
-					<input bind:value={positionCenterColor} placeholder="#cc4100" type="color" />
+					<label for="cornersDotColor">Corners Dot Color ({cornersDotColor})</label>
+					<input bind:value={cornersDotColor} placeholder="#e24a04" type="color" />
 				</div>
 				<div>
-					<label for="positionRingColor">Position Ring Color ({positionRingColor})</label>
-					<input bind:value={positionRingColor} placeholder="#9f3200" type="color" />
+					<label for="dotsColor">Dots Color ({dotsColor})</label>
+					<input bind:value={dotsColor} placeholder="#ff5000" type="color" />
 				</div>
 			</div>
 		</form>
