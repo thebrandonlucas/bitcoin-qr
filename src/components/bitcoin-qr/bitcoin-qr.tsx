@@ -109,9 +109,6 @@ export class BitcoinQR {
     } catch (e) {
       throw new Error(`[bitcoin-qr]: Invalid URLSearchParams format: "${this.parameters}"`);
     }
-    if (this.debug) {
-      console.debug('[bitcoin-qr]: URI', _uri);
-    }
     return _uri.toString();
   }
 
@@ -199,7 +196,7 @@ export class BitcoinQR {
       console.debug('[bitcoin-qr]: debug mode enabled');
     }
     if (!this.pollInterval) {
-      console.warn('[bitcoin-qr]: Attribute "interval" not provided, defaulting to poll every 5 seconds');
+      console.warn('[bitcoin-qr]: Attribute "poll-interval" not provided, defaulting to poll every 5 seconds');
       this.pollInterval = 5000;
     }
     if (!this.width) {
