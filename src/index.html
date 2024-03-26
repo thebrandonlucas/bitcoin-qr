@@ -5,10 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
     <title>Bitcoin QR</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script type="module" src="https://unpkg.com/bitcoin-qr@1.1.4/dist/bitcoin-qr/bitcoin-qr.esm.js"></script>
+    <!-- <script type="module" src="https://unpkg.com/bitcoin-qr@1.1.4/dist/bitcoin-qr/bitcoin-qr.esm.js"></script> -->
+    <!-- For local dev -->
+    <script type="module" src="./build/bitcoin-qr.esm.js"></script>
     <script>
       let pollCount = 0;
       let paid = false;
+      let interval;
 
       async function callbackExample() {
         pollCount += 1;
@@ -38,6 +41,7 @@
         qr.setAttribute('is-polling', !isPolling);
         const toggle = document.getElementById('toggle');
         toggle.innerText === 'Stop' ? (toggle.innerText = 'Start') : (toggle.innerText = 'Stop');
+        clearTimeout(interval);
       }
     </script>
   </head>
@@ -59,6 +63,7 @@
         corners-square-type="extra-rounded"
         dots-type="classy-rounded"
         dots-color="#ff5000"
+        debug="true"
       />
       <!-- Bitcoin example -->
       <!-- <bitcoin-qr

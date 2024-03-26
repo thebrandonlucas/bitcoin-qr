@@ -53,6 +53,7 @@ export class BitcoinQR {
   @Prop() backgroundRound?: number;
   @Prop() backgroundColor?: string;
   // @Prop() backgroundGradient?: Gradient;
+  @Prop() debug?: boolean;
 
   @State() qr: QRCodeStyling;
 
@@ -61,6 +62,9 @@ export class BitcoinQR {
   @Watch('pollInterval')
   @Watch('callback')
   poll() {
+    if (this.debug) {
+      console.debug('[bitcoin-qr]: Polling - ', this.isPolling, this.pollInterval, this.callback);
+    }
     if (!this.callback) {
       return;
     }
@@ -80,37 +84,37 @@ export class BitcoinQR {
 
   get uri() {
     if (!(this.bitcoin || this.lightning || this.unified)) {
-      throw new Error('Must pass at least one of the following props to bitcoin-qr: bitcoin, lightning, unified');
+      throw new Error('[bitcoin-qr]: Must pass at least one of the following props to bitcoin-qr: bitcoin, lightning, unified');
     }
     // TODO: unified bip21 validation
     if (this.unified) {
       return this.unified;
     }
     // We only use lightning as protocol if there is no on-chain bitcoin.
-    // Otherise we use it as a parameter.
+    // Otherwise we use it as a parameter.
     // See https://github.com/lightning/bolts/blob/master/10-payment-encoding.md#encoding-overview
     const protocol = this.bitcoin ? 'bitcoin' : 'lightning';
     const pathname = this.bitcoin ? this.bitcoin : this.lightning;
-    let uri: URL;
+    let _uri: URL;
     try {
-      uri = new URL(`${protocol}:${pathname}`);
+      _uri = new URL(`${protocol}:${pathname}`);
     } catch (e) {
-      throw new Error(`Invalid URL format: "${protocol}:${pathname}"`);
+      throw new Error(`[bitcoin-qr]: Invalid URL format: "${protocol}:${pathname}"`);
     }
     let params: URLSearchParams;
     try {
       const isLightningOnly = this.lightning && !(this.bitcoin || this.unified);
       params = new URLSearchParams(isLightningOnly ? this.parameters : `lightning=${this.lightning}&${this.parameters}`);
-      uri.search = params.toString();
+      _uri.search = params.toString();
     } catch (e) {
-      throw new Error(`Invalid URLSearchParams format: "${this.parameters}"`);
+      throw new Error(`[bitcoin-qr]: Invalid URLSearchParams format: "${this.parameters}"`);
     }
-    return uri.toString();
+    return _uri.toString();
   }
 
   getDefinedProps() {
     if (!this.uri) {
-      throw new Error('Must pass at least one of the following props to bitcoin-qr: bitcoin, lightning, unified');
+      throw new Error('[bitcoin-qr]: Must pass at least one of the following props to bitcoin-qr: bitcoin, lightning, unified');
     }
     const optionsKeys = [
       'unified',
@@ -188,12 +192,15 @@ export class BitcoinQR {
   }
 
   componentWillLoad() {
+    if (this.debug) {
+      console.debug('[bitcoin-qr]: debug mode enabled');
+    }
     if (!this.pollInterval) {
-      console.warn('Attribute "interval" not provided, defaulting to poll every 5 seconds');
+      console.warn('[bitcoin-qr]: Attribute "poll-interval" not provided, defaulting to poll every 5 seconds');
       this.pollInterval = 5000;
     }
     if (!this.width) {
-      console.warn('Attribute "width" not provided, defaulting to 300px');
+      console.warn('[bitcoin-qr]: Attribute "width" not provided, defaulting to 300px');
       this.width = 300;
     }
     if (!this.height) {
@@ -204,16 +211,25 @@ export class BitcoinQR {
       this.type = 'svg';
     }
     this.qr = new QRCodeStyling(this.getDefinedProps());
+    if (this.debug) {
+      console.debug('[bitcoin-qr]: Component will load with props', this.getDefinedProps());
+    }
   }
 
   componentDidLoad() {
     const shadowContainer = this.bitcoinQR.shadowRoot.getElementById('bitcoin-qr-container');
     shadowContainer.childElementCount > 0 ? this.qr.update(this.getDefinedProps()) : this.qr.append(shadowContainer);
     this.poll();
+    if (this.debug) {
+      console.debug('[bitcoin-qr]: Component loaded with props', this.getDefinedProps());
+    }
   }
 
   componentWillUpdate() {
     this.qr.update(this.getDefinedProps());
+    if (this.debug) {
+      console.debug('[bitcoin-qr]: Component updated with props', this.getDefinedProps());
+    }
   }
 
   // TODO: add webln optional support with copy on click
