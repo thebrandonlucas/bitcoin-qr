@@ -19,34 +19,28 @@
 	export let dotsType = 'classy-rounded';
 	export let dotsColor = '#ff5000';
 	export let pollCallback = () => {}; // FIXME: allow undefined without breaking TS
+	export { className as class };
+	export { idName as id };
 
 	// https://stackoverflow.com/questions/75896304/add-class-to-svelte-component
 	let className = '';
 	let idName = '';
-	export { className as class };
-	export { idName as id };
+	let qr: HTMLBitcoinQrElement; // TODO: how do I defined custom types on these?
+
+	onMount(() => (qr.callback = pollCallback));
 
 	defineCustomElements();
 
-	onMount(() => {
-		const qr = document.getElementById('qr') as any;
-		console.log({ qr });
-		if (qr) {
-			qr.callback = pollCallback;
-		}
-	});
-
+	// FIXME: is this necessary?
 	onDestroy(() => {
 		if (browser) {
-			const qr = document.getElementById('qr') as any;
-			if (qr) {
-				qr.callback = undefined;
-			}
+			qr.callback = undefined;
 		}
 	});
 </script>
 
 <bitcoin-qr
+	bind:this={qr}
 	id={idName}
 	class={className}
 	{width}

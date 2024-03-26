@@ -4,7 +4,6 @@
 	import dracula from 'svelte-highlight/styles/dracula';
 	import { Highlight, HighlightAuto } from 'svelte-highlight';
 	import Capsule from '$components/Capsule.svelte';
-	import { onMount } from 'svelte';
 	import { typescript } from 'svelte-highlight/languages';
 	import Button from '$components/Button/Button.svelte';
 	import QrCode from '$components/QrCode/QrCode.svelte';
@@ -39,7 +38,6 @@ async function callbackExample() {
 	let type = 'svg';
 	let isPolling = false;
 	let pollInterval = 1000;
-
 	let pollCount = 0;
 	let paid = false;
 
@@ -73,29 +71,20 @@ async function callbackExample() {
 />`
 			: '';
 
-	const pollFunction = async function callbackExample() {
-		const qr = document.getElementById('qr') as any;
+	async function callbackExample() {
 		pollCount += 1;
 		if (pollCount >= 5) {
 			isPolling = false;
-			if (qr) {
-				paid = true;
-			}
-
+			paid = true;
 			return;
 		}
-	};
+	}
 
 	function reset() {
 		paid = false;
 		pollCount = 0;
 		isPolling = false;
 	}
-
-	onMount(() => {
-		const qr = document.getElementById('qr') as any;
-		qr.callback = pollFunction; // must set the callback function as a property of the element, NOT as an attribute
-	});
 </script>
 
 <svelte:head>
@@ -107,9 +96,36 @@ async function callbackExample() {
 </div>
 
 <div class="flex flex-col gap-4 lg:flex-row">
+	<div class="flex flex-1 flex-col gap-4">
+		<div class="max-w-[800px]">
+			<HighlightAuto code={component} />
+		</div>
+		<div class="max-w-[800px]">
+			<span class="text-lg"
+				>Sample Callback Function (Replace this with your function to check for payments)</span
+			>
+			<Highlight code={pollFunctionJs} language={typescript} />
+		</div>
+	</div>
 	<div class="ml-4 flex flex-1 flex-col items-center gap-4">
 		{#if !paid && (unified || address || invoice)}
-			<QrCode id="qr" {unified} bitcoin={address} lightning={invoice} {parameters} {image} />
+			<QrCode
+				id="qr"
+				{unified}
+				bitcoin={address}
+				lightning={invoice}
+				{parameters}
+				{width}
+				{height}
+				{image}
+				{type}
+				{cornersDotColor}
+				{cornersSquareColor}
+				{cornersSquareType}
+				{dotsColor}
+				{dotsType}
+				pollCallback={callbackExample}
+			/>
 			{#if isPolling}
 				<Capsule bgColor="bg-yellow-500">Polling...</Capsule>
 				<span>{pollCount}</span>
@@ -161,16 +177,5 @@ async function callbackExample() {
 				</div>
 			</div>
 		</form>
-	</div>
-	<div class="flex flex-1 flex-col gap-4">
-		<div class="max-w-[800px]">
-			<HighlightAuto code={component} />
-		</div>
-		<div class="max-w-[800px]">
-			<span class="text-lg"
-				>Sample Callback Function (Replace this with your function to check for payments)</span
-			>
-			<Highlight code={pollFunctionJs} language={typescript} />
-		</div>
 	</div>
 </div>
