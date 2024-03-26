@@ -80,14 +80,14 @@ export class BitcoinQR {
 
   get uri() {
     if (!(this.bitcoin || this.lightning || this.unified)) {
-      throw new Error('Must pass at least one of the following props to bitcoin-qr: bitcoin, lightning, unified');
+      throw new Error('[bitcoin-qr]: Must pass at least one of the following props to bitcoin-qr: bitcoin, lightning, unified');
     }
     // TODO: unified bip21 validation
     if (this.unified) {
       return this.unified;
     }
     // We only use lightning as protocol if there is no on-chain bitcoin.
-    // Otherise we use it as a parameter.
+    // Otherwise we use it as a parameter.
     // See https://github.com/lightning/bolts/blob/master/10-payment-encoding.md#encoding-overview
     const protocol = this.bitcoin ? 'bitcoin' : 'lightning';
     const pathname = this.bitcoin ? this.bitcoin : this.lightning;
@@ -95,7 +95,7 @@ export class BitcoinQR {
     try {
       uri = new URL(`${protocol}:${pathname}`);
     } catch (e) {
-      throw new Error(`Invalid URL format: "${protocol}:${pathname}"`);
+      throw new Error(`[bitcoin-qr]: Invalid URL format: "${protocol}:${pathname}"`);
     }
     let params: URLSearchParams;
     try {
@@ -103,14 +103,14 @@ export class BitcoinQR {
       params = new URLSearchParams(isLightningOnly ? this.parameters : `lightning=${this.lightning}&${this.parameters}`);
       uri.search = params.toString();
     } catch (e) {
-      throw new Error(`Invalid URLSearchParams format: "${this.parameters}"`);
+      throw new Error(`[bitcoin-qr]: Invalid URLSearchParams format: "${this.parameters}"`);
     }
     return uri.toString();
   }
 
   getDefinedProps() {
     if (!this.uri) {
-      throw new Error('Must pass at least one of the following props to bitcoin-qr: bitcoin, lightning, unified');
+      throw new Error('[bitcoin-qr]: Must pass at least one of the following props to bitcoin-qr: bitcoin, lightning, unified');
     }
     const optionsKeys = [
       'unified',
@@ -189,11 +189,11 @@ export class BitcoinQR {
 
   componentWillLoad() {
     if (!this.pollInterval) {
-      console.warn('Attribute "interval" not provided, defaulting to poll every 5 seconds');
+      console.warn('[bitcoin-qr]: Attribute "interval" not provided, defaulting to poll every 5 seconds');
       this.pollInterval = 5000;
     }
     if (!this.width) {
-      console.warn('Attribute "width" not provided, defaulting to 300px');
+      console.warn('[bitcoin-qr]: Attribute "width" not provided, defaulting to 300px');
       this.width = 300;
     }
     if (!this.height) {
