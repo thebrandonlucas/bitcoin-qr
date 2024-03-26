@@ -53,6 +53,7 @@ export class BitcoinQR {
   @Prop() backgroundRound?: number;
   @Prop() backgroundColor?: string;
   // @Prop() backgroundGradient?: Gradient;
+  @Prop() debug?: boolean;
 
   @State() qr: QRCodeStyling;
 
@@ -61,6 +62,9 @@ export class BitcoinQR {
   @Watch('pollInterval')
   @Watch('callback')
   poll() {
+    if (this.debug) {
+      console.log('[bitcoin-qr][DEBUG]: Polling - ', this.isPolling, this.pollInterval, this.callback);
+    }
     if (!this.callback) {
       return;
     }
@@ -91,9 +95,9 @@ export class BitcoinQR {
     // See https://github.com/lightning/bolts/blob/master/10-payment-encoding.md#encoding-overview
     const protocol = this.bitcoin ? 'bitcoin' : 'lightning';
     const pathname = this.bitcoin ? this.bitcoin : this.lightning;
-    let uri: URL;
+    let _uri: URL;
     try {
-      uri = new URL(`${protocol}:${pathname}`);
+      _uri = new URL(`${protocol}:${pathname}`);
     } catch (e) {
       throw new Error(`[bitcoin-qr]: Invalid URL format: "${protocol}:${pathname}"`);
     }
@@ -101,11 +105,14 @@ export class BitcoinQR {
     try {
       const isLightningOnly = this.lightning && !(this.bitcoin || this.unified);
       params = new URLSearchParams(isLightningOnly ? this.parameters : `lightning=${this.lightning}&${this.parameters}`);
-      uri.search = params.toString();
+      _uri.search = params.toString();
     } catch (e) {
       throw new Error(`[bitcoin-qr]: Invalid URLSearchParams format: "${this.parameters}"`);
     }
-    return uri.toString();
+    if (this.debug) {
+      console.log('[bitcoin-qr][DEBUG]: URI', _uri);
+    }
+    return _uri.toString();
   }
 
   getDefinedProps() {
@@ -204,16 +211,25 @@ export class BitcoinQR {
       this.type = 'svg';
     }
     this.qr = new QRCodeStyling(this.getDefinedProps());
+    if (this.debug) {
+      console.log('[bitcoin-qr][DEBUG]: Component will load with props', this.getDefinedProps());
+    }
   }
 
   componentDidLoad() {
     const shadowContainer = this.bitcoinQR.shadowRoot.getElementById('bitcoin-qr-container');
     shadowContainer.childElementCount > 0 ? this.qr.update(this.getDefinedProps()) : this.qr.append(shadowContainer);
     this.poll();
+    if (this.debug) {
+      console.log('[bitcoin-qr][DEBUG]: Component loaded with props', this.getDefinedProps());
+    }
   }
 
   componentWillUpdate() {
     this.qr.update(this.getDefinedProps());
+    if (this.debug) {
+      console.log('[bitcoin-qr][DEBUG]: Component updated with props', this.getDefinedProps());
+    }
   }
 
   // TODO: add webln optional support with copy on click
