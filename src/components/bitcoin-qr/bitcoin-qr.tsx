@@ -63,7 +63,7 @@ export class BitcoinQR {
   @Watch('callback')
   poll() {
     if (this.debug) {
-      console.log('[bitcoin-qr][DEBUG]: Polling - ', this.isPolling, this.pollInterval, this.callback);
+      console.debug('[bitcoin-qr]: Polling - ', this.isPolling, this.pollInterval, this.callback);
     }
     if (!this.callback) {
       return;
@@ -110,7 +110,7 @@ export class BitcoinQR {
       throw new Error(`[bitcoin-qr]: Invalid URLSearchParams format: "${this.parameters}"`);
     }
     if (this.debug) {
-      console.log('[bitcoin-qr][DEBUG]: URI', _uri);
+      console.debug('[bitcoin-qr]: URI', _uri);
     }
     return _uri.toString();
   }
@@ -195,6 +195,9 @@ export class BitcoinQR {
   }
 
   componentWillLoad() {
+    if (this.debug) {
+      console.debug('[bitcoin-qr]: debug mode enabled');
+    }
     if (!this.pollInterval) {
       console.warn('[bitcoin-qr]: Attribute "interval" not provided, defaulting to poll every 5 seconds');
       this.pollInterval = 5000;
@@ -212,7 +215,7 @@ export class BitcoinQR {
     }
     this.qr = new QRCodeStyling(this.getDefinedProps());
     if (this.debug) {
-      console.log('[bitcoin-qr][DEBUG]: Component will load with props', this.getDefinedProps());
+      console.debug('[bitcoin-qr]: Component will load with props', this.getDefinedProps());
     }
   }
 
@@ -221,14 +224,14 @@ export class BitcoinQR {
     shadowContainer.childElementCount > 0 ? this.qr.update(this.getDefinedProps()) : this.qr.append(shadowContainer);
     this.poll();
     if (this.debug) {
-      console.log('[bitcoin-qr][DEBUG]: Component loaded with props', this.getDefinedProps());
+      console.debug('[bitcoin-qr]: Component loaded with props', this.getDefinedProps());
     }
   }
 
   componentWillUpdate() {
     this.qr.update(this.getDefinedProps());
     if (this.debug) {
-      console.log('[bitcoin-qr][DEBUG]: Component updated with props', this.getDefinedProps());
+      console.debug('[bitcoin-qr]: Component updated with props', this.getDefinedProps());
     }
   }
 
