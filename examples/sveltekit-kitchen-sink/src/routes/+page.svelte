@@ -35,6 +35,7 @@ async function callbackExample() {
 	let cornersSquareType = 'extra-rounded';
 	let dotsType = 'classy-rounded';
 	let dotsColor = '#ff5000';
+	let debug = true;
 	let type = 'svg';
 	let isPolling = false;
 	let pollInterval = 1000;
@@ -51,7 +52,8 @@ async function callbackExample() {
 		cornersDotColor ||
 		cornersSquareType ||
 		dotsType ||
-		dotsColor
+		dotsColor ||
+		debug
 			? `
 <bitcoin-qr
 	id="qr"
@@ -68,6 +70,7 @@ async function callbackExample() {
 	corners-square-type="${cornersSquareType}"
 	dots-type="${dotsType}"
 	dots-color="${dotsColor}"
+	debug="${debug}"
 />`
 			: '';
 
@@ -124,6 +127,8 @@ async function callbackExample() {
 				{cornersSquareType}
 				{dotsColor}
 				{dotsType}
+				{debug}
+				{isPolling}
 				pollCallback={callbackExample}
 			/>
 			{#if isPolling}

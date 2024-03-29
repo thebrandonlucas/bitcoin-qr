@@ -18,6 +18,7 @@
 	export let cornersSquareType = 'extra-rounded';
 	export let dotsType = 'classy-rounded';
 	export let dotsColor = '#ff5000';
+	export let debug = false;
 	export let pollCallback = () => {}; // FIXME: allow undefined without breaking TS
 	export { className as class };
 	export { idName as id };
@@ -37,6 +38,7 @@
 			qr.callback = undefined;
 		}
 	});
+
 </script>
 
 <bitcoin-qr
@@ -58,4 +60,5 @@
 	corners-square-type={cornersSquareType}
 	dots-type={dotsType}
 	dots-color={dotsColor}
+	{debug}
 />
