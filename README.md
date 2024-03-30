@@ -58,7 +58,7 @@ See the [Roadmap](#roadmap)
 #### CDN
 
 ```html
-<script type="module" src="https://unpkg.com/bitcoin-qr@1.1.4/dist/bitcoin-qr/bitcoin-qr.esm.js"></script>
+<script type="module" src="https://unpkg.com/bitcoin-qr@1.2.1/dist/bitcoin-qr/bitcoin-qr.esm.js"></script>
 ```
 
 #### NPM
@@ -143,6 +143,7 @@ Sveltekit:
 | `parameters`    | `string`  | **Optional**. A query string. Must be parseable by [URLSearchParams](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams)                                                 |         | ?amount=0.00001&label=sbddesign%3A%20For%20lunch%20Tuesday&message=For%20lunch%20Tuesday                                                                                                                                                                                                                                                                                                                                                                            |
 | `is-polling`    | `boolean` | **Optional**. A boolean value indicating whether the component should continue polling                                                                                                 | `false` |                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | `poll-interval` | `number`  | **Optional**. The frequency at which to poll in milliseconds                                                                                                                           | `5000`  |                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `debug`         | `boolean` | **Optional**. Enable debug mode                                                                                                                                                        | `false` |
 
 At least one of `unified`, `bitcoin`, or `lightning` must be defined in order for the QR Code to render. All Bitcoin addresses and Lightning invoices will be prepended with `bitcoin:` and `lightning:` URIs, respectively. If both `bitcoin` and `lightning` are defined, a unified string of the format `bitcoin:<ADDRESS>?lightning=<INVOICE>` will be passed to the QR Code. If `unified` is defined, `bitcoin` and `lightning` are ignored. Whatever is passed to `parameters` will be appended to the unified string, whether it was provided via the `unified` attribute or created from the `bitcoin` & `lightning` params.
 
