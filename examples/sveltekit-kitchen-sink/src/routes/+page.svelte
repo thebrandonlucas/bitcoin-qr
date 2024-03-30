@@ -71,6 +71,7 @@ async function callbackExample() {
 	dots-type="${dotsType}"
 	dots-color="${dotsColor}"
 	debug="${debug}"
+	poll-callback={callbackExample}
 />`
 			: '';
 
@@ -96,6 +97,8 @@ async function callbackExample() {
 
 <div class="my-12 flex flex-col items-center">
 	<h2 class="text-4xl font-bold">&ltbitcoin-qr/&gt;</h2>
+	<a href="https://github.com/thebrandonlucas/bitcoin-qr" target="_blank">Github</a>
+	<a href="https://www.npmjs.com/package/bitcoin-qr" target="_blank">npm</a>
 </div>
 
 <div class="flex flex-col gap-4 lg:flex-row">
@@ -134,7 +137,6 @@ async function callbackExample() {
 			{#if isPolling}
 				<Capsule bgColor="bg-yellow-500">Polling...</Capsule>
 				<span>{pollCount}</span>
-				<Button on:click={reset}>Reset</Button>
 			{:else}
 				<div class="flex gap-4">
 					<Button on:click={() => (isPolling = true)}>Start Polling for Payment</Button>
@@ -148,16 +150,15 @@ async function callbackExample() {
 				Invoice
 			</strong>
 		{/if}
-		<form class="flex flex-col gap-2">
-			<div class="mt-8 flex flex-col gap-4">
-				<div class="flex flex-col items-start gap-2">
-					<label for="is-polling">Is Polling</label>
-					<input id="is-polling" type="checkbox" bind:checked={isPolling} />
-				</div>
-				<div class="flex flex-col">
-					<Input bind:value={pollInterval} label="poll-interval (milliseconds)" />
-				</div>
-			</div>
+		{#if paid || isPolling}
+			<Button on:click={reset}>Reset</Button>
+		{/if}
+		<span
+			>For remaining options, see <a class="" href="https://qr-code-styling.com/" target="_blank"
+				>qr-code-styling</a
+			></span
+		>
+		<form class="mr-4 flex max-h-[500px] flex-col gap-2 overflow-y-scroll rounded bg-gray-300 p-4">
 			<Input bind:value={unified} label="Unified (BIP-21)" />
 			<Input bind:value={invoice} label="Lightning Invoice" />
 			<Input bind:value={address} label="Bitcoin Address" />
@@ -181,6 +182,42 @@ async function callbackExample() {
 					<input bind:value={dotsColor} placeholder="#ff5000" type="color" />
 				</div>
 			</div>
+			<span>Corners Square Type</span>
+			<select name="Corners Square Type" bind:value={cornersSquareType}>
+				<option value="square">Square</option>
+				<option value="extra-rounded">Extra Rounded</option>
+				<option value="Dot">Dot</option>
+			</select>
+			<span>Dots Type</span>
+			<select name="Dots Type" bind:value={dotsType}>
+				<option value="square">Square</option>
+				<option value="dots">Dots</option>
+				<option value="rounded">Rounded</option>
+				<option value="classy">Classy</option>
+				<option value="classy-rounded">Classy Rounded</option>
+				<option value="extra-rounded">Extra Rounded</option>
+			</select>
+			<div class="flex flex-col gap-4">
+				<div class="flex flex-col items-start gap-2">
+					<label for="is-polling">Is Polling</label>
+					<input id="is-polling" type="checkbox" bind:checked={isPolling} />
+				</div>
+				<div class="flex flex-col">
+					<Input bind:value={pollInterval} label="Poll Interval (milliseconds)" />
+				</div>
+			</div>
+			<div class="flex flex-col gap-4">
+				<div class="flex flex-col items-start gap-2">
+					<label for="debug">Debug Mode</label>
+					<input id="debug" type="checkbox" bind:checked={debug} />
+				</div>
+			</div>
 		</form>
 	</div>
 </div>
+
+<style>
+	a {
+		@apply text-blue-500 underline;
+	}
+</style>
