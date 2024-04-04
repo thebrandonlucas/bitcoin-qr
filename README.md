@@ -28,7 +28,7 @@ PRs and suggestions welcome!
   - [API Reference](#api-reference)
     - [Base attributes:](#base-attributes)
     - [Callback](#callback)
-    - [Styles](#styles)
+    - [Styles and Other Options](#styles-and-other-options)
   - [Roadmap](#roadmap)
   - [Run Locally](#run-locally)
     - [Stencil.js](#stenciljs)
@@ -164,7 +164,7 @@ NOTE: There is currently no validation for the `unified`, `bitcoin`, `lightning`
 </script>
 ```
 
-#### Styles
+#### Styles and Other Options
 
 This component is built on top of [qr-code-styling](https://github.com/kozakdenys/qr-code-styling), refer to their documentation for more details on their [API](https://github.com/kozakdenys/qr-code-styling?tab=readme-ov-file#api-documentation), `<bitcoin-qr />` surfaces the majority of itand surfaces the majority of it:
 | Attribute | Type | Description |
