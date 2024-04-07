@@ -199,9 +199,13 @@ Currently, only `Gradient` styling options are not included.
 - [ ] Add Storybook demo server
 - [ ] Address, invoice, BIP-21, and parameter validation
 - [ ] Add tests
-- [ ] Click to copy
+- [ ] Copy button
 - [ ] WebLN support
 - [ ] Add remaining [qr-code-styling](https://github.com/kozakdenys/qr-code-styling) properties (gradients)
+- [ ] Add aria labels for accessibility
+- [ ] Add [share](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share) button
+- [ ] Default to alphanumeric encoding and URL encode for efficiency
+- [ ] Allow image rounding
 
 ## Run Locally
 
