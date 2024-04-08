@@ -18,4 +18,7 @@ export const config: Config = {
     browserHeadless: 'new',
   },
   sourceMap: false,
+  extras: {
+    enableImportInjection: true,
+  },
 };
