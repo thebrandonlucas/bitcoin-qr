@@ -25,7 +25,8 @@
     "test.watch": "stencil test --sp,ec --e2e --watchAll",
     "generate": "stencil generate",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "dev:example": "cd examples/sveltekit-kitchen-sink && yarn dev"
   },
   "devDependencies": {
     "@stencil/core": "^4.7.0",
