@@ -30,6 +30,7 @@ export namespace Components {
         "margin"?: number;
         "parameters"?: string;
         "pollInterval"?: number;
+        "preferLightning"?: boolean;
         "qrErrorCorrectionLevel"?: 'L' | 'M' | 'Q' | 'H';
         "qrMode"?: 'Numeric' | 'Alphanumeric' | 'Byte' | 'Kanji';
         "qrTypeNumber"?: number;
@@ -75,6 +76,7 @@ declare namespace LocalJSX {
         "margin"?: number;
         "parameters"?: string;
         "pollInterval"?: number;
+        "preferLightning"?: boolean;
         "qrErrorCorrectionLevel"?: 'L' | 'M' | 'Q' | 'H';
         "qrMode"?: 'Numeric' | 'Alphanumeric' | 'Byte' | 'Kanji';
         "qrTypeNumber"?: number;
