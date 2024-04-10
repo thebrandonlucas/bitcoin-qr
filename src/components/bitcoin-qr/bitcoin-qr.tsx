@@ -14,9 +14,8 @@ export class BitcoinQR {
   @Prop() bitcoin?: string;
   @Prop() lightning?: string;
   @Prop() parameters?: string;
+  @Prop() preferLightning?: boolean;
   @Prop() callback?: () => void;
-  // TODO: add onclicks
-  // @Event() onClick?: () => void;
   @Prop() isPolling?: boolean;
   @Prop({ mutable: true }) pollInterval?: number;
 
@@ -86,6 +85,9 @@ export class BitcoinQR {
     if (!(this.bitcoin || this.lightning || this.unified)) {
       throw new Error('[bitcoin-qr]: Must pass at least one of the following props to bitcoin-qr: bitcoin, lightning, unified');
     }
+    if (this.preferLightning && !this.lightning) {
+      throw new Error('[bitcoin-qr]: "prefer-lightning" attribute is set to true but no lightning prop was provided');
+    }
     // TODO: unified bip21 validation
     if (this.unified) {
       return this.unified;
@@ -93,8 +95,9 @@ export class BitcoinQR {
     // We only use lightning as protocol if there is no on-chain bitcoin.
     // Otherwise we use it as a parameter.
     // See https://github.com/lightning/bolts/blob/master/10-payment-encoding.md#encoding-overview
-    const protocol = this.bitcoin ? 'bitcoin' : 'lightning';
-    const pathname = this.bitcoin ? this.bitcoin : this.lightning;
+    const useBitcoin = this.bitcoin && !this.preferLightning;
+    const protocol = useBitcoin ? 'bitcoin' : 'lightning';
+    const pathname = useBitcoin ? this.bitcoin : this.lightning;
     let _uri: URL;
     try {
       _uri = new URL(`${protocol}:${pathname}`);
@@ -104,7 +107,14 @@ export class BitcoinQR {
     let params: URLSearchParams;
     try {
       const isLightningOnly = this.lightning && !(this.bitcoin || this.unified);
-      params = new URLSearchParams(isLightningOnly ? this.parameters : `lightning=${this.lightning}&${this.parameters}`);
+      if (isLightningOnly || !this.lightning) {
+        params = new URLSearchParams(this.parameters);
+      } else if (!useBitcoin) {
+        // lightning and bitcoin, but use bitcoin as param and not protocol
+        params = new URLSearchParams(`bitcoin=${this.bitcoin}&${this.parameters}`);
+      } else {
+        params = new URLSearchParams(`lightning=${this.lightning}&${this.parameters}`);
+      }
       _uri.search = params.toString();
     } catch (e) {
       throw new Error(`[bitcoin-qr]: Invalid URLSearchParams format: "${this.parameters}"`);
@@ -120,6 +130,7 @@ export class BitcoinQR {
       'unified',
       'bitcoin',
       'lightning',
+      'preferLightning',
       'parameters',
       'isPolling',
       'pollInterval',
