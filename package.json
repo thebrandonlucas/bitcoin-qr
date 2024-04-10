@@ -45,6 +45,12 @@
     "qr-code-styling": "^1.6.0-rc.1",
     "storybook": "^8.0.0"
   },
+  "exports": {
+    "./loader": {
+      "import": "./loader/index.cjs.js",
+      "types": "./loader/index.d.ts"
+    }
+  },
   "license": "MIT",
   "packageManager": "yarn@4.1.1"
 }
