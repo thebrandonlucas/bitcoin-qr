@@ -247,6 +247,6 @@ export class BitcoinQR {
   // i.e. copyOnClick: true
   // weblnOnClick: true
   render() {
-    return <div id="bitcoin-qr-container"></div>;
+    return <a id="bitcoin-qr-container" href={this.uri}></a>;
   }
 }
