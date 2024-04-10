@@ -22,6 +22,7 @@ export namespace Components {
         "height"?: number;
         "image"?: string;
         "imageCrossOrigin"?: string;
+        "imageEmbedded"?: boolean;
         "imageHideBackgroundDots"?: boolean;
         "imageMargin"?: number;
         "imageSize"?: number;
@@ -68,6 +69,7 @@ declare namespace LocalJSX {
         "height"?: number;
         "image"?: string;
         "imageCrossOrigin"?: string;
+        "imageEmbedded"?: boolean;
         "imageHideBackgroundDots"?: boolean;
         "imageMargin"?: number;
         "imageSize"?: number;

@@ -18,6 +18,8 @@ export class BitcoinQR {
   @Prop() callback?: () => void;
   @Prop() isPolling?: boolean;
   @Prop({ mutable: true }) pollInterval?: number;
+  @Prop() imageEmbedded?: boolean; // Whether to embed or overlay the image, may require Error Correction Level experimentation
+  @Prop() debug?: boolean;
 
   // QR code styling options
   @Prop() width?: number;
@@ -52,7 +54,6 @@ export class BitcoinQR {
   @Prop() backgroundRound?: number;
   @Prop() backgroundColor?: string;
   // @Prop() backgroundGradient?: Gradient;
-  @Prop() debug?: boolean;
 
   @State() qr: QRCodeStyling;
 
@@ -143,6 +144,7 @@ export class BitcoinQR {
       'qrTypeNumber',
       'qrMode',
       'qrErrorCorrectionLevel',
+      'imageEmbedded',
       'imageHideBackgroundDots',
       'imageSize',
       'imageCrossOrigin',
@@ -176,13 +178,13 @@ export class BitcoinQR {
         // Image is a special case because it has a top-level key just called "image"
 
         const prefix = nestedOptionKeyPrefixes.find(prefix => key.startsWith(prefix));
-        if (key !== 'image' && prefix) {
+        if (key !== 'image' && key !== 'imageEmbedded' && prefix) {
           const optionKey = `${prefix}Options`;
           if (optionKey) {
             if (!options[optionKey]) {
               options[optionKey] = {};
             }
-            // imageSize, is the one exception where the option has the key in both the top-level and nested object
+            // imageSize is the one exception where the option has the key in both the top-level and nested object
             if (key === 'imageSize') {
               options[optionKey][key] = this[key];
               return;
@@ -193,6 +195,7 @@ export class BitcoinQR {
             nestedOption[nestedKey] = this[key];
           }
         }
+
         options[key] = this[key];
       }
     });
@@ -200,6 +203,22 @@ export class BitcoinQR {
       data: this.uri,
       ...options,
     };
+  }
+
+  getImageOverlay() {
+    const shadowContainer = this.bitcoinQR.shadowRoot.getElementById('bitcoin-qr-container');
+    // If image is not embedded, append an <img> element overlaying it and centered
+    if (!this.imageEmbedded) {
+      const img = document.createElement('img');
+      img.width = this.imageSize ?? 50;
+      img.height = this.imageSize ?? 50;
+      img.src = this.image;
+      img.style.position = 'absolute';
+      img.style.top = '50%';
+      img.style.left = '50%';
+      img.style.transform = 'translate(-50%, -50%)';
+      shadowContainer.appendChild(img);
+    }
   }
 
   componentWillLoad() {
@@ -221,7 +240,8 @@ export class BitcoinQR {
     if (!this.type) {
       this.type = 'svg';
     }
-    this.qr = new QRCodeStyling(this.getDefinedProps());
+    // If image is not embedded, don't pass to qr-code-styling
+    this.qr = new QRCodeStyling({ ...this.getDefinedProps(), image: this.imageEmbedded ? this.image : undefined });
     if (this.debug) {
       console.debug('[bitcoin-qr]: Component will load with props', this.getDefinedProps());
     }
@@ -230,23 +250,36 @@ export class BitcoinQR {
   componentDidLoad() {
     const shadowContainer = this.bitcoinQR.shadowRoot.getElementById('bitcoin-qr-container');
     shadowContainer.childElementCount > 0 ? this.qr.update(this.getDefinedProps()) : this.qr.append(shadowContainer);
+    shadowContainer.style.position = 'relative'; // For image overlay
+    this.getImageOverlay();
     this.poll();
     if (this.debug) {
       console.debug('[bitcoin-qr]: Component loaded with props', this.getDefinedProps());
     }
   }
 
-  componentWillUpdate() {
-    this.qr.update(this.getDefinedProps());
-    if (this.debug) {
-      console.debug('[bitcoin-qr]: Component updated with props', this.getDefinedProps());
+  componentShouldUpdate(_new: unknown, _old: unknown, propName: string) {
+    // If prop is not in qr-code-styling, trigger a rerender
+    const nonQRCodeStylingProps = ['unified', 'bitcoin', 'lightning', 'parameters', 'isPolling', 'pollInterval', 'callback', 'preferLightning', 'debug', 'imageEmbedded'];
+    if (nonQRCodeStylingProps.includes(propName)) {
+      return false;
+    } else {
+      this.qr.update({ ...this.getDefinedProps(), image: this.imageEmbedded ? this.image : undefined });
+      this.getImageOverlay();
+      if (this.debug) {
+        console.debug('[bitcoin-qr]: Component updated with props', this.getDefinedProps());
+      }
+      return true;
     }
   }
 
-  // TODO: add webln optional support with copy on click
-  // i.e. copyOnClick: true
-  // weblnOnClick: true
+  // TODO:
+  // i.e. optional copy on click instead of link/uri action
   render() {
-    return <a id="bitcoin-qr-container" href={this.uri}></a>;
+    return (
+      <a href={this.uri}>
+        <div id="bitcoin-qr-container"></div>
+      </a>
+    );
   }
 }
