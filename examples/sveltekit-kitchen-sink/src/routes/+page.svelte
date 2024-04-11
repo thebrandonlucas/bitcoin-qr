@@ -7,6 +7,8 @@
 	import { typescript } from 'svelte-highlight/languages';
 	import Button from '$components/Button/Button.svelte';
 	import QrCode from '$components/QrCode/QrCode.svelte';
+	import { Alert } from 'flowbite-svelte';
+
 
 	defineCustomElements();
 
@@ -94,6 +96,7 @@ async function callbackExample() {
 <svelte:head>
 	{@html dracula}
 </svelte:head>
+
 
 <div class="my-12 flex flex-col items-center">
 	<h2 class="text-4xl font-bold">&ltbitcoin-qr/&gt;</h2>
