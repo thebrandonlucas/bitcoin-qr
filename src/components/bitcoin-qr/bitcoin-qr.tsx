@@ -259,9 +259,9 @@ export class BitcoinQR {
   }
 
   componentShouldUpdate(_new: unknown, _old: unknown, propName: string) {
-    // If prop is not in qr-code-styling, trigger a rerender
-    const nonQRCodeStylingProps = ['unified', 'bitcoin', 'lightning', 'parameters', 'isPolling', 'pollInterval', 'callback', 'preferLightning', 'debug', 'imageEmbedded'];
-    if (nonQRCodeStylingProps.includes(propName)) {
+    // Define which props should not trigger an rerender
+    const nonRerenderProps = ['isPolling', 'pollInterval', 'callback', 'debug'];
+    if (nonRerenderProps.includes(propName)) {
       return false;
     } else {
       this.qr.update({ ...this.getDefinedProps(), image: this.imageEmbedded ? this.image : undefined });
