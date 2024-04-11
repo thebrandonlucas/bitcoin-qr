@@ -19,6 +19,8 @@
 	export let dotsType = 'classy-rounded';
 	export let dotsColor = '#ff5000';
 	export let debug = false;
+	export let preferLightning = false;
+	export let imageEmbedded = false;
 	export let pollCallback = () => {}; // FIXME: allow undefined without breaking TS
 	export { className as class };
 	export { idName as id };
@@ -61,4 +63,6 @@
 	dots-type={dotsType}
 	dots-color={dotsColor}
 	{debug}
+	prefer-lightning={preferLightning}
+	image-embedded={imageEmbedded}
 />
