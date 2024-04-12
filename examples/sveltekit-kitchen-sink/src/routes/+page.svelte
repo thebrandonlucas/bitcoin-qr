@@ -1,16 +1,12 @@
 <script lang="ts">
 	import Input from '$components/Input/Input.svelte';
-	import { defineCustomElements } from 'bitcoin-qr/loader';
 	import dracula from 'svelte-highlight/styles/dracula';
 	import { Highlight, HighlightAuto } from 'svelte-highlight';
 	import Capsule from '$components/Capsule.svelte';
 	import { typescript } from 'svelte-highlight/languages';
 	import Button from '$components/Button/Button.svelte';
 	import QrCode from '$components/QrCode/QrCode.svelte';
-	import { Alert } from 'flowbite-svelte';
 
-
-	defineCustomElements();
 
 	const pollFunctionJs = `
 // After the QR code is scanned, the callback function will be called every {interval} milliseconds
@@ -29,7 +25,7 @@ async function callbackExample() {
 	let invoice =
 		'LNBC10U1P3PJ257PP5YZTKWJCZ5FTL5LAXKAV23ZMZEKAW37ZK6KMV80PK4XAEV5QHTZ7QDPDWD3XGER9WD5KWM36YPRX7U3QD36KUCMGYP282ETNV3SHJCQZPGXQYZ5VQSP5USYC4LK9CHSFP53KVCNVQ456GANH60D89REYKDNGSMTJ6YW3NHVQ9QYYSSQJCEWM5CJWZ4A6RFJX77C490YCED6PEMK0UPKXHY89CMM7SCT66K8GNEANWYKZGDRWRFJE69H9U5U0W57RRCSYSAS7GADWMZXC8C6T0SPJAZUP6';
 	let parameters = '?amount=0.00001&label=payjoin.org&message=Donation%20to%20payjoin.org';
-	let image = 'https://voltage.imgix.net/Team.png?fm=webp&w=160';
+	let image = './assets/voltage.png';
 	let width = 300;
 	let height = 300;
 	let cornersSquareColor = '#b23c05';
@@ -59,9 +55,11 @@ async function callbackExample() {
 			? `
 <bitcoin-qr
 	id="qr"
+	unified="${unified}"
 	width="${width}"
 	height="${height}"
 	bitcoin="${address}"
+	lightning="${invoice}"
 	parameters="${parameters}"
 	image="${image}"
 	is-polling="${isPolling}"
