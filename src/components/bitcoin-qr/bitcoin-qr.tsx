@@ -87,28 +87,28 @@ export class BitcoinQR {
     }
     // TODO: unified bip21 validation
     if (this.unified) {
-      return this.unified;
+      return encodeURIComponent(this.unified);
     }
     // We only use lightning as protocol if there is no on-chain bitcoin.
     // Otherwise we use it as a parameter.
     // See https://github.com/lightning/bolts/blob/master/10-payment-encoding.md#encoding-overview
     const protocol = this.bitcoin ? 'bitcoin' : 'lightning';
     const pathname = this.bitcoin ? this.bitcoin : this.lightning;
-    let _uri: URL;
+    let _uri: string;
     try {
-      _uri = new URL(`${protocol}:${pathname}`);
+      _uri = `${protocol}:${pathname}`;
     } catch (e) {
       throw new Error(`[bitcoin-qr]: Invalid URL format: "${protocol}:${pathname}"`);
     }
-    let params: URLSearchParams;
     try {
       const isLightningOnly = this.lightning && !(this.bitcoin || this.unified);
-      params = new URLSearchParams(isLightningOnly ? this.parameters : `lightning=${this.lightning}&${this.parameters}`);
-      _uri.search = params.toString();
+      const params = isLightningOnly ? this.parameters : `lightning=${this.lightning}&${this.parameters}`;
+      _uri = `${_uri}?${params}`;
     } catch (e) {
       throw new Error(`[bitcoin-qr]: Invalid URLSearchParams format: "${this.parameters}"`);
     }
-    return _uri.toString();
+    // TODO: should there be an option to not encode the uri?
+    return encodeURIComponent(_uri);
   }
 
   getDefinedProps() {
@@ -241,7 +241,7 @@ export class BitcoinQR {
     this.getImageOverlay();
     this.poll();
     if (this.debug) {
-      console.debug('[bitcoin-qr]: Component lerded with props', this.getDefinedProps());
+      console.debug('[bitcoin-qr]: Component aljsdfsk with props', this.getDefinedProps());
     }
   }
 
