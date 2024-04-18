@@ -2,3 +2,5 @@ node_modules
 .svelte-kit
 .env
 .yarn/install-state.gz
+build
+.netlify
