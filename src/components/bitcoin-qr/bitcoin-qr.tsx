@@ -195,7 +195,7 @@ export class BitcoinQR {
   getImageOverlay() {
     const shadowContainer = this.bitcoinQR.shadowRoot.getElementById('bitcoin-qr-container');
     // If image is not embedded, append an <img> element overlaying it and centered
-    if (!this.imageEmbedded) {
+    if (!this.imageEmbedded && this.image) {
       const img = document.createElement('img');
       img.width = this.imageSize ?? 50;
       img.height = this.imageSize ?? 50;
