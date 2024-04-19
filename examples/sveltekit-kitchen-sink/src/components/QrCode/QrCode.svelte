@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onDestroy, onMount } from 'svelte';
-	import { defineCustomElements } from '../../../../../loader';
-	// import { defineCustomElements } from 'bitcoin-qr/loader';
+	// import { defineCustomElements } from '../../../../../loader';
+	import { defineCustomElements } from 'bitcoin-qr/loader';
 	import { browser } from '$app/environment';
 
 	export let unified = '';
