@@ -30,8 +30,8 @@ async function callbackExample() {
 	let image = './assets/bitcoin.svg';
 	let width = 300;
 	let height = 300;
-	let cornersSquareColor = '#ff5000';
-	let cornersDotColor = '#ff5000';
+	let cornersSquareColor = '#000';
+	let cornersDotColor = '#000';
 	let cornersSquareType = 'extra-rounded';
 	let dotsType = 'classy-rounded';
 	let dotsColor = '#000';
