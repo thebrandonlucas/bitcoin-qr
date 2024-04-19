@@ -38,6 +38,8 @@ PRs and suggestions welcome!
 - [x] URI support for Lightning, on-chain, BIP-21
 - [x] Poll for payment
 - [x] Customizable styles
+- [x] WebLN support
+- [x] Embed or overlay images
 
 ## Background
 
@@ -196,12 +198,9 @@ Currently, only `Gradient` styling options are not included.
 - [ ] Address, invoice, BIP-21, and parameter validation
 - [ ] Add tests
 - [ ] Optional copy (as opposed to URI)
-- [x] WebLN support
 - [ ] Add remaining [qr-code-styling](https://github.com/kozakdenys/qr-code-styling) properties (gradients)
 - [ ] Add aria labels for accessibility
 - [ ] Add [share](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share) button
-- [ ] Default to alphanumeric encoding and URL encode for efficiency
-- [x] Embed or Overlay images
 
 ## Run Locally
 
