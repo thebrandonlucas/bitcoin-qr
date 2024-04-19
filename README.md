@@ -9,9 +9,10 @@ A zero-dependency, zero-framework QR code [web component](https://developer.mozi
 PRs and suggestions welcome!
 
 <p float="left">
-<img src="./src/assets/images/voltage-qr.png" width="200"/>
+<!-- <img src="./src/assets/images/voltage-qr.png" width="200"/>
 <img src="./src/assets/images/payjoin-qr.png" width="200"/>
-<img src="./src/assets/images/bitcoin-qr.png" width="200"/>
+<img src="./src/assets/images/bitcoin-qr.png" width="200"/> -->
+<img src="./src/assets/images/qrs.png" width="400">
 </p>
 
 ## Table of Contents
@@ -21,14 +22,14 @@ PRs and suggestions welcome!
   - [Features](#features)
   - [Background](#background)
   - [Installation](#installation)
-    - [CDN](#cdn)
-    - [NPM](#npm)
+      - [CDN](#cdn)
+      - [NPM](#npm)
   - [Usage](#usage)
-    - [More Examples](#more-examples)
+      - [More Examples](#more-examples)
   - [API Reference](#api-reference)
-    - [Base attributes:](#base-attributes)
-    - [Callback](#callback)
-    - [Styles and Other Options](#styles-and-other-options)
+      - [Base attributes:](#base-attributes)
+      - [Callback](#callback)
+      - [Styles and Other Options](#styles-and-other-options)
   - [Roadmap](#roadmap)
   - [Run Locally](#run-locally)
   - [License](#license)
@@ -56,7 +57,7 @@ See the [Roadmap](#roadmap)
 #### CDN
 
 ```html
-<script type="module" src="https://unpkg.com/bitcoin-qr@1.2.1/dist/bitcoin-qr/bitcoin-qr.esm.js"></script>
+<script type="module" src="https://unpkg.com/bitcoin-qr@1.4.1/dist/bitcoin-qr/bitcoin-qr.esm.js"></script>
 ```
 
 #### NPM
@@ -75,7 +76,7 @@ HTML:
 <!doctype html>
 <html lang="en">
   <head>
-    <script type="module" src="https://unpkg.com/bitcoin-qr@1.1.4/dist/bitcoin-qr/bitcoin-qr.esm.js"></script>
+    <script type="module" src="https://unpkg.com/bitcoin-qr@1.4.1/dist/bitcoin-qr/bitcoin-qr.esm.js"></script>
   </head>
   <body>
     <bitcoin-qr
@@ -83,7 +84,7 @@ HTML:
       width="300"
       height="300"
       bitcoin="BC1QYLH3U67J673H6Y6ALV70M0PL2YZ53TZHVXGG7U"
-      parameters="?amount=0.00001&label=sbddesign%3A%20For%20lunch%20Tuesday&message=For%20lunch%20Tuesday"
+      parameters="amount=0.00001&label=sbddesign%3A%20For%20lunch%20Tuesday&message=For%20lunch%20Tuesday"
       image="https://voltage.imgix.net/Team.png?fm=webp&w=160"
       type="svg"
       corners-square-color="#b23c05"
@@ -110,7 +111,7 @@ Sveltekit:
   width="300"
   height="300"
   bitcoin="BC1QYLH3U67J673H6Y6ALV70M0PL2YZ53TZHVXGG7U"
-  parameters="?amount=0.00001&label=sbddesign%3A%20For%20lunch%20Tuesday&message=For%20lunch%20Tuesday"
+  parameters="amount=0.00001&label=sbddesign%3A%20For%20lunch%20Tuesday&message=For%20lunch%20Tuesday"
   image="https://voltage.imgix.net/Team.png?fm=webp&w=160"
   is-polling="true"
   poll-interval="1000"
