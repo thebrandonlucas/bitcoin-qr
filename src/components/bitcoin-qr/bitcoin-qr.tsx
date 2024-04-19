@@ -100,6 +100,10 @@ export class BitcoinQR {
     } catch (e) {
       throw new Error(`[bitcoin-qr]: Invalid URL format: "${protocol}:${pathname}"`);
     }
+    if (!this.parameters && (!this.lightning || !this.bitcoin)) {
+      // Don't append parameters if there are none
+      return encodeURI(_uri);
+    }
     try {
       const isLightningOnly = this.lightning && !(this.bitcoin || this.unified);
       const params = isLightningOnly ? this.parameters : `lightning=${this.lightning}&${this.parameters}`;
