@@ -47,8 +47,6 @@ This flexibility opens up many [exciting use cases](https://brandonlucas.net/art
 
 This project aims to provide everything needed to allow standard Bitcoin & Lightning Network payments out of the box. It handles creating the proper [URIs](https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki) from just an address or invoice, and favors creating unified URIs whenever possible. Styles are highly customizable and images can be embedded. It also includes polling functionality -- a callback can be passed as a property of the element to periodically check for payment.
 
-🚧 Work in progress 🚧
-
 See the [Roadmap](#roadmap)
 
 ## Installation
