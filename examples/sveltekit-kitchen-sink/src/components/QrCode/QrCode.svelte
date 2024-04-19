@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onDestroy, onMount } from 'svelte';
-	// import { defineCustomElements } from '../../../../../loader';
-	import { defineCustomElements } from 'bitcoin-qr/loader';
+	import { defineCustomElements } from '../../../../../loader';
+	// import { defineCustomElements } from 'bitcoin-qr/loader';
 	import { browser } from '$app/environment';
 
 	export let unified = '';
@@ -14,11 +14,11 @@
 	export let isPolling = false;
 	export let pollInterval = 1000;
 	export let type = 'svg';
-	export let cornersSquareColor = '#b23c05';
-	export let cornersDotColor = '#e24a04';
-	export let cornersSquareType = 'extra-rounded';
-	export let dotsType = 'classy-rounded';
-	export let dotsColor = '#ff5000';
+	export let cornersSquareColor = '#000';
+	export let cornersDotColor = '#000';
+	export let cornersSquareType = 'square';
+	export let dotsType = 'square';
+	export let dotsColor = '#000';
 	export let debug = false;
 	export let imageEmbedded = false;
 	export let pollCallback = () => {}; // FIXME: allow undefined without breaking TS
