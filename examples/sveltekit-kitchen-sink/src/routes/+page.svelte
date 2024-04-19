@@ -28,11 +28,11 @@ async function callbackExample() {
 	let image = './assets/voltage.png';
 	let width = 300;
 	let height = 300;
-	let cornersSquareColor = '#b23c05';
-	let cornersDotColor = '#e24a04';
+	let cornersSquareColor = '#ff5000';
+	let cornersDotColor = '#ff5000';
 	let cornersSquareType = 'extra-rounded';
 	let dotsType = 'classy-rounded';
-	let dotsColor = '#ff5000';
+	let dotsColor = '#000';
 	let debug = true;
 	let type = 'svg';
 	let isPolling = false;
