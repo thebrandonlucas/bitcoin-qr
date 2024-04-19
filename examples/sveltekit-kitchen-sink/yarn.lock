@@ -1918,6 +1918,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"flowbite-svelte-icons@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "flowbite-svelte-icons@npm:1.5.0"
+  peerDependencies:
+    svelte: ^3.54.0 || ^4.0.0 || ^5.0.0
+    tailwind-merge: ^2.0.0
+    tailwindcss: ^3.3.2
+  checksum: 10c0/611a74e9096344036746a9057216c03eea8a1fcfc281ad743ef02131260fc69f35b9910cb9cdc2745ede9d259ff682b00a66eb1852ef1c839dc66293b22a742f
+  languageName: node
+  linkType: hard
+
 "flowbite-svelte@npm:^0.44.24":
   version: 0.44.24
   resolution: "flowbite-svelte@npm:0.44.24"
@@ -4046,6 +4057,7 @@ __metadata:
     eslint-plugin-svelte: "npm:^2.35.1"
     flowbite: "npm:^2.3.0"
     flowbite-svelte: "npm:^0.44.24"
+    flowbite-svelte-icons: "npm:^1.5.0"
     postcss: "npm:^8.4.38"
     prettier: "npm:^3.2.5"
     prettier-plugin-svelte: "npm:^3.2.2"

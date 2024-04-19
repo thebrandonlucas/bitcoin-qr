@@ -4,8 +4,10 @@
 	import { Highlight, HighlightAuto } from 'svelte-highlight';
 	import Capsule from '$components/Capsule.svelte';
 	import { typescript } from 'svelte-highlight/languages';
-	import Button from '$components/Button/Button.svelte';
 	import QrCode from '$components/QrCode/QrCode.svelte';
+	import {Button, Toast} from 'flowbite-svelte'
+	import { CheckCircleSolid } from 'flowbite-svelte-icons';
+
 
 
 	const pollFunctionJs = `
@@ -95,11 +97,11 @@ async function callbackExample() {
 	{@html dracula}
 </svelte:head>
 
-
-<div class="my-12 flex flex-col items-center">
+<div class="my-12 flex flex-col items-center mb-12">
 	<h2 class="text-4xl font-bold">&ltbitcoin-qr/&gt;</h2>
-	<a href="https://github.com/thebrandonlucas/bitcoin-qr" target="_blank">Github</a>
-	<a href="https://www.npmjs.com/package/bitcoin-qr" target="_blank">npm</a>
+	<span class="text-lg my-6 text-center w-[400px]">
+		A QR code web component for Bitcoin on-chain, Lightning, and unified BIP-21 payments.</span>
+	
 </div>
 
 <div class="flex flex-col gap-4 lg:flex-row">
@@ -144,7 +146,13 @@ async function callbackExample() {
 				</div>
 			{/if}
 		{:else if paid}
-			<Capsule bgColor="bg-green-500">Paid!</Capsule>
+		<Toast class="bg-slate-800" color="green" >
+			<svelte:fragment slot="icon">
+			  <CheckCircleSolid class="w-5 h-5" />
+			  <span class="sr-only">Check icon</span>
+			</svelte:fragment>
+			Payment Success!
+		  </Toast>
 		{:else}
 			<strong>
 				Must provide a value for one of the following: Unified, Bitcoin Address, or Lightning
@@ -159,7 +167,7 @@ async function callbackExample() {
 				>qr-code-styling</a
 			></span
 		>
-		<form class="mr-4 flex max-h-[500px] flex-col gap-2 overflow-y-scroll rounded bg-gray-300 p-4">
+		<form class="mr-4 flex max-h-[500px] flex-col gap-2 overflow-y-scroll rounded bg-orange-200 p-4 mb-8">
 			<Input bind:value={unified} label="Unified (BIP-21)" />
 			<Input bind:value={invoice} label="Lightning Invoice" />
 			<Input bind:value={address} label="Bitcoin Address" />
