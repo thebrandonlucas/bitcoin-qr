@@ -9,8 +9,6 @@ node_modules/
 .DS_Store
 .env
 
-*storybook.log
-
 .yarn/*
 !.yarn/patches
 !.yarn/plugins

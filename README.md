@@ -31,8 +31,6 @@ PRs and suggestions welcome!
     - [Styles and Other Options](#styles-and-other-options)
   - [Roadmap](#roadmap)
   - [Run Locally](#run-locally)
-    - [Stencil.js](#stenciljs)
-    - [Storybook](#storybook)
   - [License](#license)
 
 ## Features
@@ -197,7 +195,6 @@ Currently, only `Gradient` styling options are not included.
 
 ## Roadmap
 
-- [ ] Add Storybook demo server
 - [ ] Address, invoice, BIP-21, and parameter validation
 - [ ] Add tests
 - [ ] Optional copy (as opposed to URI)
@@ -210,34 +207,11 @@ Currently, only `Gradient` styling options are not included.
 
 ## Run Locally
 
-### Stencil.js
-
-The project uses [Stencil.js](https://stenciljs.com/) for building the web component. To run the Stencil dev server, uncomment lines 12-15 in `stencil.config.js`:
-
-```javascript
-...
-// NOTE: Uncomment this for dev Stencil server, comment for production build & Storybook server
-{
-    type: 'www',
-    serviceWorker: null, // disable service workers
-},
-...
-```
-
-Then,
+The project uses [Stencil.js](https://stenciljs.com/) for building the web component. To run the Stencil dev server:
 
 ```bash
 yarn # install dependencies
-yarn dev
-```
-
-### Storybook
-
-To run the Storybook, comment lines 12-15 in `stencil.config.js` and run:
-
-```
-yarn build
-yarn storybook
+yarn dev # opens at localhost:3333
 ```
 
 ## License
