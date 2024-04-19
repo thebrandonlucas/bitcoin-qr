@@ -16,5 +16,6 @@ node_modules/
 !.yarn/sdks
 !.yarn/versions
 
+.yarn/install-state.gz
 examples/sveltekit/.yarn/install-state.gz
 examples/sveltekit-kitchen-sink/.yarn/install-state.gz
