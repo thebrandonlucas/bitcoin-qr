@@ -87,7 +87,7 @@ export class BitcoinQR {
     }
     // TODO: unified bip21 validation
     if (this.unified) {
-      return encodeURIComponent(this.unified);
+      return encodeURI(this.unified);
     }
     // We only use lightning as protocol if there is no on-chain bitcoin.
     // Otherwise we use it as a parameter.
@@ -108,7 +108,7 @@ export class BitcoinQR {
       throw new Error(`[bitcoin-qr]: Invalid URLSearchParams format: "${this.parameters}"`);
     }
     // TODO: should there be an option to not encode the uri?
-    return encodeURIComponent(_uri);
+    return encodeURI(_uri);
   }
 
   getDefinedProps() {
