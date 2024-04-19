@@ -9,7 +9,7 @@
 <h1 class="text-4xl font-bold mx-auto">gallery</h1>
 </div>
 <!-- Make a grid with three colums of cards with varying props passed to <QrCode/> -->
-<div class="grid grid-cols-3 gap-4 my-12">
+<div class="flex flex-col lg:grid lg:grid-cols-2 xl:grid-cols-3 gap-4 my-12 items-center">
 
 
 <Card>
