@@ -238,6 +238,9 @@ export class BitcoinQR {
     const shadowContainer = this.bitcoinQR.shadowRoot.getElementById('bitcoin-qr-container');
     shadowContainer.childElementCount > 0 ? this.qr.update(this.getDefinedProps()) : this.qr.append(shadowContainer);
     shadowContainer.style.position = 'relative'; // For image overlay
+    shadowContainer.style.width = `${this.width}px`;
+    shadowContainer.style.height = `${this.height}px`;
+    shadowContainer.style.display = 'block';
     this.getImageOverlay();
     this.poll();
     if (this.debug) {
@@ -263,10 +266,6 @@ export class BitcoinQR {
   // TODO:
   // i.e. optional copy on click instead of link/uri action
   render() {
-    return (
-      <a href={this.uri}>
-        <div id="bitcoin-qr-container"></div>
-      </a>
-    );
+    return <a id="bitcoin-qr-container" href={this.uri}></a>;
   }
 }
