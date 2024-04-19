@@ -9,7 +9,7 @@ A zero-dependency, zero-framework QR code [web component](https://developer.mozi
 PRs and suggestions welcome!
 
 <p float="left">
-<img src="./src/assets/images/qrs.png" width="800">
+<img src="./src/assets/images/qrs-1.png" width="800">
 </p>
 
 ## Table of Contents
