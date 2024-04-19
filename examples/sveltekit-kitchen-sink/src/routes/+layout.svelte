@@ -20,8 +20,8 @@
   </Navbar>
 
 
+  <div>
 
-  <div >
 	<slot />
-
   </div>
+

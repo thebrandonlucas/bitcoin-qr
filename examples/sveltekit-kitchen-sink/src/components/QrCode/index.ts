@@ -1,2 +1,2 @@
-import QrCode from "./QrCode.svelte";
+import QrCode from './QrCode.svelte';
 export default QrCode;
