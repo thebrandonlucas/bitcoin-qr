@@ -97,27 +97,15 @@ async function callbackExample() {
 	{@html dracula}
 </svelte:head>
 
-<div class="my-12 flex flex-col items-center mb-12">
+<div class="my-12 flex flex-col items-center mb-4">
 	<h2 class="text-4xl font-bold">&ltbitcoin-qr/&gt;</h2>
 	<span class="text-lg my-6 text-center w-[400px]">
 		A QR code web component for Bitcoin on-chain, Lightning, and unified BIP-21 payments.</span>
 	
 </div>
 
-<div class="flex flex-col gap-4 lg:flex-row">
-	<div class="flex flex-1 flex-col gap-4">
-		<div class="max-w-[800px]">
-			<HighlightAuto code={component} />
-		</div>
-		<div class="max-w-[800px]">
-			<span class="text-lg"
-				>Sample Callback Function (Replace this with your function to check for payments)</span
-			>
-			<Highlight code={pollFunctionJs} language={typescript} />
-		</div>
-	</div>
-	<div class="ml-4 flex flex-1 flex-col items-center gap-4">
-		{#if !paid && (unified || address || invoice)}
+<div class="flex flex-col gap-4 flex-1 items-center mb-12">
+	{#if !paid && (unified || address || invoice)}
 			<QrCode
 				id="qr"
 				{unified}
@@ -162,12 +150,22 @@ async function callbackExample() {
 		{#if paid || isPolling}
 			<Button on:click={reset}>Reset</Button>
 		{/if}
-		<span
-			>For remaining options, see <a class="" href="https://qr-code-styling.com/" target="_blank"
-				>qr-code-styling</a
-			></span
-		>
-		<form class="mr-4 flex max-h-[500px] flex-col gap-2 overflow-y-scroll rounded bg-orange-200 p-4 mb-8">
+</div>
+
+<div class="flex flex-col gap-4 lg:flex-row mb-12">
+	<div class="flex flex-1 flex-col gap-4">
+		<div class="max-w-[800px]">
+			<HighlightAuto code={component} />
+		</div>
+		<div class="max-w-[800px]">
+			<span class="text-lg"
+				>Sample Callback Function (Replace this with your function to check for payments)</span
+			>
+			<Highlight code={pollFunctionJs} language={typescript} />
+		</div>
+	</div>
+	<div class="ml-4 flex flex-1 flex-col items-center gap-4 max-h-fit">
+		<form class="mr-4 flex flex-col gap-2 overflow-y-scroll rounded bg-orange-200 p-4 mb-4">
 			<Input bind:value={unified} label="Unified (BIP-21)" />
 			<Input bind:value={invoice} label="Lightning Invoice" />
 			<Input bind:value={address} label="Bitcoin Address" />
@@ -222,6 +220,11 @@ async function callbackExample() {
 				</div>
 			</div>
 		</form>
+		<span
+		>For remaining options, see <a class="" href="https://qr-code-styling.com/" target="_blank"
+			>qr-code-styling</a
+		></span
+	>
 	</div>
 </div>
 
