@@ -2,32 +2,15 @@ dist/
 www/
 loader/
 
-*~
-*.sw[mnpcod]
-*.log
-*.lock
-*.tmp
-*.tmp.*
-log.txt
-*.sublime-project
-*.sublime-workspace
-
 .stencil/
 .idea/
 .vscode/
-.sass-cache/
-.versions/
 node_modules/
-$RECYCLE.BIN/
-
 .DS_Store
-Thumbs.db
-UserInterfaceState.xcuserstate
 .env
 
 *storybook.log
 
-.pnp.*
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
@@ -36,3 +19,4 @@ UserInterfaceState.xcuserstate
 !.yarn/versions
 
 examples/sveltekit/.yarn/install-state.gz
+examples/sveltekit-kitchen-sink/.yarn/install-state.gz
