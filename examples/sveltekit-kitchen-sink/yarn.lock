@@ -1122,10 +1122,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bitcoin-qr@npm:^1.3.0":
-  version: 1.3.0
-  resolution: "bitcoin-qr@npm:1.3.0"
-  checksum: 10c0/1c9fb70fb2473ee0bab28053e65b102d49f4182ac1b0e4959165a30d999de5bd4bfa09e9dbde7c8838d1794b218aa927de30473a3c69e1c62c7fecf2420020d9
+"bitcoin-qr@npm:^1.4.1":
+  version: 1.4.1
+  resolution: "bitcoin-qr@npm:1.4.1"
+  checksum: 10c0/f8f8ffb9c2ce95653c5be80f25dc1ef44e98002a28c1e5864c48e28b4832966b5eb0add5c86fb484496d120117426cf948e2cf76ac0b0ffabbd1befd9234838a
   languageName: node
   linkType: hard
 
@@ -4051,7 +4051,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^7.4.0"
     "@typescript-eslint/parser": "npm:^7.4.0"
     autoprefixer: "npm:^10.4.19"
-    bitcoin-qr: "npm:^1.3.0"
+    bitcoin-qr: "npm:^1.4.1"
     eslint: "npm:^8.57.0"
     eslint-config-prettier: "npm:^9.1.0"
     eslint-plugin-svelte: "npm:^2.35.1"
