@@ -163,7 +163,7 @@ NOTE: There is currently no validation for the `unified`, `bitcoin`, `lightning`
 
 #### Styles and Other Options
 
-This component is built on top of [qr-code-styling](https://github.com/kozakdenys/qr-code-styling), refer to their documentation for more details on their [API](https://github.com/kozakdenys/qr-code-styling?tab=readme-ov-file#api-documentation), `<bitcoin-qr />` surfaces the majority of itand surfaces the majority of it:
+This component is built on top of [qr-code-styling](https://github.com/kozakdenys/qr-code-styling), refer to their documentation for more details on their [API](https://github.com/kozakdenys/qr-code-styling?tab=readme-ov-file#api-documentation), `<bitcoin-qr />` surfaces the majority of it:
 | Attribute | Type | Description |
 | :--------------------------- | :-------- | :------------------------------------------------------------------- |
 | `width` | `number` | **Optional**. Width of the QR code. |
@@ -201,8 +201,6 @@ Currently, only `Gradient` styling options are not included.
 - [ ] Add [share](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share) button
 
 ## Run Locally
-
-The project uses [Stencil.js](https://stenciljs.com/) for building the web component. To run the Stencil dev server:
 
 ```bash
 yarn # install dependencies
