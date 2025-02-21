@@ -31,4 +31,4 @@ jobs:
           source: 'examples/sveltekit-kitchen-sink/build/*' # Or wherever your build output is
           target: '/var/www/bitcoin-qr'
           rm: true
-          strip_components: 1
+          strip_components: 3
