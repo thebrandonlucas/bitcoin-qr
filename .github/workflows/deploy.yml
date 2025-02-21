@@ -28,7 +28,7 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           password: ${{ secrets.VPS_PASSWORD }}
-          source: 'build/*' # Or wherever your build output is
+          source: 'examples/sveltekit-kitchen-sink/build/*' # Or wherever your build output is
           target: '/var/www/bitcoin-qr'
           rm: true
           strip_components: 1
