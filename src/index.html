@@ -33,6 +33,8 @@
         document.getElementById('toggle').innerText = 'Stop';
         document.getElementById('poll-count').innerText = `Poll count: ${pollCount}`;
         document.getElementById('paid').innerText = `Paid: ${paid}`;
+        const qr = document.getElementById('qr');
+        qr.setAttribute('is-polling', true);
       }
 
       async function toggle() {
@@ -42,6 +44,30 @@
         const toggle = document.getElementById('toggle');
         toggle.innerText === 'Stop' ? (toggle.innerText = 'Start') : (toggle.innerText = 'Stop');
         clearTimeout(interval);
+      }
+      
+      function handleClickCallback() {
+        alert('Click callback executed!');
+        console.log('Click callback executed!');
+      }
+      
+      function enableClickCallback() {
+        const qr = document.getElementById('qr');
+        qr.setAttribute('click-behavior', 'CLICK_CALLBACK');
+        qr.clickCallback = handleClickCallback;
+        document.getElementById('mode-status').innerText = 'Mode: Click Callback';
+      }
+      
+      function enableCopyMode() {
+        const qr = document.getElementById('qr');
+        qr.setAttribute('click-behavior', 'COPY');
+        document.getElementById('mode-status').innerText = 'Mode: Copy to Clipboard';
+      }
+      
+      function enableDefaultMode() {
+        const qr = document.getElementById('qr');
+        qr.removeAttribute('click-behavior');
+        document.getElementById('mode-status').innerText = 'Mode: Default (URI Link)';
       }
     </script>
   </head>
@@ -99,8 +125,16 @@
       <span>Payment will succeed when poll count reaches 5</span>
       <span id="poll-count">Poll count: 0</span>
       <span id="paid">Paid: false</span>
+      <span id="mode-status">Mode: Default (URI Link)</span>
+      
+      <h3 class="font-bold mt-3">Polling Controls</h3>
       <button id="toggle" class="bg-[#ff5000] p-2 text-white rounded-lg" onclick="toggle()">Stop</button>
       <button id="reset" class="bg-[#ff5000] p-2 text-white rounded-lg" onclick="reset()">Reset</button>
+      
+      <h3 class="font-bold mt-3">QR Code Behavior</h3>
+      <button class="bg-[#0055ff] p-2 text-white rounded-lg" onclick="enableClickCallback()">Enable Click Callback</button>
+      <button class="bg-[#0055ff] p-2 text-white rounded-lg" onclick="enableCopyMode()">Enable Copy Mode</button>
+      <button class="bg-[#0055ff] p-2 text-white rounded-lg" onclick="enableDefaultMode()">Reset to Default Mode</button>
     </div>
   </body>
   <script>
