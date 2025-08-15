@@ -11,6 +11,8 @@ export namespace Components {
         "backgroundRound"?: number;
         "bitcoin"?: string;
         "callback"?: () => void;
+        "clickBehavior"?: ClickBehavior;
+        "clickCallback"?: () => void;
         "cornersDotColor"?: string;
         "cornersDotType"?: 'square' | 'dot';
         "cornersSquareColor"?: string;
@@ -57,6 +59,8 @@ declare namespace LocalJSX {
         "backgroundRound"?: number;
         "bitcoin"?: string;
         "callback"?: () => void;
+        "clickBehavior"?: ClickBehavior;
+        "clickCallback"?: () => void;
         "cornersDotColor"?: string;
         "cornersDotType"?: 'square' | 'dot';
         "cornersSquareColor"?: string;
