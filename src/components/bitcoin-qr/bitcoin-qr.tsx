@@ -314,6 +314,7 @@ export class BitcoinQR {
       color: 'inherit',
       outline: 'none'
     }
+    console.log('CLICK BEHAVIOR', this.clickBehavior)
     switch (this.clickBehavior) {
       case ClickBehavior.COPY:
         return <button
