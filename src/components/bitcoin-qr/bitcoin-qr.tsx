@@ -307,19 +307,33 @@ export class BitcoinQR {
   render() {
     switch (this.clickBehavior) {
       case ClickBehavior.COPY:
-        // AI! apply the below style to the button
-        // .custom-button {
-        //   background: none;
-        //   border: none;
-        //   padding: 0;
-        //   font: inherit;
-        //   cursor: pointer;
-        //   color: inherit; /* Matches surrounding text */
-        //   outline: none; /* Remove focus outline, or style it */
-        // }
-        return <button id="bitcoin-qr-container" onClick={this.handleCopy}></button>
+        return <button 
+          id="bitcoin-qr-container" 
+          onClick={this.handleCopy}
+          style={{
+            background: 'none',
+            border: 'none',
+            padding: '0',
+            font: 'inherit',
+            cursor: 'pointer',
+            color: 'inherit',
+            outline: 'none'
+          }}
+        ></button>
       case ClickBehavior.CLICK_CALLBACK:
-        return <button id="bitcoin-qr-container" onClick={this.handleClickCallback}></button>
+        return <button 
+          id="bitcoin-qr-container" 
+          onClick={this.handleClickCallback}
+          style={{
+            background: 'none',
+            border: 'none',
+            padding: '0',
+            font: 'inherit',
+            cursor: 'pointer',
+            color: 'inherit',
+            outline: 'none'
+          }}
+        ></button>
       case ClickBehavior.NONE:
         return <div id="bitcoin-qr-container"></div>
       default:
