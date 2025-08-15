@@ -305,34 +305,27 @@ export class BitcoinQR {
   }
 
   render() {
+    const removeDefaultButtonStyles = {
+      background: 'none',
+      border: 'none',
+      padding: '0',
+      font: 'inherit',
+      cursor: 'pointer',
+      color: 'inherit',
+      outline: 'none'
+    }
     switch (this.clickBehavior) {
       case ClickBehavior.COPY:
-        return <button 
-          id="bitcoin-qr-container" 
+        return <button
+          id="bitcoin-qr-container"
           onClick={this.handleCopy}
-          style={{
-            background: 'none',
-            border: 'none',
-            padding: '0',
-            font: 'inherit',
-            cursor: 'pointer',
-            color: 'inherit',
-            outline: 'none'
-          }}
+          style={removeDefaultButtonStyles}
         ></button>
       case ClickBehavior.CLICK_CALLBACK:
-        return <button 
-          id="bitcoin-qr-container" 
+        return <button
+          id="bitcoin-qr-container"
           onClick={this.handleClickCallback}
-          style={{
-            background: 'none',
-            border: 'none',
-            padding: '0',
-            font: 'inherit',
-            cursor: 'pointer',
-            color: 'inherit',
-            outline: 'none'
-          }}
+          style={removeDefaultButtonStyles}
         ></button>
       case ClickBehavior.NONE:
         return <div id="bitcoin-qr-container"></div>
