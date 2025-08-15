@@ -285,7 +285,7 @@ export class BitcoinQR {
     this.getImageOverlay();
     this.poll();
     if (this.debug) {
-      console.debug('[bitcoin-qr]: Component aljsdfsk with props', this.getDefinedProps());
+      console.debug('[bitcoin-qr]: Component loaded with props', this.getDefinedProps());
     }
   }
 

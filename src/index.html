@@ -13,6 +13,44 @@
       let paid = false;
       let interval;
 
+      // Function to get URL parameters
+      function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        const results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+      }
+
+      // Set mode based on URL parameter
+      function setModeFromUrl() {
+        const mode = getUrlParameter('mode');
+        const qr = document.getElementById('qr');
+        const modeStatus = document.getElementById('mode-status');
+        
+        if (mode === 'copy') {
+          qr.setAttribute('click-behavior', 'copy');
+          modeStatus.innerText = 'Mode: Copy to Clipboard';
+        } else if (mode === 'callback') {
+          qr.setAttribute('click-behavior', 'click-callback');
+          qr.clickCallback = handleClickCallback;
+          modeStatus.innerText = 'Mode: Click Callback';
+        } else {
+          qr.removeAttribute('click-behavior');
+          modeStatus.innerText = 'Mode: Default (URI Link)';
+        }
+      }
+
+      // Change mode by updating URL and refreshing
+      function changeMode(mode) {
+        const url = new URL(window.location);
+        if (mode) {
+          url.searchParams.set('mode', mode);
+        } else {
+          url.searchParams.delete('mode');
+        }
+        window.location.href = url.toString();
+      }
+
       async function callbackExample() {
         pollCount += 1;
         document.getElementById('poll-count').innerText = `Poll count: ${pollCount}`;
@@ -47,25 +85,6 @@
       function handleClickCallback() {
         alert('Click callback executed!');
         console.log('Click callback executed!');
-      }
-
-      function enableClickCallback() {
-        const qr = document.getElementById('qr');
-        qr.setAttribute('click-behavior', 'click-callback');
-        qr.clickCallback = handleClickCallback;
-        document.getElementById('mode-status').innerText = 'Mode: Click Callback';
-      }
-
-      function enableCopyMode() {
-        const qr = document.getElementById('qr');
-        qr.setAttribute('click-behavior', 'COPY');
-        document.getElementById('mode-status').innerText = 'Mode: Copy to Clipboard';
-      }
-
-      function enableDefaultMode() {
-        const qr = document.getElementById('qr');
-        qr.removeAttribute('click-behavior');
-        document.getElementById('mode-status').innerText = 'Mode: Default (URI Link)';
       }
     </script>
   </head>
@@ -130,12 +149,14 @@
       <button id="reset" class="bg-[#ff5000] p-2 text-white rounded-lg" onclick="reset()">Reset</button>
 
       <h3 class="font-bold mt-3">QR Code Behavior</h3>
-      <button class="bg-[#0055ff] p-2 text-white rounded-lg" onclick="enableClickCallback()">Enable Click Callback</button>
-      <button class="bg-[#0055ff] p-2 text-white rounded-lg" onclick="enableCopyMode()">Enable Copy Mode</button>
-      <button class="bg-[#0055ff] p-2 text-white rounded-lg" onclick="enableDefaultMode()">Reset to Default Mode</button>
+      <button class="bg-[#0055ff] p-2 text-white rounded-lg" onclick="changeMode('callback')">Enable Click Callback</button>
+      <button class="bg-[#0055ff] p-2 text-white rounded-lg" onclick="changeMode('copy')">Enable Copy Mode</button>
+      <button class="bg-[#0055ff] p-2 text-white rounded-lg" onclick="changeMode('')">Reset to Default Mode</button>
     </div>
   </body>
   <script>
     document.getElementById('qr').callback = callbackExample;
+    // Set mode based on URL parameters when page loads
+    window.addEventListener('DOMContentLoaded', setModeFromUrl);
   </script>
 </html>
