@@ -17,11 +17,11 @@
         pollCount += 1;
         document.getElementById('poll-count').innerText = `Poll count: ${pollCount}`;
         if (pollCount >= 5) {
-          isPolling = false;
           paid = true;
           alert('Paid!');
           const qr = document.getElementById('qr');
           qr.setAttribute('is-polling', false);
+          document.getElementById('toggle').innerText = 'Start';
           document.getElementById('paid').innerText = `Paid: ${paid}`;
         }
       }
@@ -29,21 +29,19 @@
       async function reset() {
         pollCount = 0;
         paid = false;
-        isPolling = true;
-        document.getElementById('toggle').innerText = 'Stop';
         document.getElementById('poll-count').innerText = `Poll count: ${pollCount}`;
         document.getElementById('paid').innerText = `Paid: ${paid}`;
         const qr = document.getElementById('qr');
         qr.setAttribute('is-polling', true);
+        document.getElementById('toggle').innerText = 'Stop';
       }
 
       async function toggle() {
         const qr = document.getElementById('qr');
-        const isPolling = qr.getAttribute('is-polling') === 'true';
-        qr.setAttribute('is-polling', !isPolling);
-        const toggle = document.getElementById('toggle');
-        toggle.innerText === 'Stop' ? (toggle.innerText = 'Start') : (toggle.innerText = 'Stop');
-        clearTimeout(interval);
+        const isCurrentlyPolling = qr.getAttribute('is-polling') === 'true';
+        qr.setAttribute('is-polling', !isCurrentlyPolling);
+        const toggleBtn = document.getElementById('toggle');
+        toggleBtn.innerText = isCurrentlyPolling ? 'Start' : 'Stop';
       }
       
       function handleClickCallback() {
