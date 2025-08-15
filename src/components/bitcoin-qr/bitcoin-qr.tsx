@@ -23,6 +23,7 @@ export class BitcoinQR {
   @Prop() lightning?: string;
   @Prop() parameters?: string;
   @Prop() callback?: () => void;
+  @Prop() clickCallback?: () => void; // Function to call when QR code is clicked in CLICK_CALLBACK mode
   @Prop() isPolling?: boolean;
   @Prop({ mutable: true }) pollInterval?: number;
   @Prop() imageEmbedded?: boolean; // Whether to embed or overlay the image, may require Error Correction Level experimentation
@@ -221,6 +222,31 @@ export class BitcoinQR {
     }
   }
 
+  handleCopy = () => {
+    if (this.uri) {
+      navigator.clipboard.writeText(this.uri)
+        .then(() => {
+          if (this.debug) {
+            console.debug('[bitcoin-qr]: Copied to clipboard:', this.uri);
+          }
+        })
+        .catch(err => {
+          console.error('[bitcoin-qr]: Failed to copy to clipboard:', err);
+        });
+    }
+  }
+
+  handleClickCallback = () => {
+    if (this.clickCallback) {
+      this.clickCallback();
+      if (this.debug) {
+        console.debug('[bitcoin-qr]: Click callback executed');
+      }
+    } else {
+      console.warn('[bitcoin-qr]: Click callback behavior set but no clickCallback function provided');
+    }
+  }
+
   componentWillLoad() {
     if (this.debug) {
       console.debug('[bitcoin-qr]: debug mode enabled');
@@ -278,11 +304,10 @@ export class BitcoinQR {
 
   render() {
     switch (this.clickBehavior) {
-      // AI! add the handleCopy and handleClickCallback functions in the appropriate places.For handleClickCallback, ensure there is a clickCallback prop function that the user can pass into the component
       case ClickBehavior.COPY:
-        return <button id="bitcoin-qr-container" onClick={handleCopy}></button>
+        return <button id="bitcoin-qr-container" onClick={this.handleCopy}></button>
       case ClickBehavior.CLICK_CALLBACK:
-        return <button id="bitcoin-qr-container" onClick={handleClickCallback}></button>
+        return <button id="bitcoin-qr-container" onClick={this.handleClickCallback}></button>
       case ClickBehavior.NONE:
         return <div id="bitcoin-qr-container"></div>
       default:
