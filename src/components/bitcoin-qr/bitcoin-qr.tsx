@@ -4,9 +4,9 @@ import QRCodeStyling, { Options } from 'qr-code-styling';
 // NOTE: default click behavior is to wrap in an <a /> which triggers
 // [deep linking](https://en.wikipedia.org/wiki/Mobile_deep_linking) behavior in some apps
 enum ClickBehavior {
-  COPY = 'COPY',
-  CLICK_CALLBACK = 'CLICK_CALLBACK',
-  NONE = 'NONE'
+  COPY = 'copy',
+  CLICK_CALLBACK = 'click-callback',
+  NONE = 'none'
 }
 
 @Component({
@@ -139,6 +139,8 @@ export class BitcoinQR {
       'width',
       'height',
       'type',
+      'clickBehavior',
+      'clickCallback',
       'margin',
       'image',
       'shape',

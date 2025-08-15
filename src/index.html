@@ -43,25 +43,25 @@
         const toggleBtn = document.getElementById('toggle');
         toggleBtn.innerText = isCurrentlyPolling ? 'Start' : 'Stop';
       }
-      
+
       function handleClickCallback() {
         alert('Click callback executed!');
         console.log('Click callback executed!');
       }
-      
+
       function enableClickCallback() {
         const qr = document.getElementById('qr');
-        qr.setAttribute('click-behavior', 'CLICK_CALLBACK');
+        qr.setAttribute('click-behavior', 'click-callback');
         qr.clickCallback = handleClickCallback;
         document.getElementById('mode-status').innerText = 'Mode: Click Callback';
       }
-      
+
       function enableCopyMode() {
         const qr = document.getElementById('qr');
         qr.setAttribute('click-behavior', 'COPY');
         document.getElementById('mode-status').innerText = 'Mode: Copy to Clipboard';
       }
-      
+
       function enableDefaultMode() {
         const qr = document.getElementById('qr');
         qr.removeAttribute('click-behavior');
@@ -124,11 +124,11 @@
       <span id="poll-count">Poll count: 0</span>
       <span id="paid">Paid: false</span>
       <span id="mode-status">Mode: Default (URI Link)</span>
-      
+
       <h3 class="font-bold mt-3">Polling Controls</h3>
       <button id="toggle" class="bg-[#ff5000] p-2 text-white rounded-lg" onclick="toggle()">Stop</button>
       <button id="reset" class="bg-[#ff5000] p-2 text-white rounded-lg" onclick="reset()">Reset</button>
-      
+
       <h3 class="font-bold mt-3">QR Code Behavior</h3>
       <button class="bg-[#0055ff] p-2 text-white rounded-lg" onclick="enableClickCallback()">Enable Click Callback</button>
       <button class="bg-[#0055ff] p-2 text-white rounded-lg" onclick="enableCopyMode()">Enable Copy Mode</button>
