@@ -1,6 +1,14 @@
 import { Component, Element, Prop, State, Watch, h } from '@stencil/core';
 import QRCodeStyling, { Options } from 'qr-code-styling';
 
+// NOTE: default click behavior is to wrap in an <a /> which triggers
+// [deep linking](https://en.wikipedia.org/wiki/Mobile_deep_linking) behavior in some apps
+enum ClickBehavior {
+  COPY = 'COPY',
+  CLICK_CALLBACK = 'CLICK_CALLBACK',
+  NONE = 'NONE'
+}
+
 @Component({
   tag: 'bitcoin-qr',
   shadow: true,
@@ -18,6 +26,7 @@ export class BitcoinQR {
   @Prop() isPolling?: boolean;
   @Prop({ mutable: true }) pollInterval?: number;
   @Prop() imageEmbedded?: boolean; // Whether to embed or overlay the image, may require Error Correction Level experimentation
+  @Prop() clickBehavior?: ClickBehavior; // What to do when the qr code is clicked
   @Prop() debug?: boolean;
 
   // QR code styling options
@@ -267,9 +276,20 @@ export class BitcoinQR {
     }
   }
 
-  // TODO:
-  // i.e. optional copy on click instead of link/uri action
   render() {
-    return <a id="bitcoin-qr-container" href={this.uri}></a>;
+    switch (this.clickBehavior) {
+      // AI! add the handleCopy and handleClickCallback functions in the appropriate places.For handleClickCallback, ensure there is a clickCallback prop function that the user can pass into the component
+      case ClickBehavior.COPY:
+        return <button id="bitcoin-qr-container" onClick={handleCopy}></button>
+      case ClickBehavior.CLICK_CALLBACK:
+        return <button id="bitcoin-qr-container" onClick={handleClickCallback}></button>
+      case ClickBehavior.NONE:
+        return <div id="bitcoin-qr-container"></div>
+      default:
+        // URI's containing deep link prefixes passed to the href here will trigger wallet apps
+        // configured to recognize them on the given browser/mobile device.
+        // Ex. `lightning:` will trigger WebLN providers, `bitcoin:` triggers onchain wallets, etc.
+        return <a id="bitcoin-qr-container" href={this.uri} />;
+    }
   }
 }
