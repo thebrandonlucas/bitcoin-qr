@@ -1,6 +1,14 @@
 import { Component, Element, Prop, State, Watch, h } from '@stencil/core';
 import QRCodeStyling, { Options } from 'qr-code-styling';
 
+// NOTE: default click behavior is to wrap in an <a /> which triggers
+// [deep linking](https://en.wikipedia.org/wiki/Mobile_deep_linking) behavior in some apps
+enum ClickBehavior {
+  COPY = 'copy',
+  CLICK_CALLBACK = 'click-callback',
+  NONE = 'none'
+}
+
 @Component({
   tag: 'bitcoin-qr',
   shadow: true,
@@ -15,9 +23,11 @@ export class BitcoinQR {
   @Prop() lightning?: string;
   @Prop() parameters?: string;
   @Prop() callback?: () => void;
+  @Prop() clickCallback?: () => void; // Function to call when QR code is clicked in CLICK_CALLBACK mode
   @Prop() isPolling?: boolean;
   @Prop({ mutable: true }) pollInterval?: number;
   @Prop() imageEmbedded?: boolean; // Whether to embed or overlay the image, may require Error Correction Level experimentation
+  @Prop() clickBehavior?: ClickBehavior; // What to do when the qr code is clicked
   @Prop() debug?: boolean;
 
   // QR code styling options
@@ -129,6 +139,8 @@ export class BitcoinQR {
       'width',
       'height',
       'type',
+      'clickBehavior',
+      'clickCallback',
       'margin',
       'image',
       'shape',
@@ -212,6 +224,31 @@ export class BitcoinQR {
     }
   }
 
+  handleCopy = () => {
+    if (this.uri) {
+      navigator.clipboard.writeText(this.uri)
+        .then(() => {
+          if (this.debug) {
+            console.debug('[bitcoin-qr]: Copied to clipboard:', this.uri);
+          }
+        })
+        .catch(err => {
+          console.error('[bitcoin-qr]: Failed to copy to clipboard:', err);
+        });
+    }
+  }
+
+  handleClickCallback = () => {
+    if (this.clickCallback) {
+      this.clickCallback();
+      if (this.debug) {
+        console.debug('[bitcoin-qr]: Click callback executed');
+      }
+    } else {
+      console.warn('[bitcoin-qr]: Click callback behavior set but no clickCallback function provided');
+    }
+  }
+
   componentWillLoad() {
     if (this.debug) {
       console.debug('[bitcoin-qr]: debug mode enabled');
@@ -248,7 +285,7 @@ export class BitcoinQR {
     this.getImageOverlay();
     this.poll();
     if (this.debug) {
-      console.debug('[bitcoin-qr]: Component aljsdfsk with props', this.getDefinedProps());
+      console.debug('[bitcoin-qr]: Component loaded with props', this.getDefinedProps());
     }
   }
 
@@ -267,9 +304,41 @@ export class BitcoinQR {
     }
   }
 
-  // TODO:
-  // i.e. optional copy on click instead of link/uri action
   render() {
-    return <a id="bitcoin-qr-container" href={this.uri}></a>;
+    const removeDefaultButtonStyles = {
+      background: 'none',
+      border: 'none',
+      padding: '0',
+      font: 'inherit',
+      cursor: 'pointer',
+      color: 'inherit',
+      outline: 'none'
+    }
+    
+    if (this.debug) {
+      console.debug('[bitcoin-qr]: Rendering with clickBehavior:', this.clickBehavior);
+    }
+    
+    switch (this.clickBehavior) {
+      case ClickBehavior.COPY:
+        return <button
+          id="bitcoin-qr-container"
+          onClick={this.handleCopy}
+          style={removeDefaultButtonStyles}
+        ></button>
+      case ClickBehavior.CLICK_CALLBACK:
+        return <button
+          id="bitcoin-qr-container"
+          onClick={this.handleClickCallback}
+          style={removeDefaultButtonStyles}
+        ></button>
+      case ClickBehavior.NONE:
+        return <div id="bitcoin-qr-container"></div>
+      default:
+        // URI's containing deep link prefixes passed to the href here will trigger wallet apps
+        // configured to recognize them on the given browser/mobile device.
+        // Ex. `lightning:` will trigger WebLN providers, `bitcoin:` triggers onchain wallets, etc.
+        return <a id="bitcoin-qr-container" href={this.uri} />;
+    }
   }
 }

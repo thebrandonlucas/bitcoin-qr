@@ -13,15 +13,57 @@
       let paid = false;
       let interval;
 
+      // Function to get URL parameters
+      function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        const results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+      }
+
+      // Set mode based on URL parameter
+      function setModeFromUrl() {
+        const mode = getUrlParameter('mode');
+        const qr = document.getElementById('qr');
+        const modeStatus = document.getElementById('mode-status');
+
+        console.log({mode, qr, modeStatus})
+        if (mode === 'copy') {
+          qr.setAttribute('click-behavior', 'copy');
+          modeStatus.innerText = 'Mode: Copy to Clipboard';
+        } else if (mode === 'callback') {
+          qr.setAttribute('click-behavior', 'click-callback');
+          qr.clickCallback = handleClickCallback;
+          modeStatus.innerText = 'Mode: Click Callback';
+        } else if (mode === 'none') {
+          qr.setAttribute('click-behavior', 'none');
+          modeStatus.innerText = 'Mode: None';
+        } else {
+          qr.removeAttribute('click-behavior');
+          modeStatus.innerText = 'Mode: Default (URI Link)';
+        }
+      }
+
+      // Change mode by updating URL and refreshing
+      function changeMode(mode) {
+        const url = new URL(window.location);
+        if (mode) {
+          url.searchParams.set('mode', mode);
+        } else {
+          url.searchParams.delete('mode');
+        }
+        window.location.href = url.toString();
+      }
+
       async function callbackExample() {
         pollCount += 1;
         document.getElementById('poll-count').innerText = `Poll count: ${pollCount}`;
         if (pollCount >= 5) {
-          isPolling = false;
           paid = true;
           alert('Paid!');
           const qr = document.getElementById('qr');
           qr.setAttribute('is-polling', false);
+          document.getElementById('toggle').innerText = 'Start';
           document.getElementById('paid').innerText = `Paid: ${paid}`;
         }
       }
@@ -29,19 +71,24 @@
       async function reset() {
         pollCount = 0;
         paid = false;
-        isPolling = true;
-        document.getElementById('toggle').innerText = 'Stop';
         document.getElementById('poll-count').innerText = `Poll count: ${pollCount}`;
         document.getElementById('paid').innerText = `Paid: ${paid}`;
+        const qr = document.getElementById('qr');
+        qr.setAttribute('is-polling', true);
+        document.getElementById('toggle').innerText = 'Stop';
       }
 
       async function toggle() {
         const qr = document.getElementById('qr');
-        const isPolling = qr.getAttribute('is-polling') === 'true';
-        qr.setAttribute('is-polling', !isPolling);
-        const toggle = document.getElementById('toggle');
-        toggle.innerText === 'Stop' ? (toggle.innerText = 'Start') : (toggle.innerText = 'Stop');
-        clearTimeout(interval);
+        const isCurrentlyPolling = qr.getAttribute('is-polling') === 'true';
+        qr.setAttribute('is-polling', !isCurrentlyPolling);
+        const toggleBtn = document.getElementById('toggle');
+        toggleBtn.innerText = isCurrentlyPolling ? 'Start' : 'Stop';
+      }
+
+      function handleClickCallback() {
+        alert('Click callback executed!');
+        console.log('Click callback executed!');
       }
     </script>
   </head>
@@ -55,7 +102,7 @@
         lightning="LNBC10U1P3PJ257PP5YZTKWJCZ5FTL5LAXKAV23ZMZEKAW37ZK6KMV80PK4XAEV5QHTZ7QDPDWD3XGER9WD5KWM36YPRX7U3QD36KUCMGYP282ETNV3SHJCQZPGXQYZ5VQSP5USYC4LK9CHSFP53KVCNVQ456GANH60D89REYKDNGSMTJ6YW3NHVQ9QYYSSQJCEWM5CJWZ4A6RFJX77C490YCED6PEMK0UPKXHY89CMM7SCT66K8GNEANWYKZGDRWRFJE69H9U5U0W57RRCSYSAS7GADWMZXC8C6T0SPJAZUP6"
         parameters="amount=0.00001&label=sbddesign%3A%20For%20lunch%20Tuesday&message=For%20lunch%20Tuesday"
         image="./assets/bitcoin.svg"
-        is-polling="true"
+        is-polling="false"
         poll-interval="1000"
         type="svg"
         corners-square-type="extra-rounded"
@@ -99,11 +146,22 @@
       <span>Payment will succeed when poll count reaches 5</span>
       <span id="poll-count">Poll count: 0</span>
       <span id="paid">Paid: false</span>
+      <span id="mode-status">Mode: Default (URI Link)</span>
+
+      <h3 class="font-bold mt-3">Polling Controls</h3>
       <button id="toggle" class="bg-[#ff5000] p-2 text-white rounded-lg" onclick="toggle()">Stop</button>
       <button id="reset" class="bg-[#ff5000] p-2 text-white rounded-lg" onclick="reset()">Reset</button>
+
+      <h3 class="font-bold mt-3">QR Code Behavior</h3>
+      <button class="bg-[#0055ff] p-2 text-white rounded-lg" onclick="changeMode('callback')">Enable Click Callback</button>
+      <button class="bg-[#0055ff] p-2 text-white rounded-lg" onclick="changeMode('copy')">Enable Copy Mode</button>
+      <button class="bg-[#0055ff] p-2 text-white rounded-lg" onclick="changeMode('none')">Disable Click Behavior</button>
+      <button class="bg-[#0055ff] p-2 text-white rounded-lg" onclick="changeMode('')">Reset to Default (deep link)</button>
     </div>
   </body>
   <script>
     document.getElementById('qr').callback = callbackExample;
+    // Set mode based on URL parameters when page loads
+    window.addEventListener('DOMContentLoaded', setModeFromUrl);
   </script>
 </html>

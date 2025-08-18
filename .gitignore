@@ -19,3 +19,7 @@ node_modules/
 .yarn/install-state.gz
 examples/sveltekit/.yarn/install-state.gz
 examples/sveltekit-kitchen-sink/.yarn/install-state.gz
+
+.aider.chat.history.md
+.aider.input.history
+.aider*
