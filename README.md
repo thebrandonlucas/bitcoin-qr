@@ -146,6 +146,10 @@ At least one of `unified`, `bitcoin`, or `lightning` must be defined in order fo
 
 NOTE: There is currently no validation for the `unified`, `bitcoin`, `lightning`, or `parameters` fields. This is currently on the [roadmap](#roadmap). Validate what you're passing in!
 
+| `click-behavior` | `click-callback` | **Optional**. Set the behavior when clicked. The possible options are: `copy`, `click-callback`, or `none`. If `click-callback` is set, a function attribute `clickCallback` is expected which will fire on click. If this attribute is not set, the clicking the QR code will result in [mobile deep link](https://en.wikipedia.org/wiki/Mobile_deep_linking) behavior. | `false` |
+
+
+
 #### Callback
 
 `<bitcoin-qr />` can also be given a `callback` property which it will poll at a given `poll-interval`
